@@ -1,18 +1,24 @@
 public class Product {
     private final String name;
-    private final float price;
+    private final float priceTag;
 
-    public Product (String name, float price){
+    public Product (String name, float priceTag){
         this.name = name;
-        this.price = price;
+        this.priceTag = priceTag;
     }
 
     public String getName() {
         return name;
     }
 
-    public float getPrice() {
-        return price;
+    public float getPriceTag() {
+        return priceTag;
     }
 
+    @Override
+    public String toString() {
+        return "Product: " +
+                 name +
+                ", Price tag: " + priceTag;
+    }
 }
