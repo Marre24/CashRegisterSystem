@@ -59,6 +59,18 @@ public class TestCustomer {
     }
 
     @Test
+    void testIsMember(){
+        Customer actual = new Customer("FirstName", "SurName", 111111111111L, 2222222222L, "Email@Adress.com", "Adress1");
+        assertEquals(false, actual.isMember());
+    }
+
+    @Test
+    void testSetMemberStatus(){
+        Customer actual = new Customer("FirstName", "SurName", 111111111111L, 2222222222L, "Email@Adress.com", "Adress1");
+
+    }
+
+    @Test
     void testToString(){
         Customer actual = new Customer("FirstName", "SurName", 111111111111L, 2222222222L, "Email@Adress.com", "Adress1");
         assertEquals(toStringExpectedResult, actual.toString());

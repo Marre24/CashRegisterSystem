@@ -1,10 +1,11 @@
-public class Customer {
+public class Customer{
     final long socialSecurityNr;
     private String firstName;
     private String surName;
     private long phoneNr;
     private String emailAdress;
     private String homeAdress;
+    private boolean member = false;
 
     public Customer(String firstName, String surName, long socialSecurityNr, long phoneNr, String emailAdress, String homeAdress){
         this.firstName = firstName;
@@ -61,6 +62,14 @@ public class Customer {
 
     public String getFullName(){
         return firstName + " " + surName;
+    }
+
+    public void setMemberStatus(boolean b){
+        this.member = b;
+    }
+
+    public boolean isMember(){
+        return this.member;
     }
 
     @Override
