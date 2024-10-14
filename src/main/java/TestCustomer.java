@@ -14,7 +14,7 @@ public class TestCustomer {
         assertEquals(111111111111L, actual.getSocialSecurityNr());
         assertEquals(2222222222L, actual.getPhoneNr());
         assertEquals("Email@Adress.com", actual.getEmailAdress());
-        assertEquals("Adress1", actual.getHomeAdress());;
+        assertEquals("Adress1", actual.getHomeAdress());
     }
 
     @Test
