@@ -20,7 +20,7 @@ public class ProductScanner {
         return activeOrder;
     }
 
-    public boolean containsKey(Product p){
+    public boolean containsProduct(Product p){
         return activeOrder.containsProduct(p);
     }
 }

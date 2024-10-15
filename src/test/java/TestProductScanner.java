@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class TestProductScanner {
 
+
     // actual, expected
     /* Since we changed so the product scanner does not actually store the products itself, this test became redundant
     @Test

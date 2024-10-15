@@ -29,7 +29,7 @@ public class TestEmployee {
         employee.scanProduct(p);
 
         assertEquals(1, employee.getScanner().getOrder().differentProductAmount());
-        assertTrue(employee.getScanner().containsKey(p));
+        assertTrue(employee.getScanner().containsProduct(p));
     }
 
     @Test
@@ -41,9 +41,9 @@ public class TestEmployee {
         employee.scanProduct(p2);
 
         assertEquals(3, employee.getScanner().getOrder().differentProductAmount());
-        assertTrue(employee.getScanner().containsKey(p));
-        assertTrue(employee.getScanner().containsKey(p1));
-        assertTrue(employee.getScanner().containsKey(p2));
+        assertTrue(employee.getScanner().containsProduct(p));
+        assertTrue(employee.getScanner().containsProduct(p1));
+        assertTrue(employee.getScanner().containsProduct(p2));
     }
 
     @Test
