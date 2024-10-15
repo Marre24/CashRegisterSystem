@@ -6,30 +6,26 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class TestProductScanner {
 
-
-<<<<<<< HEAD
-=======
-    private final Money money = new Money(Currency.SEK, new BigDecimal(10));
     // actual, expected
-    // test method for scanning product. Assumes Receipt class, and its constructor working
+    /* Since we changed so the product scanner does not actually store the products itself, this test became redundant
     @Test
     void productScannerIsUpdatedOnProductScanned(){
         ProductScanner productScanner = new ProductScanner();
-        Product expectedProductScanned = new Product("someProduct", 1);
+        Product expectedProductScanned = new Product("someProduct", 1, ProductGroup.AlcoholicBeverages);
         productScanner.scanProduct(expectedProductScanned);
 
-        Product actual = productScanner.getScannedItems().getFirst();
+        Product actual = productScanner.getOrder().getProducts().getFirst();
 
         assertEquals(actual, expectedProductScanned);
-    }
+    } */
 
+    /* ProductScanner is not responsible for creating a receipt anymore
     @Test
     void receiptIsCreated(){
         ProductScanner ps = new ProductScanner();
         Receipt receipt = ps.createReceipt();
         assertNotEquals(receipt, null);
-    }
+    }*/
 
->>>>>>> 18fd0575122ac85e338555c5b08d891f80525569
 
 }

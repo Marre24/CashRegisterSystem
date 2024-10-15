@@ -12,9 +12,9 @@ public class TestEmployee {
     final private String emailAdress = "Email@Adress.com";
     final private String homeAdress = "Adress1";
     final private String socialSecurityNr = "11112233-4444";
-    Product p = new Product("ProductName", 0);
-    Product p1 = new Product("ProductName1", 0);
-    Product p2 = new Product("ProductName2", 0);
+    Product p = new Product("ProductName", 0, ProductGroup.AlcoholicBeverages);
+    Product p1 = new Product("ProductName1", 1, ProductGroup.Candy);
+    Product p2 = new Product("ProductName2", 2, ProductGroup.Fruit);
 
     @Test
     void Constructor_ValidArguments_ValidId(){

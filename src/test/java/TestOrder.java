@@ -4,9 +4,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class TestOrder {
 
-    Product p = new Product("ProductName", 0);
-    Product p1 = new Product("ProductName1",1);
-    Product p2 = new Product("ProductName2", 2);
+    Product p = new Product("ProductName", 0, ProductGroup.Beverages);
+    Product p1 = new Product("ProductName1",1, ProductGroup.Dairy);
+    Product p2 = new Product("ProductName2", 2, ProductGroup.Candy);
 
     @Test
     void Constructor_EmployeeCreatesOrder_EmptyOrder(){
@@ -57,7 +57,7 @@ public class TestOrder {
     void toString_MultipleProductsNoDuplicates_CorrectlyFormattedString(){
         Employee employee = new Employee("", "", "", "", "", "");
 
-        Order order = employee.createOrder();
+        Order order = new Order(employee);
 
         order.addProduct(p);
         order.addProduct(p1);
@@ -70,7 +70,7 @@ public class TestOrder {
     void toString_MultipleProductsWithDuplicates_CorrectlyFormattedString(){
         Employee employee = new Employee("", "", "", "", "", "");
 
-        Order order = employee.createOrder();
+        Order order = new Order(employee);
 
         order.addProduct(p);
         order.addProduct(p1);

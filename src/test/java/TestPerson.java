@@ -7,10 +7,10 @@ public class TestPerson {
     final private String toStringExpectedResult = "Name: FirstName SurName\nSocial Security Number: 111111111111\nPhone Number: 2222222222\nEmail Adress: Email@Adress.com\nHome Adress: Adress1";
     final private String firstName = "FirstName";
     final private String surName = "SurName";
-    final private String phoneNumber = "111111111111";
+    final private String phoneNumber = "2222222222";
     final private String emailAdress = "Email@Adress.com";
     final private String homeAdress = "Adress1";
-    final private String socialSecurityNr = "11112233-4444";
+    final private String socialSecurityNr = "111111111111";
 
     final private String otherFirstName = "OtherFirstName";
     final private String otherSurName = "OTherSurName";
