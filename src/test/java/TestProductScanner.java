@@ -2,7 +2,7 @@ import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class TestProductScanner {
 
@@ -20,6 +20,15 @@ public class TestProductScanner {
 
         assertEquals(actual, expectedProductScanned);
     }
+
+    @Test
+    void receiptIsCreated(){
+        ProductScanner ps = new ProductScanner();
+        Receipt receipt = ps.createReceipt();
+        assertNotEquals(receipt, null);
+    }
+
+
 }
 
 // ProductScanner should hold the scanned data in its own data structure, and when a customer is done, ps.writeReceipt() creates

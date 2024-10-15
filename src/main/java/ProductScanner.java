@@ -17,4 +17,9 @@ public class ProductScanner {
     public List<Product> getScannedItems(){
         return products;
     }
+
+
+    public Receipt createReceipt() {
+        return new Receipt(products);
+    }
 }
