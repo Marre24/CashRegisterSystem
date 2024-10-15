@@ -1,8 +1,10 @@
+import java.math.BigDecimal;
+
 public class Product {
     private final String name;
-    private final Money price;
+    private final long price;
 
-    public Product (String name, Money price){
+    public Product (String name, long price){
         this.name = name;
         this.price = price;
     }
@@ -11,7 +13,7 @@ public class Product {
         return name;
     }
 
-    public Money getPrice() {
+    public long getPrice() {
         return price;
     }
 
