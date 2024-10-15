@@ -3,8 +3,9 @@ public class Membership  {
     static long nextId = 0;
 
     Customer member;
-    private long points = 0;
+
     private long id;
+    private final double priceAfterDiscount = 0.95;
 
     public Membership(Customer c){
         if (c.isMember()){
@@ -21,11 +22,13 @@ public class Membership  {
         return this.member;
     }
 
-    public long getPoints(){
-        return this.points;
-    }
-
     public long getId(){
         return this.id;
     }
+
+    public void setNextId(long reset){
+        nextId = reset;
+    }
+
+    public double getPriceAfterDiscount(){ return this.priceAfterDiscount;}
 }

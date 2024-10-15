@@ -1,22 +1,25 @@
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestMembership {
 
+    @BeforeEach
+    public void init(){
+        Membership m = new Membership(new Customer("FirstName", "SurName", 1111L, 2222L, "Em.com", "Adress1"));
+        m.setNextId(0);
+    }
+
     @Test
-    void testConstructor(){
+    void Constructor_Membership_ClassInstance(){
         Customer exampleCustomer= new Customer("FirstName", "SurName", 111111111111L, 2222222222L, "Email@Adress.com", "Adress1");
         Membership actual = new Membership(exampleCustomer);
         assertEquals(exampleCustomer, actual.getMember());
     }
 
-    @Test
-    void testNewMemberHasZeroPoints(){
-        Customer exampleCustomer= new Customer("FirstName", "SurName", 111111111111L, 2222222222L, "Email@Adress.com", "Adress1");
-        Membership actual = new Membership(exampleCustomer);
-        assertEquals(0, actual.getPoints());
-    }
+
 
     @Test
     void testMemberId(){
