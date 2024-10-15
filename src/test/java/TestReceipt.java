@@ -12,8 +12,10 @@ public class TestReceipt {
     void receiptContainsCorrectValue(){
         ProductScanner ps = new ProductScanner();
         Product expected = new Product("productName", money);
+
         ps.scanProduct(expected);
         Receipt receipt = ps.createReceipt();
+
         assertEquals(receipt.getItems().getFirst(), expected);
     }
 

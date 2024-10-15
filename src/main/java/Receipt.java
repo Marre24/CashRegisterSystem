@@ -5,6 +5,7 @@ import java.util.SortedSet;
 
 public class Receipt {
 
+
     private final List<Product> products;
 
     public Receipt(List<Product> products){
