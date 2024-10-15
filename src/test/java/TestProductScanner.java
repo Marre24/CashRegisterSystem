@@ -13,7 +13,7 @@ public class TestProductScanner {
     @Test
     void productScannerIsUpdatedOnProductScanned(){
         ProductScanner productScanner = new ProductScanner();
-        Product expectedProductScanned = new Product("someProduct", money);
+        Product expectedProductScanned = new Product("someProduct", 1);
         productScanner.scanProduct(expectedProductScanned);
 
         Product actual = productScanner.getScannedItems().getFirst();

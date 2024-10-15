@@ -34,4 +34,15 @@ public class Order {
     public int getAmountOfProduct(Product p) {
         return products.get(p);
     }
+
+    @Override
+    public String toString(){
+        String s = "";
+        for (Product p : products.keySet()){
+            int a = products.get(p);
+            s = s + a + " x " + p.getName() + " " + p.getPrice() + "\n";
+        }
+        s = s.substring(0, s.length() - 1);
+        return s;
+    }
 }

@@ -11,7 +11,7 @@ public class TestReceipt {
     @Test
     void receiptContainsCorrectValue(){
         ProductScanner ps = new ProductScanner();
-        Product expected = new Product("productName", money);
+        Product expected = new Product("productName", 1);
 
         ps.scanProduct(expected);
         Receipt receipt = ps.createReceipt();
