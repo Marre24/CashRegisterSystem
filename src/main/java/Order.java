@@ -39,7 +39,18 @@ public class Order {
         return products.get(p);
     }
 
+
     public boolean containsProduct(Product p) {
         return products.containsKey(p);
+    }
+    @Override
+    public String toString(){
+        String s = "";
+        for (Product p : products.keySet()){
+            int a = products.get(p);
+            s = s + a + " x " + p.getName() + " " + p.getPrice() + "\n";
+        }
+        s = s.substring(0, s.length() - 1);
+        return s;
     }
 }

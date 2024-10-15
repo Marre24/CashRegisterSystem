@@ -10,14 +10,14 @@ public class TestProduct {
     public void CreateClassInstance_ProductName_ClassInstance() {
         String expectedProductName = "Milk";
         long expectedPrice = 0;
-        Product product = new Product(expectedProductName, expectedPrice);
+        Product product = new Product(expectedProductName, expectedPrice, ProductGroup.Dairy);
         assertEquals(expectedProductName, product.getName());
     }
 
     @Test
     public void CreateClassInstance_PriceTag_ClassInstance() {
         long expectedPriceTag = 10;
-        Product product = new Product("", expectedPriceTag);
+        Product product = new Product("", expectedPriceTag, ProductGroup.Dairy);
         assertEquals(expectedPriceTag, product.getPrice());
     }
 
@@ -26,7 +26,7 @@ public class TestProduct {
         String productName = "Juice";
         long priceTag = 10;
         String expectedStringRepresentation = "Product: " + productName + ", Price tag: " + priceTag;
-        Product product = new Product(productName, priceTag);
+        Product product = new Product(productName, priceTag, ProductGroup.Dairy);
         assertEquals(expectedStringRepresentation, product.toString());
     }
 

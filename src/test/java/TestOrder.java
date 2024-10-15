@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.*;
 public class TestOrder {
 
     Product p = new Product("ProductName", 0);
-    Product p1 = new Product("ProductName1", 0);
-    Product p2 = new Product("ProductName2", 0);
+    Product p1 = new Product("ProductName1",1);
+    Product p2 = new Product("ProductName2", 2);
 
     @Test
     void Constructor_EmployeeCreatesOrder_EmptyOrder(){
@@ -52,4 +52,30 @@ public class TestOrder {
         assertEquals(3, order.getAmountOfProduct(p));
     }
 
+    //Order needs to be sorted and Product comparable
+    @Test
+    void toString_MultipleProductsNoDuplicates_CorrectlyFormattedString(){
+        Employee employee = new Employee("", "", "", "", "", "");
+
+        Order order = employee.createOrder();
+
+        order.addProduct(p);
+        order.addProduct(p1);
+        order.addProduct(p2);
+
+        assertEquals("1 x %s %d\n1 x %s %d\n1 x %s %d".formatted(p.getName(), p.getPrice(), p1.getName(), p1.getPrice(), p2.getName(), p2.getPrice()), order.toString());
+    }
+
+    @Test
+    void toString_MultipleProductsWithDuplicates_CorrectlyFormattedString(){
+        Employee employee = new Employee("", "", "", "", "", "");
+
+        Order order = employee.createOrder();
+
+        order.addProduct(p);
+        order.addProduct(p1);
+        order.addProduct(p1);
+
+        assertEquals("1 x %s %d\n2 x %s %d".formatted(p.getName(), p.getPrice(), p1.getName(), p1.getPrice()), order.toString());
+    }
 }
