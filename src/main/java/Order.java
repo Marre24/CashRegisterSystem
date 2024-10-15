@@ -4,6 +4,10 @@ import java.util.Map;
 public class Order {
 
 
+    // maintain list of products
+
+
+
     private final Employee responsibleEmployee;
 
     private final Map<Product, Integer> products = new HashMap<>();
@@ -20,7 +24,7 @@ public class Order {
         return products.size();
     }
 
-    public Map<Product, Integer> getOrders() {
+    public Map<Product, Integer> getProducts() {
         return products;
     }
 
@@ -33,5 +37,9 @@ public class Order {
 
     public int getAmountOfProduct(Product p) {
         return products.get(p);
+    }
+
+    public boolean containsProduct(Product p) {
+        return products.containsKey(p);
     }
 }

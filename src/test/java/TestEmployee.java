@@ -1,7 +1,7 @@
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestEmployee {
 
@@ -12,9 +12,9 @@ public class TestEmployee {
     final private String emailAdress = "Email@Adress.com";
     final private String homeAdress = "Adress1";
     final private String socialSecurityNr = "11112233-4444";
-
-    final String noTitle = "NO TITLE";
-    final String title = "TITLE";
+    Product p = new Product("ProductName", 0);
+    Product p1 = new Product("ProductName1", 0);
+    Product p2 = new Product("ProductName2", 0);
 
     @Test
     void Constructor_ValidArguments_ValidId(){
@@ -23,34 +23,40 @@ public class TestEmployee {
     }
 
     @Test
-    void TitleGetterSetter_OtherTitle_ChangesTitle(){
+    void Add_SingleProduct_ProductAdded(){
         Employee employee = new Employee(firstName, surName, socialSecurityNr, phoneNumber, emailAdress, homeAdress);
 
-        assertEquals(noTitle, employee.getTitle());
+        employee.scanProduct(p);
 
-        employee.setTitle(title);
-
-        assertEquals(title, employee.getTitle());
+        assertEquals(1, employee.getScanner().getOrder().differentProductAmount());
+        assertTrue(employee.getScanner().containsKey(p));
     }
 
     @Test
-    void SalaryGetterSetter_PositiveValue_ChangesSalary(){
+    void Add_MultipleDifferentProducts_ProductsAdded(){
         Employee employee = new Employee(firstName, surName, socialSecurityNr, phoneNumber, emailAdress, homeAdress);
 
-        assertEquals(0, employee.getMonthlySalary());
+        employee.scanProduct(p);
+        employee.scanProduct(p1);
+        employee.scanProduct(p2);
 
-        employee.setMonthlySalary(10);
-
-        assertEquals(10, employee.getMonthlySalary());
+        assertEquals(3, employee.getScanner().getOrder().differentProductAmount());
+        assertTrue(employee.getScanner().containsKey(p));
+        assertTrue(employee.getScanner().containsKey(p1));
+        assertTrue(employee.getScanner().containsKey(p2));
     }
 
     @Test
-    void SalarySetter_NegativeValue_ExceptionThrown(){
-        Employee employee = new Employee(firstName, surName, socialSecurityNr, phoneNumber, emailAdress, homeAdress);
+    void Add_MultipleOfSameProduct_ProductsAdded(){
+        Order order = new Order(null);
 
-        assertThrows(IllegalArgumentException.class,
-                () -> employee.setMonthlySalary(-1),
-                "Negative parameter value should throw exception");
+        order.addProduct(p);
+        order.addProduct(p);
+        order.addProduct(p);
+
+        assertEquals(1, order.differentProductAmount());
+        assertTrue(order.getProducts().containsKey(p));
+        assertEquals(3, order.getAmountOfProduct(p));
     }
 
 }

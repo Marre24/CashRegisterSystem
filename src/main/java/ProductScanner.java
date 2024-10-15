@@ -1,25 +1,26 @@
-import java.util.ArrayList;
-import java.util.List;
-
 public class ProductScanner {
-
-    private final List<Product> products;
+    private Order activeOrder = null;
 
     public ProductScanner(){
-        products = new ArrayList<>();
     }
-
 
     public void scanProduct(Product product) {
-        products.add(product);
+        activeOrder.addProduct(product);
     }
 
-    public List<Product> getScannedItems(){
-        return products;
+    public boolean orderExists(){
+        return activeOrder != null;
     }
 
+    public void setActiveOrder(Order order){
+        this.activeOrder = order;
+    }
 
-    public Receipt createReceipt() {
-        return new Receipt(products);
+    public Order getOrder(){
+        return activeOrder;
+    }
+
+    public boolean containsKey(Product p){
+        return activeOrder.containsProduct(p);
     }
 }
