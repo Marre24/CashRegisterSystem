@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class TestCustomer {
 
-    final private String toStringExpectedResult = "Name: FirstName SurName\nSocial Security Number: 111111111111\nPhone Number: 2222222222\nEmail Adress: Email@Adress.com\nHome Adress: Adress1";
     final private String firstName = "FirstName";
     final private String surName = "SurName";
     final private String phoneNumber = "111111111111";
@@ -15,19 +14,22 @@ public class TestCustomer {
     @Test
     void isMember_NewlyCreatedValidCustomer_FalseExpected(){
         Customer actual = new Customer(firstName, surName, socialSecurityNr, phoneNumber, emailAdress, homeAdress);
-        assertEquals(false, actual.isMember());
+        assertFalse(actual.isMember());
     }
 
     @Test
     void setMemberStatus_setAsTrue_TrueExpected(){
         Customer actual = new Customer(firstName, surName, socialSecurityNr, phoneNumber, emailAdress, homeAdress);
         actual.setMemberStatus(true);
-        assertEquals(true, actual.isMember());
+        assertTrue(actual.isMember());
     }
 
     @Test
     void toString_ValidCustomer_CorrectStringFormat(){
         Customer actual = new Customer(firstName, surName, socialSecurityNr, phoneNumber, emailAdress, homeAdress);
+
+        String toStringExpectedResult = "Name: %s %s\nSocial Security Number: %s\nPhone Number: %s\nEmail Adress: %s\nHome Adress: %s\nIs member: false".formatted(firstName, surName, socialSecurityNr, phoneNumber, emailAdress, homeAdress);
+
         assertEquals(toStringExpectedResult, actual.toString());
     }
 

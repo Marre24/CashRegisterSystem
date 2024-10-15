@@ -6,36 +6,42 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestMembership {
 
+    final private String firstName = "FirstName";
+    final private String surName = "SurName";
+    final private String phoneNumber = "111111111111";
+    final private String emailAdress = "Email@Adress.com";
+    final private String homeAdress = "Adress1";
+    final private String socialSecurityNr = "11112233-4444";
+
     @BeforeEach
     public void init(){
-        Membership m = new Membership(new Customer("FirstName", "SurName", 1111L, 2222L, "Em.com", "Adress1"));
+        Customer customer = new Customer(firstName, surName, socialSecurityNr, phoneNumber, emailAdress, homeAdress);
+        Membership m = new Membership(customer);
         m.setNextId(0);
     }
 
     @Test
     void Constructor_Membership_ClassInstance(){
-        Customer exampleCustomer= new Customer("FirstName", "SurName", 111111111111L, 2222222222L, "Email@Adress.com", "Adress1");
-        Membership actual = new Membership(exampleCustomer);
-        assertEquals(exampleCustomer, actual.getMember());
+        Customer customer = new Customer(firstName, surName, socialSecurityNr, phoneNumber, emailAdress, homeAdress);
+        Membership actual = new Membership(customer);
+        assertEquals(customer, actual.getMember());
     }
-
-
 
     @Test
     void testMemberId(){
-        Customer exampleCustomer= new Customer("FirstName", "SurName", 111111111111L, 2222222222L, "Email@Adress.com", "Adress1");
-        Membership actual = new Membership(exampleCustomer);
+        Customer customer = new Customer(firstName, surName, socialSecurityNr, phoneNumber, emailAdress, homeAdress);
+        Membership actual = new Membership(customer);
         assertEquals(0, actual.getId());
     }
 
     @Test
     void testMultipleMemberIds(){
-        Customer exampleCustomer= new Customer("FirstName", "SurName", 111111111111L, 2222222222L, "Email@Adress.com", "Adress1");
-        Customer exampleCustomer1= new Customer("FirstName", "SurName", 111111111111L, 2222222222L, "Email@Adress.com", "Adress1");
-        Customer exampleCustomer2= new Customer("FirstName", "SurName", 111111111111L, 2222222222L, "Email@Adress.com", "Adress1");
-        Membership actual = new Membership(exampleCustomer);
-        Membership actual2 = new Membership(exampleCustomer1);
-        Membership actual3 = new Membership(exampleCustomer2);
+        Customer customer1 = new Customer(firstName, surName, socialSecurityNr, phoneNumber, emailAdress, homeAdress);
+        Customer customer2 = new Customer(firstName, surName, socialSecurityNr, phoneNumber, emailAdress, homeAdress);
+        Customer customer3 = new Customer(firstName, surName, socialSecurityNr, phoneNumber, emailAdress, homeAdress);
+        Membership actual = new Membership(customer1);
+        Membership actual2 = new Membership(customer2);
+        Membership actual3 = new Membership(customer3);
         assertEquals(0, actual.getId());
         assertEquals(1, actual2.getId());
         assertEquals(2, actual3.getId());
