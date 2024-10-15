@@ -29,4 +29,8 @@ public class Employee extends Person{
     public void setTitle(String title) {
         this.title = title;
     }
+
+    public Order createOrder() {
+        return new Order(this);
+    }
 }

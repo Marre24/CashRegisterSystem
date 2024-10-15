@@ -49,7 +49,7 @@ public class TestEmployee {
         Employee employee = new Employee(firstName, surName, socialSecurityNr, phoneNumber, emailAdress, homeAdress);
 
         assertThrows(IllegalArgumentException.class,
-                () -> { employee.setMonthlySalary(-1); },
+                () -> employee.setMonthlySalary(-1),
                 "Negative parameter value should throw exception");
     }
 
