@@ -7,34 +7,34 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class TestReceipt {
 
-    Product product1 = new Product("Toothbrush", 12L, ProductGroup.Beverage);
+    private final Product testProduct = new Product("Toothbrush", 12L, ProductGroup.Beverage);
 
     @Test
-    void receiptContainsCorrectValue() {
-        Product expected = new Product("productName", 50L, ProductGroup.Beverage);
-        List<Product> products = new ArrayList<>();
-        products.add(expected);
-        Receipt receipt = new Receipt(products);
-
-        assertEquals(receipt.getItems().getFirst(), expected);
-    }
-
-
-    @Test
-    void idContainsOnlyNumbers(){
+    void barcodeContainsOnlyNumbers(){
         var products = new ArrayList<Product>();
         Receipt receipt = new Receipt(products);
-        String actual = receipt.getID();
+        String generatedBarcode = receipt.getID();
+        assertTrue(generatedBarcode.matches("[0-9]{13}"));
 
     }
 
     @Test
-    void idLengthIsThirteen(){
+    void barcodeLengthIsThirteen(){
         var products = new ArrayList<Product>();
         Receipt receipt = new Receipt(products);
         String actual = receipt.getID();
         String stringOfLength13 = "1234567890123";
         assertEquals(stringOfLength13.length(),actual.length());
+    }
+
+    @Test
+    void productAddedToReceiptProducts() {
+        Product expected = testProduct;
+        List<Product> products = new ArrayList<>();
+        products.add(expected);
+        Receipt receipt = new Receipt(products);
+
+        assertEquals(receipt.getProducts().getFirst(), expected);
     }
 
     /*@Test
