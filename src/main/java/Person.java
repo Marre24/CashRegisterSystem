@@ -5,6 +5,7 @@ public class Person {
     private String phoneNr;
     private String emailAddress;
     private String homeAddress;
+    private Membership membership = null;
 
     public Person(String firstName, String surName, String socialSecurityNr, String phoneNr, String emailAddress, String homeAddress){
         this.firstName = firstName;
@@ -66,5 +67,20 @@ public class Person {
     @Override
     public String toString(){
         return "Name: %s\nSocial Security Number: %s\nPhone Number: %s\nEmail Address: %s\nHome Address: %s".formatted(getFullName(), socialSecurityNr, phoneNr, emailAddress, homeAddress);
+    }
+
+    public boolean isMember() {
+        return membership != null;
+    }
+
+    public void addMembership(Membership membership) {
+        if (this.membership != null)
+            throw new IllegalArgumentException("Person is already member");
+
+        this.membership = membership;
+    }
+
+    public void removeMembership() {
+        membership = null;
     }
 }

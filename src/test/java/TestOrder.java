@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class TestOrder {
 
-    Product p = new Product("ProductName", 0, ProductGroup.Beverages);
+    Product p = new Product("ProductName", 0, ProductGroup.Beverage);
     Product p1 = new Product("ProductName1",1, ProductGroup.Dairy);
     Product p2 = new Product("ProductName2", 2, ProductGroup.Candy);
 
@@ -21,7 +21,7 @@ public class TestOrder {
 
         order.addProduct(p);
 
-        assertEquals(1, order.differentProductAmount());
+        assertEquals(1, order.amountOfDifferentProducts());
         assertTrue(order.getProducts().containsKey(p));
     }
 
@@ -33,7 +33,7 @@ public class TestOrder {
         order.addProduct(p1);
         order.addProduct(p2);
 
-        assertEquals(3, order.differentProductAmount());
+        assertEquals(3, order.amountOfDifferentProducts());
         assertTrue(order.getProducts().containsKey(p));
         assertTrue(order.getProducts().containsKey(p1));
         assertTrue(order.getProducts().containsKey(p2));
@@ -47,9 +47,9 @@ public class TestOrder {
         order.addProduct(p);
         order.addProduct(p);
 
-        assertEquals(1, order.differentProductAmount());
+        assertEquals(1, order.amountOfDifferentProducts());
         assertTrue(order.getProducts().containsKey(p));
-        assertEquals(3, order.getAmountOfProduct(p));
+        assertEquals(3, order.getAmount(p));
     }
 
     //Order needs to be sorted and Product comparable

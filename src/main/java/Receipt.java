@@ -51,6 +51,4 @@ public class Receipt {
     // testbart med mock-objekt och Java interface for testing against printers
     // namnet pa kunden for langt, gor ej att skriva pa kvitto? ekvivalensklasser som poverkar fonten poa text?
     // or do nextline for a substring of the name when it reaches a certain length
-
-
 }

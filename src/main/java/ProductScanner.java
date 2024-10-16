@@ -1,14 +1,11 @@
 public class ProductScanner {
     private Order activeOrder = null;
 
-    public ProductScanner(){
-    }
-
     public void scanProduct(Product product) {
         activeOrder.addProduct(product);
     }
 
-    public boolean orderExists(){
+    public boolean hasActiveOrder(){
         return activeOrder != null;
     }
 
@@ -18,10 +15,9 @@ public class ProductScanner {
 
     public Order getOrder(){
         return activeOrder;
-    }
+    } //Check if null
 
     public boolean containsProduct(Product p){
         return activeOrder.containsProduct(p);
     }
-
 }

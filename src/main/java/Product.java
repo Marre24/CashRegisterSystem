@@ -1,14 +1,15 @@
-import java.math.BigDecimal;
+import java.util.Arrays;
+import java.util.List;
 
 public class Product {
     private final String name;
     private final long price;
-    private final ProductGroup productGroup;
+    private final List<ProductGroup> productGroups;
 
-    public Product (String name, long price, ProductGroup productGroup ){
+    public Product (String name, long price, ProductGroup... productGroups){
         this.name = name;
         this.price = price;
-        this.productGroup = productGroup;
+        this.productGroups = Arrays.asList(productGroups);
     }
 
     public String getName() {
@@ -19,7 +20,7 @@ public class Product {
         return price;
     }
 
-    public ProductGroup getProductGroup(){ return productGroup;}
+    public List<ProductGroup> getProductGroups(){ return productGroups;}
 
     @Override
     public String toString() {

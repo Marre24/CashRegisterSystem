@@ -6,6 +6,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class TestProductScanner {
 
-    // Scanning can fail! re-do if fail functionality?
+    //To some tests
 
 }

@@ -13,7 +13,7 @@ public class Employee extends Person{
 
 
     public void scanProduct(Product product){
-        if(productScanner.orderExists()){
+        if(productScanner.hasActiveOrder()){
             productScanner.scanProduct(product);
         } else {
             Order o = new Order(this);
