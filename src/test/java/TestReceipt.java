@@ -13,7 +13,7 @@ public class TestReceipt {
     void barcodeContainsOnlyNumbers(){
         var products = new ArrayList<Product>();
         Receipt receipt = new Receipt(products);
-        String generatedBarcode = receipt.getID();
+        String generatedBarcode = receipt.getBarcode();
         assertTrue(generatedBarcode.matches("[0-9]{13}"));
 
     }
@@ -22,9 +22,12 @@ public class TestReceipt {
     void barcodeLengthIsThirteen(){
         var products = new ArrayList<Product>();
         Receipt receipt = new Receipt(products);
-        String actual = receipt.getID();
+        String receiptBarcode = receipt.getBarcode();
+        int actual = receiptBarcode.length();
         String stringOfLength13 = "1234567890123";
-        assertEquals(stringOfLength13.length(),actual.length());
+        int expected = stringOfLength13.length();
+
+        assertEquals(expected,actual);
     }
 
     @Test
@@ -33,14 +36,16 @@ public class TestReceipt {
         List<Product> products = new ArrayList<>();
         products.add(expected);
         Receipt receipt = new Receipt(products);
+        Product actual = receipt.getProducts().getFirst();
 
-        assertEquals(receipt.getProducts().getFirst(), expected);
+        assertEquals(actual, expected);
     }
 
     /*@Test
     void constructorDoesNotGenerateExistingID() {
         var products = new ArrayList<Product>();
         Receipt receipt = new Receipt(products);
-        String actual = receipt.getID();
+        String barcode = receipt.getID();
+
     }*/
 }
