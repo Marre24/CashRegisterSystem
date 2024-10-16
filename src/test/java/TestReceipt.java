@@ -10,16 +10,16 @@ public class TestReceipt {
     private final Product testProduct = new Product("Toothbrush", 12L, ProductGroup.Beverage);
 
     @Test
-    void barcodeContainsOnlyNumbers(){
+    void barcodeIsNumeric(){
         var products = new ArrayList<Product>();
         Receipt receipt = new Receipt(products);
         String generatedBarcode = receipt.getBarcode();
-        assertTrue(generatedBarcode.matches("[0-9]{13}"));
 
+        assertTrue(generatedBarcode.matches("[0-9]{13}"));
     }
 
     @Test
-    void barcodeLengthIsThirteen(){
+    void barcodeLengthIs13(){
         var products = new ArrayList<Product>();
         Receipt receipt = new Receipt(products);
         String receiptBarcode = receipt.getBarcode();
