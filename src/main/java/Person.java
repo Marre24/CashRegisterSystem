@@ -3,16 +3,16 @@ public class Person {
     private String firstName;
     private String surName;
     private String phoneNr;
-    private String emailAdress;
-    private String homeAdress;
+    private String emailAddress;
+    private String homeAddress;
 
-    public Person(String firstName, String surName, String socialSecurityNr, String phoneNr, String emailAdress, String homeAdress){
+    public Person(String firstName, String surName, String socialSecurityNr, String phoneNr, String emailAddress, String homeAddress){
         this.firstName = firstName;
         this.surName = surName;
         this.socialSecurityNr = socialSecurityNr;
         this.phoneNr = phoneNr;
-        this.emailAdress = emailAdress;
-        this.homeAdress = homeAdress;
+        this.emailAddress = emailAddress;
+        this.homeAddress = homeAddress;
     }
 
     public String getFirstName(){
@@ -31,12 +31,12 @@ public class Person {
         return this.phoneNr;
     }
 
-    public String getEmailAdress(){
-        return this.emailAdress;
+    public String getEmailAddress(){
+        return this.emailAddress;
     }
 
-    public String getHomeAdress(){
-        return this.homeAdress;
+    public String getHomeAddress(){
+        return this.homeAddress;
     }
 
     public void setFirstName(String s){
@@ -51,12 +51,12 @@ public class Person {
         this.phoneNr = s;
     }
 
-    public void setEmailAdress(String s){
-        this.emailAdress = s;
+    public void setEmailAddress(String s){
+        this.emailAddress = s;
     }
 
-    public void setHomeAdress(String s){
-        this.homeAdress = s;
+    public void setHomeAddress(String s){
+        this.homeAddress = s;
     }
 
     public String getFullName(){
@@ -65,6 +65,6 @@ public class Person {
 
     @Override
     public String toString(){
-        return "Name: %s\nSocial Security Number: %s\nPhone Number: %s\nEmail Adress: %s\nHome Adress: %s".formatted(getFullName(), socialSecurityNr, phoneNr, emailAdress, homeAdress);
+        return "Name: %s\nSocial Security Number: %s\nPhone Number: %s\nEmail Address: %s\nHome Address: %s".formatted(getFullName(), socialSecurityNr, phoneNr, emailAddress, homeAddress);
     }
 }
