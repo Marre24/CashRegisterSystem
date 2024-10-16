@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class TestOrder {
 
-    Product p = new Product("ProductName", 0, ProductGroup.Beverages);
+    Product p = new Product("ProductName", 0, ProductGroup.Beverage);
     Product p1 = new Product("ProductName1",1, ProductGroup.Dairy);
     Product p2 = new Product("ProductName2", 2, ProductGroup.Candy);
 
