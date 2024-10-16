@@ -5,6 +5,7 @@ public class Receipt {
 
     private final List<Product> products;
     private String id;
+    private static List<String> ids;
 
 
     public Receipt(List<Product> products){
@@ -34,16 +35,13 @@ public class Receipt {
             generateID();
         } else {
             this.id = randomlyGenerated;
+            ids.add(id);
         }
     }
 
     // solve by mocking or smth instead. The idea is that we fetch ID's from database primary key
     private List<String> getIDs(){
-        var hardcodedIDSfromDB = new ArrayList<String>();
-        hardcodedIDSfromDB.add("1234567890123");
-        hardcodedIDSfromDB.add("3210987654321");
-        hardcodedIDSfromDB.add("1234567890321");
-        return hardcodedIDSfromDB;
+        return ids;
     }
 
     // add items to itself
