@@ -23,4 +23,5 @@ public class ProductScanner {
     public boolean containsProduct(Product p){
         return activeOrder.containsProduct(p);
     }
+
 }
