@@ -1,34 +1,19 @@
 public class Membership  {
 
-    static long nextId = 0;
+    Person owner;
+    //DebitCard debitCard; null, the owner of the debitCard is the same as the owner of the membership
+    public final static double DISCOUNT_FACTOR = 0.05;
 
-    Customer member;
-
-    private long id;
-    private final double priceAfterDiscount = 0.95;
-
-    public Membership(Customer c){
-        if (c.isMember()){
+    public Membership(Person person){
+        if (person.isMember()){
             throw new IllegalArgumentException("Customer is already a member");
         } else{
-            c.setMemberStatus(true);
-            this.member = c;
-            this.id = nextId;
-            nextId ++;
+            person.addMembership(this);
+            this.owner = person;
         }
     }
 
-    public Customer getMember(){
-        return this.member;
+    public Person getOwner(){
+        return this.owner;
     }
-
-    public long getId(){
-        return this.id;
-    }
-
-    public void setNextId(long reset){
-        nextId = reset;
-    }
-
-    public double getPriceAfterDiscount(){ return this.priceAfterDiscount;}
 }

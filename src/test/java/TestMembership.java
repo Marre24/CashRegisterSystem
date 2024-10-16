@@ -1,4 +1,3 @@
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -24,7 +23,7 @@ public class TestMembership {
     void Constructor_Membership_ClassInstance(){
         Customer customer = new Customer(firstName, surName, socialSecurityNr, phoneNumber, emailAdress, homeAdress);
         Membership actual = new Membership(customer);
-        assertEquals(customer, actual.getMember());
+        assertEquals(customer, actual.getOwner());
     }
 
     @Test
