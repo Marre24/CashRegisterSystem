@@ -5,7 +5,7 @@ public class Receipt {
 
     private final List<Product> products;
     private String id;
-    private static List<String> ids;
+    private static List<String> ids = Collections.emptyList();
 
 
     public Receipt(List<Product> products){
@@ -31,7 +31,7 @@ public class Receipt {
         Random rnd = new Random();
         long l = 1000000000000L + rnd.nextLong(9000000000000L);
         String randomlyGenerated = Long.toString(l);
-        if(getIDs().contains(randomlyGenerated)){
+        if(ids.contains(randomlyGenerated)){
             generateID();
         } else {
             this.id = randomlyGenerated;
