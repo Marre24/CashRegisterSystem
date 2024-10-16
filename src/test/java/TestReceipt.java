@@ -40,12 +40,4 @@ public class TestReceipt {
 
         assertEquals(actual, expected);
     }
-
-    /*@Test
-    void constructorDoesNotGenerateExistingID() {
-        var products = new ArrayList<Product>();
-        Receipt receipt = new Receipt(products);
-        String barcode = receipt.getID();
-
-    }*/
 }
