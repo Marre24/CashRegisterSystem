@@ -39,6 +39,12 @@ public class OrderLine {
 
     @Override
     public String toString() {
+        if (getProductType().getName().length() > 30){
+            String newName = getProductType().getName().substring(0, 30) + "...";
+            if (amountOfProduct > 1)
+                return newName + " " + amountOfProduct + "st*" + productType.getPrice() + " " + getTotalPrice();
+            return newName + " " + getTotalPrice();
+        }
         if (amountOfProduct > 1)
             return getProductType().getName() + " " + amountOfProduct + "st*" + productType.getPrice() + " " + getTotalPrice();
         return getProductType().getName() + " " + getTotalPrice();

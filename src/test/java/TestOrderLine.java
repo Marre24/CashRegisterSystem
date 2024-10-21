@@ -124,4 +124,19 @@ public class TestOrderLine {
 
         assertEquals(expectedString, orderLine.toString());
     }
+
+    @Test
+    void ToString_OneProductWithLongName_ShortenedToString(){
+        OrderLine orderLine = new OrderLine();
+        long price = 10;
+        String name = "0123456789012345678901234567890123456789";
+        String expectedName = "012345678901234567890123456789...";
+        ProductType productType = new ProductType(name, price, ProductGroup.Beverage, ProductGroup.Dairy);
+        String expectedString = expectedName + " " + price;
+
+        orderLine.addProduct(productType);
+
+        assertEquals(expectedString, orderLine.toString());
+    }
+
 }
