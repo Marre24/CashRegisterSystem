@@ -38,6 +38,13 @@ public class Order {
         return false;
     }
 
+    public long getTotalPrice(){
+        long price = 0;
+        for (OrderLine orderLine : orderLines)
+            price += orderLine.getTotalPrice();
+        return price;
+    }
+
     @Override
     public String toString(){
         StringBuilder s = new StringBuilder();
@@ -45,5 +52,4 @@ public class Order {
             s.append(orderLine.toString()).append("\n");
         return s.toString();
     }
-
 }

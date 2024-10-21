@@ -66,15 +66,63 @@ public class TestOrder {
     }
 
     @Test
-    void toString_MultipleProductsWithDuplicates_CorrectlyFormattedString(){
-        Employee employee = new Employee("", "", "", "", "", "");
-
-        Order order = new Order(employee);
+    void ToString_MultipleProductsWithDuplicates_CorrectlyFormattedString(){
+        Order order = new Order(null);
 
         order.addProduct(p);
         order.addProduct(p1);
         order.addProduct(p1);
 
         assertEquals("%s %d\n%s 2st*%d %d\n".formatted(p.getName(), p.getPrice(), p1.getName(), p1.getPrice(), p1.getPrice() * 2), order.toString());
+    }
+
+
+    @Test
+    void Add_SingleProduct_TotalPriceIsCorrect(){
+        Order order = new Order(null);
+
+        order.addProduct(p);
+
+        assertEquals(p.getPrice(), order.getTotalPrice());
+    }
+
+    @Test
+    void Add_MultipleSameProducts_TotalPriceIsCorrect(){
+        Order order = new Order(null);
+        long expectedPrice = p.getPrice() * 3;
+
+        order.addProduct(p);
+        order.addProduct(p);
+        order.addProduct(p);
+
+        assertEquals(expectedPrice, order.getTotalPrice());
+    }
+
+    @Test
+    void Add_MultipleDifferentProducts_TotalPriceIsCorrect(){
+        Order order = new Order(null);
+        long expectedPrice = p.getPrice() + p1.getPrice() + p2.getPrice();
+
+        order.addProduct(p);
+        order.addProduct(p1);
+        order.addProduct(p2);
+
+        assertEquals(expectedPrice, order.getTotalPrice());
+    }
+
+
+    @Test
+    void Add_MultipleDifferentMultipleProducts_TotalPriceIsCorrect(){
+        Order order = new Order(null);
+        long expectedPrice = (p.getPrice() * 3) + (p1.getPrice() * 2) + p2.getPrice();
+
+        order.addProduct(p);
+        order.addProduct(p);
+        order.addProduct(p);
+        order.addProduct(p1);
+        order.addProduct(p1);
+        order.addProduct(p2);
+
+        assertEquals(expectedPrice, order.getTotalPrice());
     }
 }
