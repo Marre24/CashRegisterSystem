@@ -4,7 +4,7 @@ import java.util.Map;
 public class Order {
 
     private final Employee responsibleEmployee;
-    private final Map<Product, Integer> products = new HashMap<>();
+    private final Map<ProductType, Integer> products = new HashMap<>();
 
 
     public Order(Employee employee) {
@@ -19,28 +19,28 @@ public class Order {
         return products.size();
     }
 
-    public Map<Product, Integer> getProducts() {
+    public Map<ProductType, Integer> getProducts() {
         return products;
     }
 
-    public void addProduct(Product p) {
+    public void addProduct(ProductType p) {
         if (products.containsKey(p))
             products.put(p,products.get(p) + 1);
         else
             products.put(p, 1);
     }
 
-    public int getAmount(Product p) {
+    public int getAmount(ProductType p) {
         return products.get(p);
     }
 
-    public boolean containsProduct(Product p) {
+    public boolean containsProduct(ProductType p) {
         return products.containsKey(p);
     }
     @Override
     public String toString(){
         StringBuilder s = new StringBuilder();
-        for (Product p : products.keySet()){
+        for (ProductType p : products.keySet()){
             int amount = products.get(p);
             s.append(amount).append(" x ").append(p.getName()).append(" ").append(p.getPrice()).append("\n");
         }

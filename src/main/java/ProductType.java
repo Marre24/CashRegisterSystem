@@ -1,12 +1,12 @@
 import java.util.Arrays;
 import java.util.List;
 
-public class Product {
+public class ProductType {
     private final String name;
     private final long price;
     private final List<ProductGroup> productGroups;
 
-    public Product (String name, long price, ProductGroup... productGroups){
+    public ProductType(String name, long price, ProductGroup... productGroups){
         this.name = name;
         this.price = price;
         this.productGroups = Arrays.asList(productGroups);

@@ -1,8 +1,8 @@
 public class ProductScanner {
     private Order activeOrder = null;
 
-    public void scanProduct(Product product) {
-        activeOrder.addProduct(product);
+    public void scanProduct(ProductType productType) {
+        activeOrder.addProduct(productType);
     }
 
     public boolean hasActiveOrder(){
@@ -17,7 +17,7 @@ public class ProductScanner {
         return activeOrder;
     } //Check if null
 
-    public boolean containsProduct(Product p){
+    public boolean containsProduct(ProductType p){
         return activeOrder.containsProduct(p);
     }
 }

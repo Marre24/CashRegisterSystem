@@ -11,13 +11,14 @@ public class Employee extends Person{
         return getFullName();
     }
 
-    public void scanProduct(Product product){
+
+    public void scanProduct(ProductType productType){
         if(productScanner.hasActiveOrder()){
-            productScanner.scanProduct(product);
+            productScanner.scanProduct(productType);
         } else {
             Order o = new Order(this);
             productScanner.setActiveOrder(o);
-            productScanner.scanProduct(product);
+            productScanner.scanProduct(productType);
         }
     }
 

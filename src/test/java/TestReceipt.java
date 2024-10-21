@@ -7,11 +7,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class TestReceipt {
 
-    private final Product testProduct = new Product("Toothbrush", 12L, ProductGroup.Beverage);
+    private final ProductType testProductType = new ProductType("Toothbrush", 12L, ProductGroup.Beverage);
 
     @Test
     void barcodeIsNumeric(){
-        var products = new ArrayList<Product>();
+        var products = new ArrayList<ProductType>();
         Receipt receipt = new Receipt(products);
         String generatedBarcode = receipt.getBarcode();
 
@@ -20,7 +20,7 @@ public class TestReceipt {
 
     @Test
     void barcodeLengthIs13(){
-        var products = new ArrayList<Product>();
+        var products = new ArrayList<ProductType>();
         Receipt receipt = new Receipt(products);
         String receiptBarcode = receipt.getBarcode();
         int actual = receiptBarcode.length();
@@ -32,11 +32,11 @@ public class TestReceipt {
 
     @Test
     void productAddedToReceiptProducts() {
-        Product expected = testProduct;
-        List<Product> products = new ArrayList<>();
-        products.add(expected);
-        Receipt receipt = new Receipt(products);
-        Product actual = receipt.getProducts().getFirst();
+        ProductType expected = testProductType;
+        List<ProductType> productTypes = new ArrayList<>();
+        productTypes.add(expected);
+        Receipt receipt = new Receipt(productTypes);
+        ProductType actual = receipt.getProducts().getFirst();
 
         assertEquals(actual, expected);
     }
