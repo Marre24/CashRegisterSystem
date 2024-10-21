@@ -6,7 +6,7 @@ public class TestProductGroup {
 
     @Test
     void ProductGroup_ValidProductGroup_CorrectValue(){
-        Product p = new Product("", 0, ProductGroup.Bread);
+        ProductType p = new ProductType("", 0, ProductGroup.Bread);
         assertEquals(ProductGroup.Bread,p.getProductGroups().getFirst());
     }
 }

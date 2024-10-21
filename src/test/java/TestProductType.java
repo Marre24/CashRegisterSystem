@@ -1,24 +1,22 @@
 import org.junit.jupiter.api.*;
 
-import java.math.BigDecimal;
-
 import static org.junit.jupiter.api.Assertions.*;
 
-public class TestProduct {
+public class TestProductType {
 
     @Test
     public void CreateClassInstance_ProductName_ClassInstance() {
         String expectedProductName = "Milk";
         long expectedPrice = 0;
-        Product product = new Product(expectedProductName, expectedPrice, ProductGroup.Dairy);
-        assertEquals(expectedProductName, product.getName());
+        ProductType productType = new ProductType(expectedProductName, expectedPrice, ProductGroup.Dairy);
+        assertEquals(expectedProductName, productType.getName());
     }
 
     @Test
     public void CreateClassInstance_PriceTag_ClassInstance() {
         long expectedPriceTag = 10;
-        Product product = new Product("", expectedPriceTag, ProductGroup.Dairy);
-        assertEquals(expectedPriceTag, product.getPrice());
+        ProductType productType = new ProductType("", expectedPriceTag, ProductGroup.Dairy);
+        assertEquals(expectedPriceTag, productType.getPrice());
     }
 
     @Test
@@ -26,8 +24,8 @@ public class TestProduct {
         String productName = "Juice";
         long priceTag = 10;
         String expectedStringRepresentation = "Product: " + productName + ", Price tag: " + priceTag;
-        Product product = new Product(productName, priceTag, ProductGroup.Dairy);
-        assertEquals(expectedStringRepresentation, product.toString());
+        ProductType productType = new ProductType(productName, priceTag, ProductGroup.Dairy);
+        assertEquals(expectedStringRepresentation, productType.toString());
     }
 
 }
