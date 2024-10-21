@@ -14,6 +14,12 @@ public class DiscountTest {
     private LocalDate testDateValid = LocalDate.now().plusDays(1);
     private LocalDate testDateInvalid = LocalDate.now().minusDays(1);
 
+    //Checking if getDiscountedPrice(ProductType) returns original price
+    @Test
+    public void testTemporaryDiscount() {
+        assertEquals(2, discount.getDiscountedPrice(testProduct1));
+    }
+
     @Test
     public void testTemporaryDiscount1() {
         discount.addDiscount(testProduct1, 1, testDateValid);
@@ -36,9 +42,40 @@ public class DiscountTest {
         assertThrows(IllegalArgumentException.class, () -> discount.addDiscount(testProduct1, 1, testDateInvalid), "Adding discount with an invalid date should throw Exception");
     }
 
+    //Checking if getDiscountedPrice(OrderLine) returns original price
+    @Test
+    public void testQuantityDiscount(){
+        OrderLine orderLine = new OrderLine();
+        orderLine.addProduct(testProduct1);
+        assertEquals(2, discount.getDiscountedPrice(orderLine));
+    }
+    //Original Price of testProduct1 is 2.
     @Test
     public void testQuantityDiscount1() {
-        discount.addDiscount(testProduct1, 3,2);
-        assertEquals(3, discount.get);
+        OrderLine orderLine = new OrderLine();
+        discount.addDiscount(testProduct1, 2,1);
+        orderLine.addProduct(testProduct1);
+        assertEquals(2, discount.getDiscountedPrice(orderLine));
+    }
+
+    //Original Price of testProduct1 is 2.
+    @Test
+    public void testQuantityDiscount2() {
+        OrderLine orderLine = new OrderLine();
+        discount.addDiscount(testProduct1, 2,1);
+        orderLine.addProduct(testProduct1);
+        orderLine.addProduct(testProduct1);
+        assertEquals(1, discount.getDiscountedPrice(orderLine));
+    }
+
+    //Original Price of testProduct1 is 2.
+    @Test
+    public void testQuantityDiscount3() {
+        OrderLine orderLine = new OrderLine();
+        discount.addDiscount(testProduct1, 2,1);
+        orderLine.addProduct(testProduct1);
+        orderLine.addProduct(testProduct1);
+        orderLine.addProduct(testProduct1);
+        assertEquals(3, discount.getDiscountedPrice(orderLine));
     }
 }
