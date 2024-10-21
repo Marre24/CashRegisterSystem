@@ -1,8 +1,7 @@
 public class ProductScanner {
     private Order activeOrder = null;
 
-    public ProductScanner(){
-    }
+    public ProductScanner(){}
 
     public void scanProduct(Product product) {
         activeOrder.addProduct(product);

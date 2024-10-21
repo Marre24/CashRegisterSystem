@@ -11,7 +11,6 @@ public class Employee extends Person{
         return getFullName();
     }
 
-
     public void scanProduct(Product product){
         if(productScanner.orderExists()){
             productScanner.scanProduct(product);

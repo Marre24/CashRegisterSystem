@@ -3,10 +3,7 @@ import java.util.Map;
 
 public class Order {
 
-
     // maintain list of products
-
-
 
     private final Employee responsibleEmployee;
 
@@ -39,10 +36,10 @@ public class Order {
         return products.get(p);
     }
 
-
     public boolean containsProduct(Product p) {
         return products.containsKey(p);
     }
+
     @Override
     public String toString(){
         String s = "";

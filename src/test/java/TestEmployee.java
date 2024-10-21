@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestEmployee {
 
-
     final private String firstName = "FirstName";
     final private String surName = "SurName";
     final private String phoneNumber = "111111111111";
@@ -58,5 +57,4 @@ public class TestEmployee {
         assertTrue(order.getProducts().containsKey(p));
         assertEquals(3, order.getAmountOfProduct(p));
     }
-
 }
