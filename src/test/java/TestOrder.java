@@ -4,9 +4,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class TestOrder {
 
-    Product p = new Product("ProductName", 0, ProductGroup.Beverage);
-    Product p1 = new Product("ProductName1",1, ProductGroup.Dairy);
-    Product p2 = new Product("ProductName2", 2, ProductGroup.Candy);
+    ProductType p = new ProductType("ProductName", 0, ProductGroup.Beverage);
+    ProductType p1 = new ProductType("ProductName1",1, ProductGroup.Dairy);
+    ProductType p2 = new ProductType("ProductName2", 2, ProductGroup.Candy);
 
     @Test
     void Constructor_EmployeeCreatesOrder_EmptyOrder(){
