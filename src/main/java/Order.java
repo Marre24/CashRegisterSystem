@@ -1,50 +1,55 @@
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
 
 public class Order {
 
     private final Employee responsibleEmployee;
-    private final Map<ProductType, Integer> products = new HashMap<>();
+    private final ArrayList<OrderLine> orderLines = new ArrayList<>();
 
 
     public Order(Employee employee) {
         this.responsibleEmployee = employee;
     }
 
-    public boolean isEmpty() {
-        return products.isEmpty();
+
+    public ArrayList<OrderLine> getOrderLines() {
+        return orderLines;
     }
 
-    public int amountOfDifferentProducts() {
-        return products.size();
-    }
-
-    public Map<ProductType, Integer> getProducts() {
-        return products;
-    }
-
+    //delete from line and delete in line
     public void addProduct(ProductType p) {
-        if (products.containsKey(p))
-            products.put(p,products.get(p) + 1);
-        else
-            products.put(p, 1);
+        for (OrderLine orderLine : orderLines)
+            if (orderLine.getProductType() == p){
+                orderLine.addProduct(p);
+                return;
+            }
+        orderLines.add(new OrderLine(p));
     }
 
-    public int getAmount(ProductType p) {
-        return products.get(p);
+    public int getProductAmount(ProductType p) {
+        for (OrderLine orderLine : orderLines)
+            if (orderLine.getProductType() == p)
+                return orderLine.getAmountOfProduct();
+        return 0;
     }
-
     public boolean containsProduct(ProductType p) {
-        return products.containsKey(p);
+        for (OrderLine orderLine : orderLines)
+            if (orderLine.getProductType() == p)
+                return true;
+        return false;
     }
+
+    public long getTotalPrice(){
+        long price = 0;
+        for (OrderLine orderLine : orderLines)
+            price += orderLine.getTotalPrice();
+        return price;
+    }
+
     @Override
     public String toString(){
         StringBuilder s = new StringBuilder();
-        for (ProductType p : products.keySet()){
-            int amount = products.get(p);
-            s.append(amount).append(" x ").append(p.getName()).append(" ").append(p.getPrice()).append("\n");
-        }
-        s = new StringBuilder(s.substring(0, s.length() - 1));
+        for (OrderLine orderLine : orderLines)
+            s.append(orderLine.toString()).append("\n");
         return s.toString();
     }
 }
