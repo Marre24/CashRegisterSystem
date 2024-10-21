@@ -3,11 +3,9 @@ import java.util.Map;
 
 public class Order {
 
-    // maintain list of products
-
     private final Employee responsibleEmployee;
-
     private final Map<Product, Integer> products = new HashMap<>();
+
 
     public Order(Employee employee) {
         this.responsibleEmployee = employee;
@@ -17,7 +15,7 @@ public class Order {
         return products.isEmpty();
     }
 
-    public int differentProductAmount() {
+    public int amountOfDifferentProducts() {
         return products.size();
     }
 
@@ -32,22 +30,21 @@ public class Order {
             products.put(p, 1);
     }
 
-    public int getAmountOfProduct(Product p) {
+    public int getAmount(Product p) {
         return products.get(p);
     }
 
     public boolean containsProduct(Product p) {
         return products.containsKey(p);
     }
-
     @Override
     public String toString(){
-        String s = "";
+        StringBuilder s = new StringBuilder();
         for (Product p : products.keySet()){
-            int a = products.get(p);
-            s = s + a + " x " + p.getName() + " " + p.getPrice() + "\n";
+            int amount = products.get(p);
+            s.append(amount).append(" x ").append(p.getName()).append(" ").append(p.getPrice()).append("\n");
         }
-        s = s.substring(0, s.length() - 1);
-        return s;
+        s = new StringBuilder(s.substring(0, s.length() - 1));
+        return s.toString();
     }
 }

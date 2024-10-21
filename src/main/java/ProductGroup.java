@@ -1,12 +1,9 @@
-
-
 public enum ProductGroup {
-    None,
-    Beverages,
+    Beverage,
     Dairy,
     Bread,
     Fruit,
-    Vegetables,
+    Vegetable,
     Candy,
-    AlcoholicBeverages,
+    Alcoholic,
 }
