@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestEmployee {
 
-
     final private String firstName = "FirstName";
     final private String surName = "SurName";
     final private String phoneNumber = "111111111111";
@@ -17,7 +16,7 @@ public class TestEmployee {
     ProductType p2 = new ProductType("ProductName2", 2, ProductGroup.Fruit);
 
     @Test
-    void Constructor_ValidArguments_ValidId(){
+    void Constructor_ValidArguments_ValidEmployee(){
         Employee employee = new Employee(firstName, surName, socialSecurityNr, phoneNumber, emailAddress, homeAddress);
         assertEquals(employee.getFullName(), employee.toString());
     }
@@ -58,5 +57,4 @@ public class TestEmployee {
         assertTrue(order.getProducts().containsKey(p));
         assertEquals(3, order.getAmount(p));
     }
-
 }
