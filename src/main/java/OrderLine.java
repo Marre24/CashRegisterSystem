@@ -1,3 +1,5 @@
+import java.math.BigInteger;
+
 public class OrderLine {
 
     private ProductType productType = null;
@@ -16,6 +18,10 @@ public class OrderLine {
         if (this.productType != newProductType)
             throw new IllegalArgumentException("Tried to add a productType to a orderLine with another productType");
 
+
+        if (Long.MAX_VALUE - getTotalPrice() < productType.getPrice())
+            throw new IllegalArgumentException();
+
         amountOfProduct++;
     }
 
@@ -25,5 +31,16 @@ public class OrderLine {
 
     public int getAmountOfProduct() {
         return amountOfProduct;
+    }
+
+    public long getTotalPrice() {
+        return productType.getPrice() * amountOfProduct;
+    }
+
+    @Override
+    public String toString() {
+        if (amountOfProduct > 1)
+            return getProductType().getName() + " " + amountOfProduct + "st*" + productType.getPrice() + " " + getTotalPrice();
+        return getProductType().getName() + " " + getTotalPrice();
     }
 }
