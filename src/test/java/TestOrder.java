@@ -12,7 +12,7 @@ public class TestOrder {
     void Constructor_EmployeeCreatesOrder_EmptyOrder(){
         Order order = new Order(null);
 
-        assertTrue(order.isEmpty());
+        assertTrue(order.getOrderLines().isEmpty());
     }
 
     @Test
@@ -21,8 +21,8 @@ public class TestOrder {
 
         order.addProduct(p);
 
-        assertEquals(1, order.amountOfDifferentProducts());
-        assertTrue(order.getProducts().containsKey(p));
+        assertEquals(1, order.getOrderLines().size());
+        assertTrue(order.containsProduct(p));
     }
 
     @Test
@@ -32,11 +32,12 @@ public class TestOrder {
         order.addProduct(p);
         order.addProduct(p1);
         order.addProduct(p2);
+        var orderLines = order.getOrderLines();
 
-        assertEquals(3, order.amountOfDifferentProducts());
-        assertTrue(order.getProducts().containsKey(p));
-        assertTrue(order.getProducts().containsKey(p1));
-        assertTrue(order.getProducts().containsKey(p2));
+        assertEquals(3, orderLines.size());
+        assertTrue(order.containsProduct(p));
+        assertTrue(order.containsProduct(p1));
+        assertTrue(order.containsProduct(p2));
     }
 
     @Test
@@ -47,23 +48,21 @@ public class TestOrder {
         order.addProduct(p);
         order.addProduct(p);
 
-        assertEquals(1, order.amountOfDifferentProducts());
-        assertTrue(order.getProducts().containsKey(p));
-        assertEquals(3, order.getAmount(p));
+        assertEquals(1, order.getOrderLines().size());
+        assertTrue(order.containsProduct(p));
+        assertEquals(3, order.getProductAmount(p));
     }
 
     //Order needs to be sorted and Product comparable
     @Test
-    void toString_MultipleProductsNoDuplicates_CorrectlyFormattedString(){
-        Employee employee = new Employee("", "", "", "", "", "");
-
-        Order order = new Order(employee);
+    void ToString_MultipleProductsNoDuplicates_CorrectlyFormattedString(){
+        Order order = new Order(null);
 
         order.addProduct(p);
         order.addProduct(p1);
         order.addProduct(p2);
 
-        assertEquals("1 x %s %d\n1 x %s %d\n1 x %s %d".formatted(p.getName(), p.getPrice(), p1.getName(), p1.getPrice(), p2.getName(), p2.getPrice()), order.toString());
+        assertEquals("%s %d\n%s %d\n%s %d\n".formatted(p.getName(), p.getPrice(), p1.getName(), p1.getPrice(), p2.getName(), p2.getPrice()), order.toString());
     }
 
     @Test
@@ -76,6 +75,6 @@ public class TestOrder {
         order.addProduct(p1);
         order.addProduct(p1);
 
-        assertEquals("1 x %s %d\n2 x %s %d".formatted(p.getName(), p.getPrice(), p1.getName(), p1.getPrice()), order.toString());
+        assertEquals("%s %d\n%s 2st*%d %d\n".formatted(p.getName(), p.getPrice(), p1.getName(), p1.getPrice(), p1.getPrice() * 2), order.toString());
     }
 }

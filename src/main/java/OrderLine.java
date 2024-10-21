@@ -1,6 +1,12 @@
-import java.math.BigInteger;
-
 public class OrderLine {
+
+    public OrderLine(){
+
+    }
+
+    public OrderLine(ProductType productType){
+        addProduct(productType);
+    }
 
     private ProductType productType = null;
     private int amountOfProduct = 0;
