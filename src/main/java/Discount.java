@@ -1,7 +1,6 @@
 import java.time.LocalDate;
 import java.util.AbstractMap;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class Discount {
@@ -10,16 +9,18 @@ public class Discount {
     private Map<ProductType, Map.Entry<Integer, Integer>> quantityDiscounts = new HashMap<>();
 
     public void addDiscount(ProductType product, long newPrice, LocalDate expirationDate) {
+        if (hasDiscount(product))
+            throw new IllegalArgumentException("Product already have an active discount");
         if (newPrice >= product.getPrice())
             throw new IllegalArgumentException("Price must be greater than or equal to the products original price");
-        if (temporaryDiscounts.containsKey(product))
-            throw new IllegalStateException("Product already have an active discount");
         if (expirationDate.isBefore(LocalDate.now()))
             throw new IllegalArgumentException("Date can not be in the past");
         temporaryDiscounts.put(product, new AbstractMap.SimpleEntry<>(newPrice, expirationDate));
     }
 
     public void addDiscount(ProductType product, int buyThisAmount, int price){
+        if (hasDiscount(product))
+            throw new IllegalArgumentException("Product already have an active discount");
         quantityDiscounts.put(product, new AbstractMap.SimpleEntry<>(buyThisAmount, price));
     }
 
@@ -37,5 +38,16 @@ public class Discount {
         int amountOnOrderLine = orderLine.getAmountOfProduct();
         int priceForQuantity = quantityDiscounts.get(orderLine.getProductType()).getValue();
         return (amountOnOrderLine / amountToGetDiscount * priceForQuantity) + (amountOnOrderLine % amountToGetDiscount * productPrice);
+    }
+
+    public boolean hasDiscount(ProductType product){
+        return temporaryDiscounts.containsKey(product) || quantityDiscounts.containsKey(product);
+    }
+
+    public void removeDiscount(ProductType product){
+        if (temporaryDiscounts.containsKey(product))
+            temporaryDiscounts.remove(product);
+        else if (quantityDiscounts.containsKey(product))
+            quantityDiscounts.remove(product);
     }
 }
