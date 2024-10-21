@@ -25,4 +25,6 @@ public class TestPurchase {
         boolean covers = purchase.cardBalanceCoversPurchase(cardBalance, orderPrice);
         assertFalse(covers);
     }
+
+
 }

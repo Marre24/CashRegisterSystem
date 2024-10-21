@@ -29,3 +29,4 @@ public class Purchase {
 // tipping?
 // Debit type or credit type? adds functionality: if debit and balance is < 0, cancel purchase
 // if credit and balance is < 0, continue with purchase (balance can be negative for credit cards)
+
