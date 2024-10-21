@@ -16,7 +16,7 @@ public class TestEmployee {
     Product p2 = new Product("ProductName2", 2, ProductGroup.Fruit);
 
     @Test
-    void Constructor_ValidArguments_ValidId(){
+    void Constructor_ValidArguments_ValidEmployee(){
         Employee employee = new Employee(firstName, surName, socialSecurityNr, phoneNumber, emailAddress, homeAddress);
         assertEquals(employee.getFullName(), employee.toString());
     }
