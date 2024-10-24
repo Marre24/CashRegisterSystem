@@ -2,92 +2,177 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class TestDiscount {
 
-    private Discount discount = new Discount();
-    private ProductType testProduct1 = new ProductType("Product", 2, ProductGroup.Beverage);
-    private LocalDate testDateValid = LocalDate.now().plusDays(1);
-    private LocalDate testDateInvalid = LocalDate.now().minusDays(1);
+    private static final int QUOTA = 2;
+    private final Discount discount = new Discount();
+    static final long PRICE = 20;
+    static final long DISCOUNTED_PRICE = 10;
+    static final String PRODUCT_NAME = "ProductName";
+    private final LocalDate validDate = LocalDate.now().plusDays(1);
+    private final LocalDate testDateInvalid = LocalDate.now().minusDays(1);
 
-    //Checking if getDiscountedPrice(ProductType) returns original price
     @Test
-    public void testTemporaryDiscount() {
-        assertEquals(2, discount.getDiscountedPrice(testProduct1));
+    public void AddDiscount_ProductWithoutDiscount_DiscountAdded() {
+        ProductType productType = new ProductType(PRODUCT_NAME, PRICE, ProductGroup.Beverage);
+
+        discount.addDiscount(productType, DISCOUNTED_PRICE, validDate);
+
+        assertTrue(discount.hasDiscount(productType));
     }
 
     @Test
-    public void testTemporaryDiscount1() {
-        discount.addDiscount(testProduct1, 1, testDateValid);
-        assertEquals(1, discount.getDiscountedPrice(testProduct1));
+    public void AddDiscount_ProductHasDiscount_ExceptionThrown() {
+        ProductType productType = new ProductType(PRODUCT_NAME, PRICE, ProductGroup.Beverage);
+
+        discount.addDiscount(productType, DISCOUNTED_PRICE, validDate);
+
+        assertThrows(IllegalArgumentException.class,
+                () -> discount.addDiscount(productType, DISCOUNTED_PRICE, validDate),
+                "Discounting a product which already has a active discount should throw Exception");
     }
 
     @Test
-    public void testTemporaryDiscount2() {
-        discount.addDiscount(testProduct1, 1, testDateValid);
-        assertThrows(IllegalArgumentException.class, () -> discount.addDiscount(testProduct1, 1, testDateValid), "Discounting a product which already has a active discount should throw Exception");
+    public void AddDiscount_WithOriginalProductPrice_ExceptionThrown() {
+        ProductType productType = new ProductType(PRODUCT_NAME, PRICE, ProductGroup.Beverage);
+
+        assertThrows(IllegalArgumentException.class ,
+                () -> discount.addDiscount(productType, PRICE, validDate),
+                "Adding discount at the same price as original should throw Exception");
     }
 
     @Test
-    public void testTemporaryDiscount3() {
-        assertThrows(IllegalArgumentException.class , () -> discount.addDiscount(testProduct1, 2, testDateValid), "Adding discount at the same price as original should throw Exception");
+    public void AddDiscount_InvalidDate_ExceptionThrown() {
+        ProductType productType = new ProductType(PRODUCT_NAME, PRICE, ProductGroup.Beverage);
+
+        assertThrows(IllegalArgumentException.class,
+                () -> discount.addDiscount(productType, 1, testDateInvalid),
+                "Adding discount with an invalid date should throw Exception");
     }
 
     @Test
-    public void testTemporaryDiscount4() {
-        assertThrows(IllegalArgumentException.class, () -> discount.addDiscount(testProduct1, 1, testDateInvalid), "Adding discount with an invalid date should throw Exception");
+    public void AddDiscount_OrderLineWithoutDiscount_DiscountAdded() {
+        ProductType productType = new ProductType(PRODUCT_NAME, PRICE, ProductGroup.Beverage);
+
+        discount.addDiscount(productType, QUOTA, DISCOUNTED_PRICE);
+
+        assertTrue(discount.hasDiscount(productType));
     }
 
-    //Checking if getDiscountedPrice(OrderLine) returns original price
     @Test
-    public void testQuantityDiscount(){
+    public void AddDiscount_OrderLineHasDiscount_ExceptionThrown() {
+        ProductType productType = new ProductType(PRODUCT_NAME, PRICE, ProductGroup.Beverage);
+
+        discount.addDiscount(productType, QUOTA, PRICE);
+
+        assertThrows(IllegalArgumentException.class,
+                () -> discount.addDiscount(productType, QUOTA, PRICE),
+                "Discounting a product which already has a active discount should throw Exception");
+    }
+
+    @Test
+    public void GetDiscountedPrice_OrderLineNotFillingQuota_ReturnsOriginalPrice() {
+        ProductType productType = new ProductType(PRODUCT_NAME, PRICE, ProductGroup.Beverage);
         OrderLine orderLine = new OrderLine();
-        orderLine.addProduct(testProduct1);
-        assertEquals(2, discount.getDiscountedPrice(orderLine));
-    }
-    //Original Price of testProduct1 is 2.
-    @Test
-    public void testQuantityDiscount1() {
-        OrderLine orderLine = new OrderLine();
-        discount.addDiscount(testProduct1, 2,1);
-        orderLine.addProduct(testProduct1);
-        assertEquals(2, discount.getDiscountedPrice(orderLine));
-    }
 
-    //Original Price of testProduct1 is 2.
-    @Test
-    public void testQuantityDiscount2() {
-        OrderLine orderLine = new OrderLine();
-        discount.addDiscount(testProduct1, 2,1);
-        orderLine.addProduct(testProduct1);
-        orderLine.addProduct(testProduct1);
-        assertEquals(1, discount.getDiscountedPrice(orderLine));
-    }
+        discount.addDiscount(productType, QUOTA, DISCOUNTED_PRICE);
+        orderLine.addProduct(productType);
 
-    //Original Price of testProduct1 is 2.
-    @Test
-    public void testQuantityDiscount3() {
-        OrderLine orderLine = new OrderLine();
-        discount.addDiscount(testProduct1, 2,1);
-        orderLine.addProduct(testProduct1);
-        orderLine.addProduct(testProduct1);
-        orderLine.addProduct(testProduct1);
-        assertEquals(3, discount.getDiscountedPrice(orderLine));
+        assertEquals(PRICE, discount.getDiscountedPrice(orderLine));
     }
 
     @Test
-    public void testQuantityDiscount4() {
+    public void GetDiscountedPrice_OrderLineWithoutDiscount_ReturnsOriginalPrice(){
+        ProductType productType = new ProductType(PRODUCT_NAME, PRICE, ProductGroup.Beverage);
         OrderLine orderLine = new OrderLine();
-        discount.addDiscount(testProduct1, 1, 1);
-        assertThrows(IllegalArgumentException.class, () -> discount.addDiscount(testProduct1, 1, 1), "Discounting a product which already has a active discount should throw Exception");
+
+        orderLine.addProduct(productType);
+
+        assertEquals(PRICE, discount.getDiscountedPrice(orderLine));
     }
 
     @Test
-    public void testRemoveDiscount(){
-        discount.addDiscount(testProduct1, 1, testDateValid);
-        discount.removeDiscount(testProduct1);
-        assertEquals(false, discount.hasDiscount(testProduct1));
+    public void GetDiscountedPrice_NonDiscountedProduct_ReturnsOriginalPrice() {
+        ProductType productType = new ProductType(PRODUCT_NAME, PRICE, ProductGroup.Beverage);
+
+        assertEquals(PRICE, discount.getDiscountedPrice(productType));
     }
+
+    @Test
+    public void GetDiscountedPrice_DiscountedProduct_ReturnsPriceWithDiscount() {
+        ProductType productType = new ProductType(PRODUCT_NAME, PRICE, ProductGroup.Beverage);
+
+        discount.addDiscount(productType, DISCOUNTED_PRICE, validDate);
+
+        assertEquals(DISCOUNTED_PRICE, discount.getDiscountedPrice(productType));
+    }
+
+    @Test
+    public void GetDiscountedPrice_OrderLineFillsQuota_DiscountedPrice() {
+        ProductType productType = new ProductType(PRODUCT_NAME, PRICE, ProductGroup.Beverage);
+        OrderLine orderLine = new OrderLine();
+
+        discount.addDiscount(productType, QUOTA, DISCOUNTED_PRICE);
+        orderLine.addProduct(productType);
+        orderLine.addProduct(productType);
+
+        assertEquals(DISCOUNTED_PRICE, discount.getDiscountedPrice(orderLine));
+    }
+
+    @Test
+    public void GetDiscountedPrice_OrderLineSurpassesQuota_OriginalPricePlusDiscountedPrice() {
+        ProductType productType = new ProductType(PRODUCT_NAME, PRICE, ProductGroup.Beverage);
+        OrderLine orderLine = new OrderLine();
+
+        discount.addDiscount(productType, QUOTA, DISCOUNTED_PRICE);
+        orderLine.addProduct(productType);
+        orderLine.addProduct(productType);
+        orderLine.addProduct(productType);
+
+        assertEquals(DISCOUNTED_PRICE + PRICE, discount.getDiscountedPrice(orderLine));
+    }
+
+
+    @Test
+    public void RemoveDiscount_OrderLineHasDiscount_DiscountRemoved(){
+        ProductType productType = new ProductType(PRODUCT_NAME, PRICE, ProductGroup.Beverage);
+        OrderLine orderLine = new OrderLine();
+
+        orderLine.addProduct(productType);
+        discount.addDiscount(orderLine.getProductType(), QUOTA, DISCOUNTED_PRICE);
+        discount.removeDiscount(productType);
+
+        assertFalse(discount.hasDiscount(productType));
+    }
+
+    @Test
+    public void RemoveDiscount_OrderLineWithoutDiscount_ExceptionThrown(){
+        ProductType productType = new ProductType(PRODUCT_NAME, PRICE, ProductGroup.Beverage);
+
+        assertThrows(IllegalArgumentException.class,
+                () -> discount.removeDiscount(productType),
+                "Discounting a product which already has a active discount should throw Exception");
+    }
+
+    @Test
+    public void RemoveDiscount_ProductHasDiscount_DiscountRemoved(){
+        ProductType productType = new ProductType(PRODUCT_NAME, PRICE, ProductGroup.Beverage);
+
+        discount.addDiscount(productType, DISCOUNTED_PRICE, validDate);
+        discount.removeDiscount(productType);
+
+        assertFalse(discount.hasDiscount(productType));
+    }
+
+    @Test
+    public void RemoveDiscount_ProductWithoutDiscount_ExceptionThrown(){
+        ProductType productType = new ProductType(PRODUCT_NAME, PRICE, ProductGroup.Beverage);
+
+        assertThrows(IllegalArgumentException.class,
+                () -> discount.removeDiscount(productType),
+                "Discounting a product which already has a active discount should throw Exception");
+    }
+
 }
