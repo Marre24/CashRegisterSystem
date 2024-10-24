@@ -1,7 +1,5 @@
 import org.junit.jupiter.api.Test;
 
-import java.math.BigDecimal;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TestProductScanner {
@@ -10,8 +8,6 @@ public class TestProductScanner {
     ProductType p2 = new ProductType("ProductType 2", 20, ProductGroup.Beverage);
 
     Employee employee = new Employee("Otto", "Westling", "930220-1234", "070-12345678", "otto@king.se", "Hemvägen 12");
-
-    Order order = new Order(employee);
 
     @Test
     void ProductScanner_SetActiveOrder_ScannerHasActiveOrder() {
@@ -55,7 +51,7 @@ public class TestProductScanner {
     }
 
     @Test
-    void OrderOnHold_HasScannedProduct() {
+    void OrderOnHold_ExistsAndHoldsScannedProduct() {
         ProductScanner p = new ProductScanner(employee);
         Order o = new Order(employee);
         String s = o.getId();

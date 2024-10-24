@@ -1,11 +1,8 @@
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
 
 public class ProductScanner {
 
-    private static ArrayList<Order> ordersOnHold = new ArrayList<>();
+    private static final ArrayList<Order> ordersOnHold = new ArrayList<>();
     private Order activeOrder;
     private Employee activeEmployee;
 
@@ -29,7 +26,7 @@ public class ProductScanner {
         if (hasActiveOrder())
             return activeOrder;
         else return null;
-    } //Check if null
+    }
 
     public Employee getActiveEmployee() {
         return activeEmployee;
