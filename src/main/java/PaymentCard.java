@@ -1,6 +1,6 @@
 /* Data class */
 // possibly rename to "PaymentCard" and then subclass by "Debit" and "Credit"
-public class DebitCard {
+abstract public class PaymentCard {
 
     final private String bank;
     final private String PAN;
@@ -10,13 +10,12 @@ public class DebitCard {
     private long balance;
     // add credit/debit type
 
-    public DebitCard(Person owner, String bank, String PAN, String expirationDate, int csc, long balance){
+    public PaymentCard(Person owner, String bank, String PAN, String expirationDate, int csc){
         this.owner = owner;
         this.bank = bank;
         this.PAN = PAN;
         this.expirationDate = expirationDate;
         this.csc = csc;
-        this.balance = balance;
     }
 }
 
