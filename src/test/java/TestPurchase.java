@@ -52,7 +52,7 @@ public class TestPurchase {
         Person cardOwner = new Person("Alex", "Boe", "19950211-1325", "12345", "a@g.com", "NotaStrt");
         Employee employee = new Employee("John", "Doe", "20000511-1323", "12345", "e@g.com", "AlsNtsTrt");
         Order order = new Order(employee);
-        ProductType banan = new ProductType("Banan", 25);
+        Product banan = new Product("Banan", 25);
         for(int i = 0; i < 100; i++){
             order.addProduct(banan);
         }
