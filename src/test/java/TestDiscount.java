@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class DiscountTest {
+public class TestDiscount {
 
     private Discount discount = new Discount();
     private ProductType testProduct1 = new ProductType("Product", 2, ProductGroup.Beverage);
