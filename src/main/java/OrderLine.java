@@ -4,35 +4,35 @@ public class OrderLine {
 
     }
 
-    public OrderLine(ProductType productType){
-        addProduct(productType);
+    public OrderLine(Product product){
+        addProduct(product);
     }
 
-    private ProductType productType = null;
+    private Product product = null;
     private int amountOfProduct = 0;
 
-    public void addProduct(ProductType newProductType) {
-        if (newProductType == null)
+    public void addProduct(Product newProduct) {
+        if (newProduct == null)
             throw new IllegalArgumentException("Tried to add null to a orderLine");
 
-        if (this.productType == null){
-            this.productType = newProductType;
+        if (this.product == null){
+            this.product = newProduct;
             amountOfProduct++;
             return;
         }
 
-        if (this.productType != newProductType)
+        if (this.product != newProduct)
             throw new IllegalArgumentException("Tried to add a productType to a orderLine with another productType");
 
 
-        if (Long.MAX_VALUE - getTotalPrice() < productType.getPrice())
+        if (Long.MAX_VALUE - getTotalPrice() < product.getPrice())
             throw new IllegalArgumentException();
 
         amountOfProduct++;
     }
 
-    public ProductType getProductType() {
-        return productType;
+    public Product getProductType() {
+        return product;
     }
 
     public int getAmountOfProduct() {
@@ -40,7 +40,7 @@ public class OrderLine {
     }
 
     public long getTotalPrice() {
-        return productType.getPrice() * amountOfProduct;
+        return product.getPrice() * amountOfProduct;
     }
 
     @Override
@@ -48,11 +48,11 @@ public class OrderLine {
         if (getProductType().getName().length() > 30){
             String newName = getProductType().getName().substring(0, 30) + "...";
             if (amountOfProduct > 1)
-                return newName + " " + amountOfProduct + "st*" + productType.getPrice() + " " + getTotalPrice();
+                return newName + " " + amountOfProduct + "st*" + product.getPrice() + " " + getTotalPrice();
             return newName + " " + getTotalPrice();
         }
         if (amountOfProduct > 1)
-            return getProductType().getName() + " " + amountOfProduct + "st*" + productType.getPrice() + " " + getTotalPrice();
+            return getProductType().getName() + " " + amountOfProduct + "st*" + product.getPrice() + " " + getTotalPrice();
         return getProductType().getName() + " " + getTotalPrice();
     }
 }

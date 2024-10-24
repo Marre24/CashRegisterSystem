@@ -7,7 +7,7 @@ public class TestOrderLine {
     @Test
     void Add_Product_AddsProductToLine(){
         OrderLine orderLine = new OrderLine();
-        ProductType expected = new ProductType("Milk", 10, ProductGroup.Beverage, ProductGroup.Dairy);
+        Product expected = new Product("Milk", 10, ProductGroup.Beverage, ProductGroup.Dairy);
         int expectedProductAmount = 1;
 
         orderLine.addProduct(expected);
@@ -19,14 +19,14 @@ public class TestOrderLine {
     @Test
     void Add_TwoDifferentProduct_ExceptionThrown(){
         OrderLine orderLine = new OrderLine();
-        ProductType productType = new ProductType("Milk", 10, ProductGroup.Beverage, ProductGroup.Dairy);
-        ProductType otherProductType = new ProductType("Creme", 10, ProductGroup.Beverage, ProductGroup.Dairy);
+        Product product = new Product("Milk", 10, ProductGroup.Beverage, ProductGroup.Dairy);
+        Product otherProduct = new Product("Creme", 10, ProductGroup.Beverage, ProductGroup.Dairy);
 
-        orderLine.addProduct(productType);
+        orderLine.addProduct(product);
 
         assertThrows(
                 IllegalArgumentException.class,
-                () -> orderLine.addProduct(otherProductType),
+                () -> orderLine.addProduct(otherProduct),
                 "Added a product to a orderLine with another productType"
         );
     }
@@ -34,7 +34,7 @@ public class TestOrderLine {
     @Test
     void Add_TwoOfTheSameProduct_ExceptionThrown(){
         OrderLine orderLine = new OrderLine();
-        ProductType expected = new ProductType("Milk", 10, ProductGroup.Beverage, ProductGroup.Dairy);
+        Product expected = new Product("Milk", 10, ProductGroup.Beverage, ProductGroup.Dairy);
         int expectedProductAmount = 2;
 
         orderLine.addProduct(expected);
@@ -60,9 +60,9 @@ public class TestOrderLine {
     void Add_OneProduct_PriceReturned(){
         OrderLine orderLine = new OrderLine();
         long expectedPrice = 10;
-        ProductType productType = new ProductType("Milk", expectedPrice, ProductGroup.Beverage, ProductGroup.Dairy);
+        Product product = new Product("Milk", expectedPrice, ProductGroup.Beverage, ProductGroup.Dairy);
 
-        orderLine.addProduct(productType);
+        orderLine.addProduct(product);
 
         assertEquals(expectedPrice, orderLine.getTotalPrice());
     }
@@ -73,10 +73,10 @@ public class TestOrderLine {
         OrderLine orderLine = new OrderLine();
         int productAmount = 10;
         long expectedPrice = 100;
-        ProductType productType = new ProductType("Milk", expectedPrice, ProductGroup.Beverage, ProductGroup.Dairy);
+        Product product = new Product("Milk", expectedPrice, ProductGroup.Beverage, ProductGroup.Dairy);
 
         for (int i = 0; i < productAmount; i++)
-            orderLine.addProduct(productType);
+            orderLine.addProduct(product);
 
         assertEquals(expectedPrice * productAmount, orderLine.getTotalPrice());
     }
@@ -85,13 +85,13 @@ public class TestOrderLine {
     void Add_TwoProductWithPriceLongMax_ExceptionThrown(){
         OrderLine orderLine = new OrderLine();
         long expectedPrice = Long.MAX_VALUE;
-        ProductType productType = new ProductType("Milk", expectedPrice, ProductGroup.Beverage, ProductGroup.Dairy);
+        Product product = new Product("Milk", expectedPrice, ProductGroup.Beverage, ProductGroup.Dairy);
 
-        orderLine.addProduct(productType);
+        orderLine.addProduct(product);
 
         assertThrows(
                 IllegalArgumentException.class,
-                () -> orderLine.addProduct(productType),
+                () -> orderLine.addProduct(product),
                 "Tried to get total price for two products with Long.MAX price"
         );
     }
@@ -102,10 +102,10 @@ public class TestOrderLine {
         OrderLine orderLine = new OrderLine();
         long price = 10;
         String name = "Milk";
-        ProductType productType = new ProductType(name, price, ProductGroup.Beverage, ProductGroup.Dairy);
+        Product product = new Product(name, price, ProductGroup.Beverage, ProductGroup.Dairy);
         String expectedString = name + " " + price;
 
-        orderLine.addProduct(productType);
+        orderLine.addProduct(product);
 
         assertEquals(expectedString, orderLine.toString());
     }
@@ -116,11 +116,11 @@ public class TestOrderLine {
         int productAmount = 5;
         long price = 10;
         String name = "Milk";
-        ProductType productType = new ProductType(name, price, ProductGroup.Beverage, ProductGroup.Dairy);
+        Product product = new Product(name, price, ProductGroup.Beverage, ProductGroup.Dairy);
         String expectedString = name + " " + productAmount + "st*" + price + " " + price * productAmount;
 
         for (int i = 0; i < productAmount; i++)
-            orderLine.addProduct(productType);
+            orderLine.addProduct(product);
 
         assertEquals(expectedString, orderLine.toString());
     }
@@ -131,10 +131,10 @@ public class TestOrderLine {
         long price = 10;
         String name = "0123456789012345678901234567890123456789";
         String expectedName = "012345678901234567890123456789...";
-        ProductType productType = new ProductType(name, price, ProductGroup.Beverage, ProductGroup.Dairy);
+        Product product = new Product(name, price, ProductGroup.Beverage, ProductGroup.Dairy);
         String expectedString = expectedName + " " + price;
 
-        orderLine.addProduct(productType);
+        orderLine.addProduct(product);
 
         assertEquals(expectedString, orderLine.toString());
     }
