@@ -8,18 +8,22 @@ public class Purchase {
         this.card = card;
     }
 
-    public void handlePayment(){
+    public boolean handlePayment(){
         if(card instanceof Debit){
             long cardBalance = ((Debit)card).getBalance();
             long orderTotalPrice = order.getTotalPrice();
             if(debitCardBalanceCoversPurchase(cardBalance, orderTotalPrice)){
                 deductOrderTotalPriceFromCardBalance(orderTotalPrice);
-            } else {
-                throw new IllegalStateException("Not enough money in account");
+                return true;
             }
-        } else if(card instanceof Credit){
 
         }
+        return false;
+        /*
+        if(card instanceof Credit){
+
+        }
+        return false;*/
     }
 
     public boolean debitCardBalanceCoversPurchase(long cardBalance, long orderTotalPrice) {

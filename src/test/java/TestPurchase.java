@@ -44,10 +44,9 @@ public class TestPurchase {
         assertFalse(covers);
     }
 
-    // test Purchase's handlePayment method in multiply different ways (credit, Debit). Testing those methods transitively
-    /*
+    // What side effects are we testing for when a debit card is handling a payment? Success vs failure?
     @Test
-    void Purchase_paymentHandledForCreditCard_ReturnsTrue(){
+    void Purchase_paymentHandledForDebitCard_ReturnsTrue(){
 
         Person cardOwner = new Person("Alex", "Boe", "19950211-1325", "12345", "a@g.com", "NotaStrt");
         Employee employee = new Employee("John", "Doe", "20000511-1323", "12345", "e@g.com", "AlsNtsTrt");
@@ -56,10 +55,10 @@ public class TestPurchase {
         for(int i = 0; i < 100; i++){
             order.addProduct(banan);
         }
-        Credit card = new Credit(cardOwner, "Nordea", "AKS", "2026", 5, 2525);
+        Debit card = new Debit(cardOwner, "Nordea", "AKS", "2026", 5, 5000);
         Purchase purchase = new Purchase(order, card);
-        purchase.handlePayment();
-        assertTrue(card.canMakePurchase(order.getTotalPrice()));
 
-    }*/
+        boolean paymentHandled = purchase.handlePayment();
+        assertTrue(paymentHandled);
+    }
 }
