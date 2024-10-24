@@ -16,7 +16,7 @@ public class Order {
     }
 
     //delete from line and delete in line
-    public void addProduct(ProductType p) {
+    public void addProduct(Product p) {
         for (OrderLine orderLine : orderLines)
             if (orderLine.getProductType() == p){
                 orderLine.addProduct(p);
@@ -25,13 +25,13 @@ public class Order {
         orderLines.add(new OrderLine(p));
     }
 
-    public int getProductAmount(ProductType p) {
+    public int getProductAmount(Product p) {
         for (OrderLine orderLine : orderLines)
             if (orderLine.getProductType() == p)
                 return orderLine.getAmountOfProduct();
         return 0;
     }
-    public boolean containsProduct(ProductType p) {
+    public boolean containsProduct(Product p) {
         for (OrderLine orderLine : orderLines)
             if (orderLine.getProductType() == p)
                 return true;

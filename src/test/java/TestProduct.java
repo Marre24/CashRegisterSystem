@@ -2,21 +2,21 @@ import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class TestProductType {
+public class TestProduct {
 
     @Test
     public void CreateClassInstance_ProductName_ClassInstance() {
         String expectedProductName = "Milk";
         long expectedPrice = 0;
-        ProductType productType = new ProductType(expectedProductName, expectedPrice, ProductGroup.Dairy);
-        assertEquals(expectedProductName, productType.getName());
+        Product product = new Product(expectedProductName, expectedPrice, ProductGroup.Dairy);
+        assertEquals(expectedProductName, product.getName());
     }
 
     @Test
     public void CreateClassInstance_PriceTag_ClassInstance() {
         long expectedPriceTag = 10;
-        ProductType productType = new ProductType("", expectedPriceTag, ProductGroup.Dairy);
-        assertEquals(expectedPriceTag, productType.getPrice());
+        Product product = new Product("", expectedPriceTag, ProductGroup.Dairy);
+        assertEquals(expectedPriceTag, product.getPrice());
     }
 
     @Test
@@ -24,8 +24,8 @@ public class TestProductType {
         String productName = "Juice";
         long priceTag = 10;
         String expectedStringRepresentation = "Product: " + productName + ", Price tag: " + priceTag;
-        ProductType productType = new ProductType(productName, priceTag, ProductGroup.Dairy);
-        assertEquals(expectedStringRepresentation, productType.toString());
+        Product product = new Product(productName, priceTag, ProductGroup.Dairy);
+        assertEquals(expectedStringRepresentation, product.toString());
     }
 
 }

@@ -6,17 +6,17 @@ import java.util.Random;
 public class Receipt {
 
     private static ArrayList<String> ids;
-    private final List<ProductType> productTypes;
+    private final List<Product> products;
     private String barcode;
 
-    public Receipt(List<ProductType> productTypes){
+    public Receipt(List<Product> products){
         ids = new ArrayList<>();
-        this.productTypes = Collections.unmodifiableList(productTypes);
+        this.products = Collections.unmodifiableList(products);
         generateRandomUniqueBarcode();
     }
 
-    public List<ProductType> getProducts() {
-        return productTypes;
+    public List<Product> getProducts() {
+        return products;
     }
     
     public String getBarcode(){

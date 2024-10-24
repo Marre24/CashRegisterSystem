@@ -12,13 +12,13 @@ public class Employee extends Person{
     }
 
 
-    public void scanProduct(ProductType productType){
+    public void scanProduct(Product product){
         if(productScanner.hasActiveOrder()){
-            productScanner.scanProduct(productType);
+            productScanner.scanProduct(product);
         } else {
             Order o = new Order(this);
             productScanner.setActiveOrder(o);
-            productScanner.scanProduct(productType);
+            productScanner.scanProduct(product);
         }
     }
 

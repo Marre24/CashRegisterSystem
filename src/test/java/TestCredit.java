@@ -10,7 +10,7 @@ public class TestCredit {
     void Credit_canMakePaymentIfPricePlusDebtLessThanMaxCredit_ReturnsTrue(){
         Employee employee = new Employee("John", "Doe", "20000511-1323", "12345", "e@g.com", "AlsNtsTrt");
         Order order = new Order(employee);
-        ProductType banan = new ProductType("Banan", 25);
+        Product banan = new Product("Banan", 25);
         for(int i = 0; i < 100; i++){
             order.addProduct(banan);
         }
@@ -25,7 +25,7 @@ public class TestCredit {
     void Credit_canNotMakePaymentIfPricePlusDebtGreaterThanMaxCredit_ReturnsFalse(){
         Employee employee = new Employee("John", "Doe", "20000511-1323", "12345", "e@g.com", "AlsNtsTrt");
         Order order = new Order(employee);
-        ProductType banan = new ProductType("Banan", 25);
+        Product banan = new Product("Banan", 25);
         for(int i = 0; i < 100; i++){
             order.addProduct(banan);
         }
@@ -42,7 +42,7 @@ public class TestCredit {
         Person cardOwner = new Person("Alex", "Boe", "19950211-1325", "12345", "a@g.com", "NotaStrt");
         Credit card = new Credit(cardOwner, "Nordea", "AKS", "2026", 5, 5000);
         Order order = new Order(employee);
-        ProductType banan = new ProductType("Banan", 25);
+        Product banan = new Product("Banan", 25);
         for(int i = 0; i < 100; i++){
             order.addProduct(banan);
         }
@@ -59,7 +59,7 @@ public class TestCredit {
         Person cardOwner = new Person("Alex", "Boe", "19950211-1325", "12345", "a@g.com", "NotaStrt");
         Credit card = new Credit(cardOwner, "Nordea", "AKS", "2026", 5, 2500);
         Order order = new Order(employee);
-        ProductType banan = new ProductType("Banan", 25);
+        Product banan = new Product("Banan", 25);
         for(int i = 0; i < 101; i++){
             order.addProduct(banan);
         }
