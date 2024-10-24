@@ -2,11 +2,13 @@
 
 public class Credit extends PaymentCard{
 
-    private long maxCredit;
+    private static final long INITIAL_DEBT = 0;
+
+    private final long maxCredit;
     private long currentDebt;
     public Credit(Person owner, String bank, String PAN, String expirationDate, int csc, long maxCredit){
         super(owner, bank, PAN, expirationDate, csc);
-        currentDebt = 0;
+        currentDebt = INITIAL_DEBT;
         this.maxCredit = maxCredit;
     }
 
