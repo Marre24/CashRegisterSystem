@@ -15,15 +15,15 @@ public class Employee extends Person{
         productScanner = new ProductScanner(this);
     }
 
-    public void scanProduct(ProductType productType){
+    public void scanProduct(Product product){
         if(productScanner == null){
             throw new IllegalArgumentException("Employee is not logged into any scanner");
         }
         if(productScanner.hasActiveOrder()){
-            productScanner.scanProduct(productType);
+            productScanner.scanProduct(product);
         } else {
             productScanner.startNewOrder();
-            productScanner.scanProduct(productType);
+            productScanner.scanProduct(product);
         }
     }
 

@@ -4,8 +4,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class TestProductScanner {
 
-    ProductType p1 = new ProductType("ProductType 1", 10, ProductGroup.Beverage);
-    ProductType p2 = new ProductType("ProductType 2", 20, ProductGroup.Beverage);
+    Product p1 = new Product("ProductType 1", 10, ProductGroup.Beverage);
+    Product p2 = new Product("ProductType 2", 20, ProductGroup.Beverage);
 
     Employee employee = new Employee("Otto", "Westling", "930220-1234", "070-12345678", "otto@king.se", "Hemvägen 12");
 
