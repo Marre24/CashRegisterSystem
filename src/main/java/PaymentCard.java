@@ -1,5 +1,3 @@
-/* Data class */
-// possibly rename to "PaymentCard" and then subclass by "Debit" and "Credit"
 abstract public class PaymentCard {
 
     final private String bank;

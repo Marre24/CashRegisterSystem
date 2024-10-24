@@ -6,7 +6,6 @@ public class Debit extends PaymentCard {
         this.balance = initialBalance;
     }
 
-    // In reality this money would be transferred elsewhere. We only handle the part where the money is drawn from this account
     public void deductFromBalance(long price){
         if(balance < price){
             throw new IllegalStateException();
