@@ -12,7 +12,7 @@ public class TestDebit {
         Person cardOwner = new Person("Alex", "Boe", "19950211-1325", "12345", "a@g.com", "NotaStrt");
         Debit card = new Debit(cardOwner, "Nordea", "AKS", "2026", 5, 2500);
         Order order = new Order(employee);
-        ProductType banan = new ProductType("Banan", 25);
+        Product banan = new Product("Banan", 25);
         for(int i = 0; i < 101; i++){
             order.addProduct(banan);
         }
