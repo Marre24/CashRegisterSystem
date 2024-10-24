@@ -11,9 +11,9 @@ public class TestEmployee {
     final private String emailAddress = "Email@Adress.com";
     final private String homeAddress = "Address1";
     final private String socialSecurityNr = "11112233-4444";
-    ProductType p = new ProductType("ProductName", 0, ProductGroup.Alcoholic);
-    ProductType p1 = new ProductType("ProductName1", 1, ProductGroup.Candy);
-    ProductType p2 = new ProductType("ProductName2", 2, ProductGroup.Fruit);
+    Product p = new Product("ProductName", 0, ProductGroup.Alcoholic);
+    Product p1 = new Product("ProductName1", 1, ProductGroup.Candy);
+    Product p2 = new Product("ProductName2", 2, ProductGroup.Fruit);
 
     @Test
     void Constructor_ValidArguments_ValidEmployee(){
