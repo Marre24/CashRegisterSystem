@@ -22,6 +22,10 @@ public class Purchase {
         }
     }
 
+    public String getId(){
+        return order.getId();
+    }
+
     public boolean debitCardBalanceCoversPurchase(long cardBalance, long orderTotalPrice) {
         return cardBalance >= orderTotalPrice;
     }
