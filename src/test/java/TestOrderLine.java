@@ -4,8 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class TestOrderLine {
 
-    private int MAX_LENGTH_NAME = 30;
-    private int MAX_LENGTH_ORDERLINE = 50;
+    private final int MAX_LENGTH_ORDERLINE = 50;
 
     @Test
     void Add_Product_AddsProductToLine(){
@@ -142,7 +141,7 @@ public class TestOrderLine {
         OrderLine orderLine = new OrderLine();
         long price = 10;
         String name = "012345678901234567890123456789123456789";
-        String expectedName = "012345678901234567890123456...";
+        String expectedName = "01234567890123456...";
         Product product = new Product(name, price, ProductGroup.Beverage, ProductGroup.Dairy);
         String expectedString = expectedName;
         while(expectedString.length() < MAX_LENGTH_ORDERLINE - String.valueOf(price).length()){
@@ -151,6 +150,26 @@ public class TestOrderLine {
         expectedString = expectedString + price;
 
         orderLine.addProduct(product);
+
+        assertEquals(expectedString, orderLine.toString());
+    }
+
+    @Test
+    void ToString_MultipleProductsWithLongNameAndHighPrice_ShortenedToString(){
+        OrderLine orderLine = new OrderLine();
+        int productAmount = 30;
+        long price = 1000000000;
+        String name = "012345678901234567890123456789123456789";
+        String expectedName = "01234567890123456...";
+        Product product = new Product(name, price, ProductGroup.Beverage, ProductGroup.Dairy);
+        String expectedString = expectedName + " " + productAmount + "st * " + price;
+        while(expectedString.length() < MAX_LENGTH_ORDERLINE - String.valueOf(price * productAmount).length()){
+            expectedString = expectedString + " ";
+        }
+        expectedString = expectedString + (price * productAmount);
+
+        for (int i = 0; i < productAmount; i++)
+            orderLine.addProduct(product);
 
         assertEquals(expectedString, orderLine.toString());
     }

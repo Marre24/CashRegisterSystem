@@ -1,6 +1,6 @@
 public class OrderLine {
 
-    private int MAX_LENGTH_NAME = 30;
+    private int MAX_LENGTH_NAME = 20;
     private int MAX_LENGTH_ORDERLINE = 50;
 
     public OrderLine(){

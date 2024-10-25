@@ -17,7 +17,7 @@ public class Receipt {
         try {
             File receiptFile = new File("./Receipts/" + purchase.getId() + ".txt");
             BufferedWriter receiptWriter = new BufferedWriter(new FileWriter(receiptFile));
-            receiptWriter.write("%s\n\n%s\n\n%s".formatted(tempCompany, receiptHeader, purchase.toString()));
+            receiptWriter.write("%s\n\n%s\n\n%s\n\nPurchase id: %s".formatted(tempCompany, receiptHeader, purchase.toString(), purchase.getId()));
             receiptWriter.close();
         } catch (IOException e){
             e.printStackTrace();

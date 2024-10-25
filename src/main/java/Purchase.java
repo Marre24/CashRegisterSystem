@@ -4,7 +4,7 @@ import java.time.LocalTime;
 
 public class Purchase {
 
-    private String OUTLINE = "**************************************************";
+    private String OUTLINE = "--------------------------------------------------";
 
     private final Order order;
     private Receipt receipt;
@@ -46,9 +46,17 @@ public class Purchase {
         card.pay(price);
     }
 
+    public String getTotalLine(){
+        String total = "Total Price                                       ";
+        String totalAmount = order.getTotalPrice() + " SEK";
+        total = total.substring(0, total.length() - totalAmount.length());
+        total = total + totalAmount;
+        return total;
+    }
+
     @Override
     public String toString(){
-        return "Date: " + date.toString() + " Time: " + time.toString().substring(0,5) + "\n" + OUTLINE + "\n" + order.toString() + OUTLINE + "\n" + card.toString();
+        return "Date: " + date.toString() + " Time: " + time.toString().substring(0,5) + "\n" + OUTLINE + "\n" + order.toString() + "\n" + OUTLINE + "\n" + getTotalLine() + "\n\n" + "Sold by: " + order.getResponsibleEmployeeName() + "\n" + card.toString();
     }
 }
 

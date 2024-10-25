@@ -51,11 +51,16 @@ public class Order {
         return id.toString();
     }
 
+    public String getResponsibleEmployeeName(){
+        return responsibleEmployee.getFullName();
+    }
+
     @Override
     public String toString(){
         StringBuilder s = new StringBuilder();
         for (OrderLine orderLine : orderLines)
             s.append(orderLine.toString()).append("\n");
-        return s.toString();
+        String result = s.toString().substring(0, s.length() - 1);
+        return result;
     }
 }
