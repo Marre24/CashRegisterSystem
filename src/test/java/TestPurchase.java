@@ -12,7 +12,7 @@ public class TestPurchase {
         Person cardOwner = new Person("Alex", "Boe", "19950211-1325", "12345", "a@g.com", "NotaStrt");
         Employee employee = new Employee("John", "Doe", "20000511-1323", "12345", "e@g.com", "AlsNtsTrt");
         Order order = new Order(employee);
-        Debit card = new Debit(cardOwner, "Nordea", "AKS", "2026", 5, 5000);
+        DebitCard card = new DebitCard(cardOwner, "Nordea", "AKS", "2026", 5, 5000);
         Product banan = new Product("Banan", 50);
         for(int i = 0; i < 99; i++){ // order total price should become 4950
             order.addProduct(banan);
@@ -31,7 +31,7 @@ public class TestPurchase {
         Person cardOwner = new Person("Alex", "Boe", "19950211-1325", "12345", "a@g.com", "NotaStrt");
         Employee employee = new Employee("John", "Doe", "20000511-1323", "12345", "e@g.com", "AlsNtsTrt");
         Order order = new Order(employee);
-        Debit card = new Debit(cardOwner, "Nordea", "AKS", "2026", 5, 5000);
+        DebitCard card = new DebitCard(cardOwner, "Nordea", "AKS", "2026", 5, 5000);
 
         Product banan = new Product("Banan", 50);
         for(int i = 0; i < 101; i++){ // order total price should become 5050
