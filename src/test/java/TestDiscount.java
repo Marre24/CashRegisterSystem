@@ -7,7 +7,6 @@ import static org.junit.jupiter.api.Assertions.*;
 public class TestDiscount {
 
     private static final int QUOTA = 2;
-
     static final long PRICE = 20;
     static final long DISCOUNTED_PRICE = 10;
     static final String PRODUCT_NAME = "ProductName";

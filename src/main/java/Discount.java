@@ -10,9 +10,9 @@ public abstract class Discount {
 
     public static void addDiscount(Product product, long newPrice, LocalDate expirationDate) {
         if (hasDiscount(product))
-            throw new IllegalArgumentException("Product already have an active discount");
+            throw new IllegalArgumentException("Product already have a discount");
         if (newPrice >= product.getPrice())
-            throw new IllegalArgumentException("Price must be greater than or equal to the products original price");
+            throw new IllegalArgumentException("Discounted price must be less than the products original price");
         if (expirationDate.isBefore(LocalDate.now()))
             throw new IllegalArgumentException("Date can not be in the past");
         timeBasedDiscounts.put(product, new AbstractMap.SimpleEntry<>(newPrice, expirationDate));
@@ -37,9 +37,9 @@ public abstract class Discount {
         int amountOnOrderLine = orderLine.getAmountOfProduct();
         long productPrice = orderLine.getProductType().getPrice();
         long priceForQuantity = quantityDiscounts.get(orderLine.getProductType()).getValue();
-        int amountToGetDiscount = quantityDiscounts.get(orderLine.getProductType()).getKey();
+        int quota = quantityDiscounts.get(orderLine.getProductType()).getKey();
 
-        return (amountOnOrderLine / amountToGetDiscount * priceForQuantity) + (amountOnOrderLine % amountToGetDiscount * productPrice);
+        return (amountOnOrderLine / quota * priceForQuantity) + (amountOnOrderLine % quota * productPrice);
     }
 
     public  static boolean hasDiscount(Product product){
