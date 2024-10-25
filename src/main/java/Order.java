@@ -1,17 +1,19 @@
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.UUID;
 
 public class Order {
 
+    private final UUID id = UUID.randomUUID();
     private final Employee responsibleEmployee;
-    private final ArrayList<OrderLine> orderLines = new ArrayList<>();
+    private final Collection<OrderLine> orderLines = new ArrayList<>();
 
 
     public Order(Employee employee) {
         this.responsibleEmployee = employee;
     }
 
-
-    public ArrayList<OrderLine> getOrderLines() {
+    public Collection<OrderLine> getOrderLines() {
         return orderLines;
     }
 
@@ -43,6 +45,10 @@ public class Order {
         for (OrderLine orderLine : orderLines)
             price += orderLine.getTotalPrice();
         return price;
+    }
+
+    public String getId(){
+        return id.toString();
     }
 
     @Override
