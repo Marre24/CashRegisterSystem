@@ -8,6 +8,7 @@ public class Purchase {
         this.card = card;
     }
 
+    /* OBS need to handle credit card and add more tests */
     public boolean handlePayment(){
         if(card instanceof Debit){
             long cardBalance = ((Debit)card).getBalance();
