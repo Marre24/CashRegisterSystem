@@ -9,15 +9,15 @@ public class Purchase {
     }
 
     public void handlePayment(){
-        if(card instanceof Debit){
-            long cardBalance = ((Debit)card).getBalance();
+        if(card instanceof DebitCard){
+            long cardBalance = ((DebitCard)card).getBalance();
             long orderTotalPrice = order.getTotalPrice();
             if(debitCardBalanceCoversPurchase(cardBalance, orderTotalPrice)){
                 deductOrderTotalPriceFromCardBalance(orderTotalPrice);
             } else {
                 throw new IllegalStateException("Not enough money in account");
             }
-        } else if(card instanceof Credit){
+        } else if(card instanceof CreditCard){
 
         }
     }
@@ -27,7 +27,7 @@ public class Purchase {
     }
 
     public void deductOrderTotalPriceFromCardBalance(long price){
-        ((Debit)card).deductFromBalance(price);
+        card.pay(price);
     }
 }
 
