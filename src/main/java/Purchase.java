@@ -1,11 +1,23 @@
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+
 public class Purchase {
+
+    private String OUTLINE = "**************************************************";
+
     private final Order order;
     private Receipt receipt;
     private final PaymentCard card;
+    private final LocalDate date;
+    private final LocalTime time;
 
     public Purchase(Order order, PaymentCard card){
         this.order = order;
         this.card = card;
+        this.date = LocalDate.now();
+        this.time = LocalTime.now();
+
     }
 
     public void handlePayment(){
@@ -33,5 +45,11 @@ public class Purchase {
     public void deductOrderTotalPriceFromCardBalance(long price){
         ((Debit)card).deductFromBalance(price);
     }
+
+    @Override
+    public String toString(){
+        return "Date: " + date.toString() + " Time: " + time.toString().substring(0,5) + "\n" + OUTLINE + "\n" + order.toString() + OUTLINE + "\n" + card.toString();
+    }
 }
+
 

@@ -5,7 +5,7 @@ import java.io.IOException;
 
 public class Receipt {
 
-    private String tempCompany = "Temp Company Name\nCompany Address\nPostcode CityName\nOrg.nr. Organisation Nr";
+    private String tempCompany = "Temp Company Name\nCompany Address\nPostcode CityName\nOrg.nr. 11111111-1111";
     private String receiptHeader = "RECEIPT";
     private Purchase purchase;
 

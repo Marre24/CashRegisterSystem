@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class TestReceipt {
 
-    private String testCompany = "Temp Company Name\nCompany Address\nPostcode CityName\nOrg.nr. Organisation Nr";
+    private String testCompany = "Temp Company Name\nCompany Address\nPostcode CityName\nOrg.nr. 11111111-1111";
     private String testReceiptHeader = "RECEIPT";
 
     @Test
@@ -15,6 +15,8 @@ public class TestReceipt {
         Person person = new Person("B","B","B","B","B","B");
         ProductScanner productScanner = new ProductScanner(employee);
         productScanner.startNewOrder();
+        Product product = new Product("Product",10, ProductGroup.Beverage);
+        productScanner.scanProduct(product);
         Order order = productScanner.getActiveOrder();
         String fileDirectory = "Receipts/" + order.getId() + ".txt";
         PaymentCard paymentCard = new Debit(person, "b","b","1",1,0);
