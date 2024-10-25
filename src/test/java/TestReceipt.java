@@ -19,7 +19,7 @@ public class TestReceipt {
         productScanner.scanProduct(product);
         Order order = productScanner.getActiveOrder();
         String fileDirectory = "Receipts/" + order.getId() + ".txt";
-        PaymentCard paymentCard = new Debit(person, "b","b","1",1,0);
+        PaymentCard paymentCard = new DebitCard(person, "b","1111-1111-1111-1111","1",1,0);
         Purchase purchase = new Purchase(order, paymentCard);
         Receipt receipt = new Receipt(purchase);
         receipt.printReceipt();
