@@ -1,16 +1,31 @@
 abstract public class PaymentCard {
 
-    final private String bank;
-    final private String PAN;
-    final private String expirationDate;
-    final private int csc;
-    final private Person owner;
+    //When credit card balance is negative the card issuer ows the cardholder money
+    protected long balance = 0;
+    final protected String bank;
+    final protected String pan;
+    final protected String expirationDate;
+    final protected int csc;
+    final protected Person owner;
 
-    public PaymentCard(Person owner, String bank, String PAN, String expirationDate, int csc){
+    public PaymentCard(Person owner, String bank, String pan, String expirationDate, int csc){
         this.owner = owner;
         this.bank = bank;
-        this.PAN = PAN;
+        this.pan = pan;
         this.expirationDate = expirationDate;
         this.csc = csc;
+    }
+
+    public long getBalance(){
+        return balance;
+    }
+
+    protected abstract boolean canMakePurchase(long price);
+
+    public abstract void pay(long price);
+
+    @Override
+    public String toString() {
+        return "**** **** **** " + pan.substring(pan.length() - 4, pan.length());
     }
 }

@@ -1,43 +1,41 @@
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TestReceipt {
 
-    private final Product testProduct = new Product("Toothbrush", 12L, ProductGroup.Beverage);
+    private String testCompany = "Temp Company Name\nCompany Address\nPostcode CityName\nOrg.nr. 11111111-1111";
+    private String testReceiptHeader = "RECEIPT";
 
     @Test
-    void barcodeIsNumeric(){
-        var products = new ArrayList<Product>();
-        Receipt receipt = new Receipt(products);
-        String generatedBarcode = receipt.getBarcode();
+    void PrintReceipt_ReceiptPrintsToFile_(){
+        Employee employee = new Employee("A","A","A","A","A","A");
+        Person person = new Person("B","B","B","B","B","B");
+        ProductScanner productScanner = new ProductScanner(employee);
+        productScanner.startNewOrder();
+        Product product = new Product("Product",10, ProductGroup.Beverage);
+        productScanner.scanProduct(product);
+        Order order = productScanner.getActiveOrder();
+        String fileDirectory = "Receipts/" + order.getId() + ".txt";
+        PaymentCard paymentCard = new DebitCard(person, "b","1111-1111-1111-1111","1",1,0);
+        Purchase purchase = new Purchase(order, paymentCard);
+        Receipt receipt = new Receipt(purchase);
+        receipt.printReceipt();
+        try{
+            FileReader fileReader = new FileReader(fileDirectory);
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+            StringBuilder s = new StringBuilder();
+            String st = "";
+            while((st = bufferedReader.readLine()) != null){
+                 s.append(st + "\n");
+            }
+            st = s.substring(0, s.length()-1);
+            assertEquals("%s\n\n%s\n\n%s".formatted(testCompany, testReceiptHeader, purchase.toString()), st.toString());
+        } catch (IOException e){
+            e.printStackTrace();
+        }
 
-        assertTrue(generatedBarcode.matches("[0-9]{13}"));
-    }
-
-    @Test
-    void barcodeLengthIs13(){
-        var products = new ArrayList<Product>();
-        Receipt receipt = new Receipt(products);
-        String receiptBarcode = receipt.getBarcode();
-        int actual = receiptBarcode.length();
-        String stringOfLength13 = "1234567890123";
-        int expected = stringOfLength13.length();
-
-        assertEquals(expected,actual);
-    }
-
-    @Test
-    void productAddedToReceiptProducts() {
-        Product expected = testProduct;
-        List<Product> products = new ArrayList<>();
-        products.add(expected);
-        Receipt receipt = new Receipt(products);
-        Product actual = receipt.getProducts().getFirst();
-
-        assertEquals(actual, expected);
     }
 }

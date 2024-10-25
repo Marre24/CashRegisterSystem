@@ -4,6 +4,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class TestOrderLine {
 
+    private int MAX_LENGTH_NAME = 30;
+    private int MAX_LENGTH_ORDERLINE = 50;
+
     @Test
     void Add_Product_AddsProductToLine(){
         OrderLine orderLine = new OrderLine();
@@ -103,7 +106,11 @@ public class TestOrderLine {
         long price = 10;
         String name = "Milk";
         Product product = new Product(name, price, ProductGroup.Beverage, ProductGroup.Dairy);
-        String expectedString = name + " " + price;
+        String expectedString = name;
+        while(expectedString.length() < MAX_LENGTH_ORDERLINE - String.valueOf(price).length()){
+            expectedString = expectedString + " ";
+        }
+        expectedString = expectedString + price;
 
         orderLine.addProduct(product);
 
@@ -117,7 +124,12 @@ public class TestOrderLine {
         long price = 10;
         String name = "Milk";
         Product product = new Product(name, price, ProductGroup.Beverage, ProductGroup.Dairy);
-        String expectedString = name + " " + productAmount + "st*" + price + " " + price * productAmount;
+        String expectedString = name + " " + productAmount + "st * " + price;
+
+        while(expectedString.length() < MAX_LENGTH_ORDERLINE - String.valueOf(price * productAmount).length()){
+            expectedString = expectedString + " ";
+        }
+        expectedString = expectedString + (price * productAmount);
 
         for (int i = 0; i < productAmount; i++)
             orderLine.addProduct(product);
@@ -129,10 +141,14 @@ public class TestOrderLine {
     void ToString_OneProductWithLongName_ShortenedToString(){
         OrderLine orderLine = new OrderLine();
         long price = 10;
-        String name = "0123456789012345678901234567890123456789";
-        String expectedName = "012345678901234567890123456789...";
+        String name = "012345678901234567890123456789123456789";
+        String expectedName = "012345678901234567890123456...";
         Product product = new Product(name, price, ProductGroup.Beverage, ProductGroup.Dairy);
-        String expectedString = expectedName + " " + price;
+        String expectedString = expectedName;
+        while(expectedString.length() < MAX_LENGTH_ORDERLINE - String.valueOf(price).length()){
+            expectedString = expectedString + " ";
+        }
+        expectedString = expectedString + price;
 
         orderLine.addProduct(product);
 
