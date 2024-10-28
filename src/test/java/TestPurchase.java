@@ -30,7 +30,7 @@ public class TestPurchase {
         for(int i = 0; i < 99; i++){ // order total price should become 4950
             order.addProduct(banan);
         }
-        Purchase purchase = new Purchase(order, card);
+        Purchase purchase = new Purchase(order);
         long cardBalance = card.getBalance();
         long orderTotalPrice = order.getTotalPrice();
         boolean covers = purchase.debitCardBalanceCoversPurchase(cardBalance, orderTotalPrice);
@@ -49,7 +49,7 @@ public class TestPurchase {
         for(int i = 0; i < 101; i++){ // order total price should become 5050
             order.addProduct(banan);
         }
-        Purchase purchase = new Purchase(order, card);
+        Purchase purchase = new Purchase(order);
         long cardBalance = card.getBalance();
         long orderTotalPrice = order.getTotalPrice();
         boolean covers = purchase.debitCardBalanceCoversPurchase(cardBalance, orderTotalPrice);

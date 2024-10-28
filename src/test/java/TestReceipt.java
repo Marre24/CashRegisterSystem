@@ -23,8 +23,8 @@ public class TestReceipt {
         Order order = productScanner.getActiveOrder();
         String fileDirectory = "Receipts/" + order.getId() + ".txt";
         PaymentCard paymentCard = new DebitCard(person, "b","1111-1111-1111-1111","1",1,0);
-        Purchase purchase = new Purchase(order, paymentCard);
-        Receipt.printReceipt(purchase);
+        Purchase purchase = new Purchase(order);
+        Receipt.printReceipt(purchase, paymentCard);
         try{
             FileReader fileReader = new FileReader(fileDirectory);
             BufferedReader bufferedReader = new BufferedReader(fileReader);

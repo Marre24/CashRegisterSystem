@@ -30,4 +30,8 @@ public class Employee extends Person{
     public ProductScanner getScanner(){
         return productScanner;
     }
+
+    public void finalizeOrder(){
+        productScanner.finalizeOrder();
+    }
 }

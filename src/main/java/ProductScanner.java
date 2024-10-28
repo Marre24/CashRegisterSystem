@@ -57,4 +57,11 @@ public class ProductScanner {
         }
         return null;
     }
+
+    public void finalizeOrder(){
+        Purchase purchase = new Purchase(activeOrder);
+        if (purchase.handlePayment()){
+            activeOrder = null;
+        }
+    }
 }
