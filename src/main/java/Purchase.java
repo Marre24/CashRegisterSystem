@@ -56,7 +56,12 @@ public class Purchase {
 
     @Override
     public String toString(){
-        return "Date: " + date.toString() + " Time: " + time.toString().substring(0,5) + "\n" + OUTLINE + "\n" + order.toString() + "\n" + OUTLINE + "\n" + getTotalLine() + "\n\n" + "Sold by: " + order.getResponsibleEmployeeName() + "\n" + card.toString();
+        return "Date: " + date.toString() +
+                " Time: " + time.toString().substring(0,5) +
+                "\n" + OUTLINE + "\n" + order.toString() +
+                "\n" + OUTLINE + "\n" + getTotalLine() +
+                "\n\n" + "Sold by: " + order.getResponsibleEmployeeName() +
+                "\n" + card.toString();
     }
 }
 
