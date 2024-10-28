@@ -24,6 +24,7 @@ public class TestEmployee {
     @Test
     void Add_SingleProduct_ProductAdded(){
         Employee employee = new Employee(firstName, surName, socialSecurityNr, phoneNumber, emailAddress, homeAddress);
+        employee.logIntoScanner();
 
         employee.scanProduct(p);
 
@@ -34,6 +35,7 @@ public class TestEmployee {
     @Test
     void Add_MultipleDifferentProducts_ProductsAdded(){
         Employee employee = new Employee(firstName, surName, socialSecurityNr, phoneNumber, emailAddress, homeAddress);
+        employee.logIntoScanner();
 
         employee.scanProduct(p);
         employee.scanProduct(p1);
@@ -47,14 +49,13 @@ public class TestEmployee {
 
     @Test
     void Add_MultipleOfSameProduct_ProductsAdded(){
-        Order order = new Order(null);
+        Employee employee = new Employee(firstName, surName, socialSecurityNr, phoneNumber, emailAddress, homeAddress);
+        employee.logIntoScanner();
 
-        order.addProduct(p);
-        order.addProduct(p);
-        order.addProduct(p);
+        employee.scanProduct(p);
+        employee.scanProduct(p);
+        employee.scanProduct(p);
 
-        assertEquals(1, order.getOrderLines().size());
-        assertTrue(order.containsProduct(p));
-        assertEquals(3, order.getProductAmount(p));
+        assertEquals(3, employee.getScanner().getActiveOrder().getProductAmount(p));
     }
 }
