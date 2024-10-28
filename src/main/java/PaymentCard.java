@@ -24,6 +24,10 @@ abstract public class PaymentCard {
 
     public abstract void pay(long price);
 
+    public String getPan (){
+        return this.pan;
+    }
+
     @Override
     public String toString() {
         return "**** **** **** " + pan.substring(pan.length() - 4, pan.length());
