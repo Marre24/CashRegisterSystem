@@ -185,7 +185,6 @@ public class TestInputFormatter {
         assertFalse(InputFormatter.isCorrectPhoneNr(invalidPhoneNr));
     }
 
-
     @Test
     void PhoneNumber_PhoneNrCodeSixDigitSubscriberNumber_ReturnsFalse() {
         String invalidPhoneNr = "070-111 222";
@@ -210,8 +209,101 @@ public class TestInputFormatter {
         assertFalse(InputFormatter.isCorrectPhoneNr(invalidPhoneNr));
     }
 
+    @Test
+    void EmailAddress_SingleCharacterUsername_ReturnTrue() {
+        String validEmailAddress = "f@g.com";
+        assertTrue(InputFormatter.isCorrectEmailAddress(validEmailAddress));
+    }
 
+    @Test
+    void EmailAddress_DotSeparatedUserName_ReturnTrue() {
+        String validEmailAddress = "f.g@g.com";
+        assertTrue(InputFormatter.isCorrectEmailAddress(validEmailAddress));
+    }
 
+    @Test
+    void EmailAddress_SingleDigitUsername_ReturnTrue() {
+        String validEmailAddress = "1@g.com";
+        assertTrue(InputFormatter.isCorrectEmailAddress(validEmailAddress));
+    }
+
+    @Test
+    void EmailAddress_UsernameEndingInNumbers_ReturnTrue() {
+        String validEmailAddress = "coolmonkey22@g.com";
+        assertTrue(InputFormatter.isCorrectEmailAddress(validEmailAddress));
+    }
+
+    @Test
+    void EmailAddress_UsernameStartingWithNumber_ReturnTrue() {
+        String validEmailAddress = "69gamer@g.com";
+        assertTrue(InputFormatter.isCorrectEmailAddress(validEmailAddress));
+    }
+
+    @Test
+    void EmailAddress_UsernameEndingWithDot_ReturnFalse() {
+        String invalidEmailAddress = "f.@g.com";
+        assertFalse(InputFormatter.isCorrectEmailAddress(invalidEmailAddress));
+    }
+
+    @Test
+    void EmailAddress_UsernameStartingWithDot_ReturnFalse() {
+        String invalidEmailAddress = ".f@g.com";
+        assertFalse(InputFormatter.isCorrectEmailAddress(invalidEmailAddress));
+    }
+
+    @Test
+    void EmailAddress_UsernameIsDot_ReturnFalse() {
+        String invalidEmailAddress = ".@g.com";
+        assertFalse(InputFormatter.isCorrectEmailAddress(invalidEmailAddress));
+    }
+
+    @Test
+    void EmailAddress_HasNoUsername_ReturnFalse() {
+        String invalidEmailAddress = "@g.com";
+        assertFalse(InputFormatter.isCorrectEmailAddress(invalidEmailAddress));
+    }
+
+    @Test
+    void EmailAddress_UsernameHasMultipleDots_ReturnFalse() {
+        String invalidEmailAddress = "f.e.g@g.com";
+        assertFalse(InputFormatter.isCorrectEmailAddress(invalidEmailAddress));
+    }
+
+    @Test
+    void EmailAddress_TopLevelDomainIsNotDotCom_ReturnFalse() {
+        String invalidEmailAddress = "f@g.se";
+        assertFalse(InputFormatter.isCorrectEmailAddress(invalidEmailAddress));
+    }
+
+    @Test
+    void EmailAddress_MissingTopLevelDomain_ReturnFalse() {
+        String invalidEmailAddress = "f@g";
+        assertFalse(InputFormatter.isCorrectEmailAddress(invalidEmailAddress));
+    }
+
+    @Test
+    void EmailAddress_MissingDomainName_ReturnFalse() {
+        String invalidEmailAddress = "f@.com";
+        assertFalse(InputFormatter.isCorrectEmailAddress(invalidEmailAddress));
+    }
+
+    @Test
+    void EmailAddress_MissingDomainSymbol_ReturnFalse() {
+        String invalidEmailAddress = "fg.com";
+        assertFalse(InputFormatter.isCorrectEmailAddress(invalidEmailAddress));
+    }
+
+    @Test
+    void EmailAddress_OnlyUsername_ReturnFalse() {
+        String invalidEmailAddress = "f";
+        assertFalse(InputFormatter.isCorrectEmailAddress(invalidEmailAddress));
+    }
+
+    @Test
+    void EmailAddress_MissingTopLevelDomainName_ReturnFalse() {
+        String invalidEmailAddress = "f@g.";
+        assertFalse(InputFormatter.isCorrectEmailAddress(invalidEmailAddress));
+    }
     /* Email Address */
 
     /* Home Address */

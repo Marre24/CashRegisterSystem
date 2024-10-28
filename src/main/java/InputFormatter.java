@@ -39,7 +39,8 @@ abstract public class InputFormatter {
     }
 
     static boolean isCorrectEmailAddress(String emailAddress) {
-        return true;
+        String regex = "^[0-9a-zA-Z]+(.[0-9a-zA-Z]+)?@[a-zA-Z]+.com$";
+        return emailAddress.matches(regex);
     }
 
     static boolean isCorrectHomeAddress(String homeAddress) {
