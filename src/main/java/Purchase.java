@@ -16,7 +16,7 @@ public class Purchase {
     }
 
     public boolean handlePayment(){
-        PaymentCard card = InputClass.scanCard();
+        PaymentCard card = InputReader.scanCard();
         try{
             card.pay(order.getTotalPrice());
             return true;

@@ -26,9 +26,9 @@ public class InputReader{
         return value;
     }
 
-    public double readDouble(String prompt){
+    public long readLong(String prompt){
         System.out.print(prompt + "?> ");
-        double value = input.nextDouble();
+        long value = input.nextLong();
         clearBuffer();
         return value;
     }
