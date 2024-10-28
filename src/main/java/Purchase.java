@@ -20,9 +20,9 @@ public class Purchase {
 
     }
 
-    public void handlePayment(){
-        if(card instanceof DebitCard){
-            long cardBalance = ((DebitCard)card).getBalance();
+    public void handleCardPayment(){
+        if(card instanceof DebitCard debitCard){
+            long cardBalance = debitCard.getBalance();
             long orderTotalPrice = order.getTotalPrice();
             if(debitCardBalanceCoversPurchase(cardBalance, orderTotalPrice)){
                 deductOrderTotalPriceFromCardBalance(orderTotalPrice);
