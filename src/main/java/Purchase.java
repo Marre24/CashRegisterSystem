@@ -15,8 +15,7 @@ public class Purchase {
         this.time = LocalTime.now();
     }
 
-    public boolean handlePayment(){
-        PaymentCard card = InputReader.scanCard();
+    public boolean handlePayment(PaymentCard card){
         try{
             card.pay(order.getTotalPrice());
             return true;

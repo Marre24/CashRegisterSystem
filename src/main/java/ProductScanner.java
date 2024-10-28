@@ -58,9 +58,9 @@ public class ProductScanner {
         return null;
     }
 
-    public void finalizeOrder(){
+    public void finalizeOrder(PaymentCard card){
         Purchase purchase = new Purchase(activeOrder);
-        if (purchase.handlePayment()){
+        if (purchase.handlePayment(card)){
             activeOrder = null;
         }
     }

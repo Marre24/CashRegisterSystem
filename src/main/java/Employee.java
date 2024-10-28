@@ -31,7 +31,7 @@ public class Employee extends Person{
         return productScanner;
     }
 
-    public void finalizeOrder(){
-        productScanner.finalizeOrder();
+    public void finalizeOrder(PaymentCard card){
+        productScanner.finalizeOrder(card);
     }
 }
