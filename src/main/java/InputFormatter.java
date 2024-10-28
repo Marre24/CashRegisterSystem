@@ -43,6 +43,6 @@ abstract public class InputFormatter {
     }
 
     static boolean isCorrectHomeAddress(String homeAddress) {
-        return true;
+        return homeAddress.matches("[a-zA-Z]+ [0-9]+");
     }
 }
