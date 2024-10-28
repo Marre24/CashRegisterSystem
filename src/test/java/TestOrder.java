@@ -5,8 +5,11 @@ import static org.junit.jupiter.api.Assertions.*;
 public class TestOrder {
 
     Product p = new Product("ProductName", 0, ProductGroup.Beverage);
+    String pExpectedOrderLineFormat = "ProductName                                      0";
     Product p1 = new Product("ProductName1",1, ProductGroup.Dairy);
+    String p1ExpectedOrderLineFormat = "ProductName1                                     1";
     Product p2 = new Product("ProductName2", 2, ProductGroup.Candy);
+    String p2ExpectedOrderLineFormat = "ProductName2                                     2";
 
     @Test
     void Constructor_EmployeeCreatesOrder_EmptyOrder(){
@@ -58,22 +61,27 @@ public class TestOrder {
     void ToString_MultipleProductsNoDuplicates_CorrectlyFormattedString(){
         Order order = new Order(null);
 
+
         order.addProduct(p);
         order.addProduct(p1);
         order.addProduct(p2);
 
-        assertEquals("%s %d\n%s %d\n%s %d\n".formatted(p.getName(), p.getPrice(), p1.getName(), p1.getPrice(), p2.getName(), p2.getPrice()), order.toString());
+        assertEquals(pExpectedOrderLineFormat + "\n"
+                + p1ExpectedOrderLineFormat + "\n"
+                + p2ExpectedOrderLineFormat, order.toString());
     }
 
     @Test
     void ToString_MultipleProductsWithDuplicates_CorrectlyFormattedString(){
         Order order = new Order(null);
+        String p1Expected = "ProductName1 2st * 1                             2";
 
         order.addProduct(p);
         order.addProduct(p1);
         order.addProduct(p1);
 
-        assertEquals("%s %d\n%s 2st*%d %d\n".formatted(p.getName(), p.getPrice(), p1.getName(), p1.getPrice(), p1.getPrice() * 2), order.toString());
+        assertEquals(pExpectedOrderLineFormat + "\n"
+        + p1Expected, order.toString());
     }
 
 
