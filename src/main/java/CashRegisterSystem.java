@@ -12,7 +12,17 @@ public class CashRegisterSystem {
     final static String LOGG_INTO_SCANNER = "logg into scanner";
     final static String LOGG_OUT_SCANNER = "logg out";
     final static String EXIT_COMMAND = "exit";
-
+    final static String WELCOME_MESSAGE = "Welcome to CashRegisterSystem these are the available commands:\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s".formatted(
+            CREATE_PERSON,
+            REMOVE_PERSON,
+            REMOVE_MEMBERSHIP,
+            ADD_MEMBERSHIP,
+            CREATE_EMPLOYEE,
+            SCAN_PRODUCT,
+            FINALIZE_ORDER,
+            LOGG_INTO_SCANNER,
+            LOGG_OUT_SCANNER,
+            EXIT_COMMAND);
 
     ArrayList<Person> persons = new ArrayList<>();
     ArrayList<Employee> employees = new ArrayList<>();
@@ -25,6 +35,7 @@ public class CashRegisterSystem {
     public static void main(String[] args) {
         boolean isActive = true;
         CashRegisterSystem cashRegisterSystem = new CashRegisterSystem();
+        System.out.println(WELCOME_MESSAGE);
         while (isActive){
             cashRegisterSystem.handleCommand();
         }
@@ -34,14 +45,19 @@ public class CashRegisterSystem {
         switch (input.readLine("write your command").toLowerCase()){
             case CREATE_PERSON:
                 createPerson();
+                break;
             case REMOVE_PERSON:
                 removePerson();
+                break;
             case ADD_MEMBERSHIP:
                 addMembership();
+                break;
             case REMOVE_MEMBERSHIP:
                 removeMembership();
+                break;
             case CREATE_EMPLOYEE:
                 createEmployee();
+                break;
             case SCAN_PRODUCT:
                 scanProduct();
             case FINALIZE_ORDER:
