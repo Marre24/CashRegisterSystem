@@ -10,13 +10,17 @@ public class TestDiscount {
     static final long PRICE = 20;
     static final long DISCOUNTED_PRICE = 10;
     static final String PRODUCT_NAME = "ProductName";
+    static final String PRODUCT_NAME2 = "OtherProductName";
+    static final String PRODUCT_NAME3 = "ThirdProductName";
     private final LocalDate validDate = LocalDate.now().plusDays(1);
     private final LocalDate testDateInvalid = LocalDate.now().minusDays(1);
 
+    Product product = new Product(PRODUCT_NAME, PRICE, Producer.Arla, ProductGroup.Beverage);
+    Product product1 = new Product(PRODUCT_NAME2, PRICE, Producer.Arla, ProductGroup.Beverage);
+    Product product2 = new Product(PRODUCT_NAME3, PRICE, Producer.Arla, ProductGroup.Beverage);
+
     @Test
     public void AddDiscount_ProductWithoutDiscount_DiscountAdded() {
-        Product product = new Product(PRODUCT_NAME, PRICE, ProductGroup.Beverage);
-
         Discount.addDiscount(product, DISCOUNTED_PRICE, validDate);
 
         assertTrue(Discount.hasDiscount(product));
@@ -24,7 +28,6 @@ public class TestDiscount {
 
     @Test
     public void AddDiscount_ProductHasDiscount_ExceptionThrown() {
-        Product product = new Product(PRODUCT_NAME, PRICE, ProductGroup.Beverage);
 
         Discount.addDiscount(product, DISCOUNTED_PRICE, validDate);
 
@@ -35,7 +38,6 @@ public class TestDiscount {
 
     @Test
     public void AddDiscount_WithOriginalProductPrice_ExceptionThrown() {
-        Product product = new Product(PRODUCT_NAME, PRICE, ProductGroup.Beverage);
 
         assertThrows(IllegalArgumentException.class ,
                 () -> Discount.addDiscount(product, PRICE, validDate),
@@ -44,7 +46,6 @@ public class TestDiscount {
 
     @Test
     public void AddDiscount_InvalidDate_ExceptionThrown() {
-        Product product = new Product(PRODUCT_NAME, PRICE, ProductGroup.Beverage);
 
         assertThrows(IllegalArgumentException.class,
                 () -> Discount.addDiscount(product, 1, testDateInvalid),
@@ -53,7 +54,6 @@ public class TestDiscount {
 
     @Test
     public void AddDiscount_OrderLineWithoutDiscount_DiscountAdded() {
-        Product product = new Product(PRODUCT_NAME, PRICE, ProductGroup.Beverage);
 
         Discount.addDiscount(product, QUOTA, DISCOUNTED_PRICE);
 
@@ -62,7 +62,6 @@ public class TestDiscount {
 
     @Test
     public void AddDiscount_OrderLineHasDiscount_ExceptionThrown() {
-        Product product = new Product(PRODUCT_NAME, PRICE, ProductGroup.Beverage);
 
         Discount.addDiscount(product, QUOTA, PRICE);
 
@@ -73,7 +72,6 @@ public class TestDiscount {
 
     @Test
     public void GetDiscountedPrice_OrderLineNotFillingQuota_ReturnsOriginalPrice() {
-        Product product = new Product(PRODUCT_NAME, PRICE, ProductGroup.Beverage);
         OrderLine orderLine = new OrderLine();
 
         Discount.addDiscount(product, QUOTA, DISCOUNTED_PRICE);
@@ -84,7 +82,6 @@ public class TestDiscount {
 
     @Test
     public void GetDiscountedPrice_OrderLineWithoutDiscount_ReturnsOriginalPrice(){
-        Product product = new Product(PRODUCT_NAME, PRICE, ProductGroup.Beverage);
         OrderLine orderLine = new OrderLine();
 
         orderLine.addProduct(product);
@@ -94,14 +91,12 @@ public class TestDiscount {
 
     @Test
     public void GetDiscountedPrice_NonDiscountedProduct_ReturnsOriginalPrice() {
-        Product product = new Product(PRODUCT_NAME, PRICE, ProductGroup.Beverage);
 
         assertEquals(PRICE, Discount.getDiscountedPrice(product));
     }
 
     @Test
     public void GetDiscountedPrice_DiscountedProduct_ReturnsPriceWithDiscount() {
-        Product product = new Product(PRODUCT_NAME, PRICE, ProductGroup.Beverage);
 
         Discount.addDiscount(product, DISCOUNTED_PRICE, validDate);
 
@@ -110,7 +105,6 @@ public class TestDiscount {
 
     @Test
     public void GetDiscountedPrice_OrderLineFillsQuota_DiscountedPrice() {
-        Product product = new Product(PRODUCT_NAME, PRICE, ProductGroup.Beverage);
         OrderLine orderLine = new OrderLine();
 
         Discount.addDiscount(product, QUOTA, DISCOUNTED_PRICE);
@@ -122,7 +116,6 @@ public class TestDiscount {
 
     @Test
     public void GetDiscountedPrice_OrderLineSurpassesQuota_OriginalPricePlusDiscountedPrice() {
-        Product product = new Product(PRODUCT_NAME, PRICE, ProductGroup.Beverage);
         OrderLine orderLine = new OrderLine();
 
         Discount.addDiscount(product, QUOTA, DISCOUNTED_PRICE);
@@ -136,7 +129,6 @@ public class TestDiscount {
 
     @Test
     public void RemoveDiscount_OrderLineHasDiscount_DiscountRemoved(){
-        Product product = new Product(PRODUCT_NAME, PRICE, ProductGroup.Beverage);
         OrderLine orderLine = new OrderLine();
 
         orderLine.addProduct(product);
@@ -148,7 +140,6 @@ public class TestDiscount {
 
     @Test
     public void RemoveDiscount_OrderLineWithoutDiscount_ExceptionThrown(){
-        Product product = new Product(PRODUCT_NAME, PRICE, ProductGroup.Beverage);
 
         assertThrows(IllegalArgumentException.class,
                 () -> Discount.removeDiscount(product),
@@ -157,8 +148,6 @@ public class TestDiscount {
 
     @Test
     public void RemoveDiscount_ProductHasDiscount_DiscountRemoved(){
-        Product product = new Product(PRODUCT_NAME, PRICE, ProductGroup.Beverage);
-
         Discount.addDiscount(product, DISCOUNTED_PRICE, validDate);
         Discount.removeDiscount(product);
 
@@ -167,8 +156,6 @@ public class TestDiscount {
 
     @Test
     public void RemoveDiscount_ProductWithoutDiscount_ExceptionThrown(){
-        Product product = new Product(PRODUCT_NAME, PRICE, ProductGroup.Beverage);
-
         assertThrows(IllegalArgumentException.class,
                 () -> Discount.removeDiscount(product),
                 "Discounting a product which already has a active discount should throw Exception");

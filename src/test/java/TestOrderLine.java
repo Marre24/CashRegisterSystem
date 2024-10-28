@@ -9,7 +9,7 @@ public class TestOrderLine {
     @Test
     void Add_Product_AddsProductToLine(){
         OrderLine orderLine = new OrderLine();
-        Product expected = new Product("Milk", 10, ProductGroup.Beverage, ProductGroup.Dairy);
+        Product expected = new Product("Milk", 10, Producer.Arla, ProductGroup.Beverage, ProductGroup.Dairy);
         int expectedProductAmount = 1;
 
         orderLine.addProduct(expected);
@@ -21,8 +21,8 @@ public class TestOrderLine {
     @Test
     void Add_TwoDifferentProduct_ExceptionThrown(){
         OrderLine orderLine = new OrderLine();
-        Product product = new Product("Milk", 10, ProductGroup.Beverage, ProductGroup.Dairy);
-        Product otherProduct = new Product("Creme", 10, ProductGroup.Beverage, ProductGroup.Dairy);
+        Product product = new Product("Milk", 10, Producer.Arla, ProductGroup.Beverage, ProductGroup.Dairy);
+        Product otherProduct = new Product("Creme", 10, Producer.Arla, ProductGroup.Beverage, ProductGroup.Dairy);
 
         orderLine.addProduct(product);
 
@@ -36,7 +36,7 @@ public class TestOrderLine {
     @Test
     void Add_TwoOfTheSameProduct_ExceptionThrown(){
         OrderLine orderLine = new OrderLine();
-        Product expected = new Product("Milk", 10, ProductGroup.Beverage, ProductGroup.Dairy);
+        Product expected = new Product("Milk", 10, Producer.Arla, ProductGroup.Beverage, ProductGroup.Dairy);
         int expectedProductAmount = 2;
 
         orderLine.addProduct(expected);
@@ -62,7 +62,7 @@ public class TestOrderLine {
     void Add_OneProduct_PriceReturned(){
         OrderLine orderLine = new OrderLine();
         long expectedPrice = 10;
-        Product product = new Product("Milk", expectedPrice, ProductGroup.Beverage, ProductGroup.Dairy);
+        Product product = new Product("Milk", expectedPrice, Producer.Arla, ProductGroup.Beverage, ProductGroup.Dairy);
 
         orderLine.addProduct(product);
 
@@ -75,7 +75,7 @@ public class TestOrderLine {
         OrderLine orderLine = new OrderLine();
         int productAmount = 10;
         long expectedPrice = 100;
-        Product product = new Product("Milk", expectedPrice, ProductGroup.Beverage, ProductGroup.Dairy);
+        Product product = new Product("Milk", expectedPrice, Producer.Arla, ProductGroup.Beverage, ProductGroup.Dairy);
 
         for (int i = 0; i < productAmount; i++)
             orderLine.addProduct(product);
@@ -87,7 +87,7 @@ public class TestOrderLine {
     void Add_TwoProductWithPriceLongMax_ExceptionThrown(){
         OrderLine orderLine = new OrderLine();
         long expectedPrice = Long.MAX_VALUE;
-        Product product = new Product("Milk", expectedPrice, ProductGroup.Beverage, ProductGroup.Dairy);
+        Product product = new Product("Milk", expectedPrice, Producer.Arla, ProductGroup.Beverage, ProductGroup.Dairy);
 
         orderLine.addProduct(product);
 
@@ -104,7 +104,7 @@ public class TestOrderLine {
         OrderLine orderLine = new OrderLine();
         long price = 10;
         String name = "Milk";
-        Product product = new Product(name, price, ProductGroup.Beverage, ProductGroup.Dairy);
+        Product product = new Product(name, price, Producer.Arla, ProductGroup.Beverage, ProductGroup.Dairy);
         String expectedString = name;
         while(expectedString.length() < MAX_LENGTH_ORDERLINE - String.valueOf(price).length()){
             expectedString = expectedString + " ";
@@ -122,7 +122,7 @@ public class TestOrderLine {
         int productAmount = 5;
         long price = 10;
         String name = "Milk";
-        Product product = new Product(name, price, ProductGroup.Beverage, ProductGroup.Dairy);
+        Product product = new Product(name, price, Producer.Arla, ProductGroup.Beverage, ProductGroup.Dairy);
         String expectedString = name + " " + productAmount + "st * " + price;
 
         while(expectedString.length() < MAX_LENGTH_ORDERLINE - String.valueOf(price * productAmount).length()){
@@ -142,7 +142,7 @@ public class TestOrderLine {
         long price = 10;
         String name = "012345678901234567890123456789123456789";
         String expectedName = "01234567890123456...";
-        Product product = new Product(name, price, ProductGroup.Beverage, ProductGroup.Dairy);
+        Product product = new Product(name, price, Producer.Arla, ProductGroup.Beverage, ProductGroup.Dairy);
         String expectedString = expectedName;
         while(expectedString.length() < MAX_LENGTH_ORDERLINE - String.valueOf(price).length()){
             expectedString = expectedString + " ";
@@ -161,7 +161,7 @@ public class TestOrderLine {
         long price = 1000000000;
         String name = "012345678901234567890123456789123456789";
         String expectedName = "01234567890123456...";
-        Product product = new Product(name, price, ProductGroup.Beverage, ProductGroup.Dairy);
+        Product product = new Product(name, price, Producer.Arla, ProductGroup.Beverage, ProductGroup.Dairy);
         String expectedString = expectedName + " " + productAmount + "st * " + price;
         while(expectedString.length() < MAX_LENGTH_ORDERLINE - String.valueOf(price * productAmount).length()){
             expectedString = expectedString + " ";
