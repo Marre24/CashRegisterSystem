@@ -4,11 +4,13 @@ import java.util.List;
 public class Product {
     private final String name;
     private final long price;
+    private final Producer producer;
     private final List<ProductGroup> productGroups;
 
-    public Product(String name, long price, ProductGroup... productGroups){
+    public Product(String name, long price, Producer producer, ProductGroup... productGroups){
         this.name = name;
         this.price = price;
+        this.producer = producer;
         this.productGroups = Arrays.asList(productGroups);
     }
 
@@ -20,6 +22,10 @@ public class Product {
         return price;
     }
 
+    public Producer getProducer(){
+        return producer;
+    }
+
     public List<ProductGroup> getProductGroups(){ return productGroups;}
 
     @Override
@@ -27,5 +33,12 @@ public class Product {
         return "Product: " +
                  name +
                 ", Price tag: " + price;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Product))
+            return false;
+        return ((Product) obj).getName().equals(name) && ((Product)obj).getProducer() == producer;
     }
 }
