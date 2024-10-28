@@ -15,8 +15,8 @@ public class TestReceipt {
         Person person = new Person("B","B","B","B","B","B");
         ProductScanner productScanner = new ProductScanner(employee);
         productScanner.startNewOrder();
-        Product product = new Product("Product",10, ProductGroup.Beverage);
-        Product product2 = new Product("Product2",20, ProductGroup.Beverage);
+        Product product = new Product("Product",10, Producer.Arla, ProductGroup.Beverage);
+        Product product2 = new Product("Product2",20, Producer.Arla, ProductGroup.Beverage);
         productScanner.scanProduct(product);
         productScanner.scanProduct(product);
         productScanner.scanProduct(product2);

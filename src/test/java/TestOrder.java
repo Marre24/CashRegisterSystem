@@ -4,11 +4,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class TestOrder {
 
-    Product p = new Product("ProductName", 0, ProductGroup.Beverage);
+    Product p = new Product("ProductName", 0, Producer.Arla, ProductGroup.Beverage);
     String pExpectedOrderLineFormat = "ProductName                                      0";
-    Product p1 = new Product("ProductName1",1, ProductGroup.Dairy);
+    Product p1 = new Product("ProductName1",1, Producer.Arla, ProductGroup.Dairy);
     String p1ExpectedOrderLineFormat = "ProductName1                                     1";
-    Product p2 = new Product("ProductName2", 2, ProductGroup.Candy);
+    Product p2 = new Product("ProductName2", 2, Producer.Arla, ProductGroup.Candy);
     String p2ExpectedOrderLineFormat = "ProductName2                                     2";
 
     @Test

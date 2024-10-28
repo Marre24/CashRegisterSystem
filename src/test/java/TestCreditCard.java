@@ -12,7 +12,7 @@ public class TestCreditCard {
     private static final String EXPIRATION_DATE = "05/2026";
     private static final int CSC = 542;
 
-    private final Product banana = new Product("Banana", 50);
+    private final Product banana = new Product("Banana", 50, Producer.Arla);
 
     @Test
     void GetBalance_OnCreate_ReturnsZero(){

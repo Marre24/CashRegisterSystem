@@ -26,7 +26,7 @@ public class TestPurchase {
         order = new Order(employee);
 
         DebitCard card = new DebitCard(cardOwner, "Nordea", "AKS", "2026", 5, 5000);
-        Product banan = new Product("Banan", 50);
+        Product banan = new Product("Banan", 50, Producer.Arla);
         for(int i = 0; i < 99; i++){ // order total price should become 4950
             order.addProduct(banan);
         }
@@ -45,7 +45,7 @@ public class TestPurchase {
         order = new Order(employee);
 
         DebitCard card = new DebitCard(cardOwner, "Nordea", "AKS", "2026", 5, 5000);
-        Product banan = new Product("Banan", 50);
+        Product banan = new Product("Banan", 50, Producer.Arla);
         for(int i = 0; i < 101; i++){ // order total price should become 5050
             order.addProduct(banan);
         }
