@@ -33,7 +33,9 @@ abstract public class InputFormatter {
     }
 
     static boolean isCorrectPhoneNr(String phoneNr) {
-        return true;
+        String regex = "^0((8-[0-9]{6,8})|(7[0-9]-[0-9]{7})|([0-69][0-9]-[0-9]{5,7})|([0-69][0-9]{2}-[0-9]{5,6}))$";
+        phoneNr = phoneNr.replaceAll(" ", "");
+        return phoneNr.matches(regex);
     }
 
     static boolean isCorrectEmailAddress(String emailAddress) {

@@ -70,10 +70,28 @@ public class TestInputFormatter {
     }
 
     @Test
-    void SocialSecurityNumber_InvalidMonth_ReturnsFalse() {
+    void SocialSecurityNumber_MonthTooHigh_ReturnsFalse() {
         String invalidSSN = "20011310-1452";
         assertFalse(InputFormatter.isCorrectSSN(invalidSSN));
     }
+
+    @Test
+    void SocialSecurityNumber_MonthTooLow_ReturnsFalse() {
+        String invalidSSN = "19990030-1452";
+        assertFalse(InputFormatter.isCorrectSSN(invalidSSN));
+    }
+
+   @Test
+   void SocialSecurityNumber_DateTooHigh_ReturnsFalse() {
+        String invalidSSN = "20020333-1451";
+        assertFalse(InputFormatter.isCorrectSSN(invalidSSN));
+   }
+
+   @Test
+   void SocialSecurityNumber_DateTooLow_ReturnsFalse() {
+        String invalidSSN = "20010500-1455";
+        assertFalse(InputFormatter.isCorrectSSN(invalidSSN));
+   }
 
     @Test
     void SocialSecurityNumber_DashAtIncorrectPosition_ReturnsFalse() {
@@ -94,6 +112,92 @@ public class TestInputFormatter {
     }
 
     /* Phone Number */
+
+    @Test
+    void PhoneNumber_PhoneNrCodeSevenDigitSubscriberNumber_ReturnsTrue() {
+        String invalidPhoneNr = "070-111 22 33";
+        assertTrue(InputFormatter.isCorrectPhoneNr(invalidPhoneNr));
+    }
+
+    @Test
+    void PhoneNumber_TwoDigitAreaCodeEightDigitSubscriberNumber_ReturnsTrue() {
+        String validPhoneNr = "08-111 222 33";
+        assertTrue(InputFormatter.isCorrectPhoneNr(validPhoneNr));
+    }
+
+    @Test
+    void PhoneNumber_ThreeDigitAreaCodeSevenDigitSubscriberNumber_ReturnsTrue() {
+        String validPhoneNr = "011-111 22 33";
+        assertTrue(InputFormatter.isCorrectPhoneNr(validPhoneNr));
+    }
+
+    @Test
+    void PhoneNumber_FourDigitAreaCodeSixDigitSubscriberNumber_ReturnsTrue() {
+        String validPhoneNr = "0111-222333";
+        assertTrue(InputFormatter.isCorrectPhoneNr(validPhoneNr));
+    }
+
+    @Test
+    void PhoneNumber_TwoDigitAreaCodeNineDigitSubscriberNumber_ReturnsFalse() {
+        String invalidPhoneNr = "08-111 222 333";
+        assertFalse(InputFormatter.isCorrectPhoneNr(invalidPhoneNr));
+    }
+
+    @Test
+    void PhoneNumber_TwoDigitAreaCodeFiveDigitSubscriberNumber_ReturnsFalse() {
+        String invalidPhoneNr = "08-111 22";
+        assertFalse(InputFormatter.isCorrectPhoneNr(invalidPhoneNr));
+    }
+
+    @Test
+    void PhoneNumber_ThreeDigitAreaCodeEightDigitSubscriberNumber_ReturnsFalse() {
+        String invalidPhoneNr = "011-111 222 33";
+        assertFalse(InputFormatter.isCorrectPhoneNr(invalidPhoneNr));
+    }
+
+    @Test
+    void PhoneNumber_ThreeDigitAreaCodeFourDigitSubscriberNumber_ReturnsFalse() {
+        String invalidPhoneNr = "011-11 22";
+        assertFalse(InputFormatter.isCorrectPhoneNr(invalidPhoneNr));
+    }
+
+    @Test
+    void PhoneNumber_FourDigitAreaCodeSevenDigitSubscriberNumber_ReturnsFalse() {
+        String invalidPhoneNr = "0111-111 22 33";
+        assertFalse(InputFormatter.isCorrectPhoneNr(invalidPhoneNr));
+    }
+
+    @Test
+    void PhoneNumber_FourDigitAreaCodeFourDigitSubscriberNumber_ReturnsFalse() {
+        String invalidPhoneNr = "0111-11 22";
+        assertFalse(InputFormatter.isCorrectPhoneNr(invalidPhoneNr));
+    }
+
+    @Test
+    void PhoneNumber_PhoneNrCodeSixDigitSubscriberNumber_ReturnsFalse() {
+        String invalidPhoneNr = "070-111 222";
+        assertFalse(InputFormatter.isCorrectPhoneNr(invalidPhoneNr));
+    }
+
+    @Test
+    void PhoneNumber_PhoneNrCodeEightDigitSubscriberNumber_ReturnsFalse() {
+        String invalidPhoneNr = "070-111 222 33";
+        assertFalse(InputFormatter.isCorrectPhoneNr(invalidPhoneNr));
+    }
+
+    @Test
+    void PhoneNumber_SomethingProceedsSthlmAreaCode_ReturnsFalse() {
+        String invalidPhoneNr = "080-111 222";
+        assertFalse(InputFormatter.isCorrectPhoneNr(invalidPhoneNr));
+    }
+
+    @Test
+    void PhoneNumber_NothingProceedsPhoneNrCode_ReturnsFalse() {
+        String invalidPhoneNr = "07-111 22 33";
+        assertFalse(InputFormatter.isCorrectPhoneNr(invalidPhoneNr));
+    }
+
+
 
     /* Email Address */
 
