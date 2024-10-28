@@ -174,6 +174,19 @@ public class TestInputFormatter {
     }
 
     @Test
+    void PhoneNumber_SingleDigitAreaCode_ReturnsFalse() {
+        String invalidPhoneNr = "0-111 222";
+        assertFalse(InputFormatter.isCorrectPhoneNr(invalidPhoneNr));
+    }
+
+    @Test
+    void PhoneNumber_FiveDigitAreaCode_ReturnsFalse() {
+        String invalidPhoneNr = "01111-111 22";
+        assertFalse(InputFormatter.isCorrectPhoneNr(invalidPhoneNr));
+    }
+
+
+    @Test
     void PhoneNumber_PhoneNrCodeSixDigitSubscriberNumber_ReturnsFalse() {
         String invalidPhoneNr = "070-111 222";
         assertFalse(InputFormatter.isCorrectPhoneNr(invalidPhoneNr));
