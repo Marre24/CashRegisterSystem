@@ -98,4 +98,43 @@ public class TestInputFormatter {
     /* Email Address */
 
     /* Home Address */
+    // <alfabetisk karaktar> <siffra> <5siffror> <alfabetiska karakt"arer>
+    // the input formatter actually formats input, and we should test that it has done so at the end
+    // for example user inputs SOLNa, this should pass, but it should reformat to Solna, and we must test
+    // address som en klass, eller bara splitta?
+    // streetName, streetNo, postNumber, postAddress
+    @Test
+    void HomeAddress_ValidAddress_ReturnsTrue() {
+        String homeAddress = "thisIsAValidAddress 56";
+        boolean isValidAddress = InputFormatter.isCorrectHomeAddress(homeAddress);
+        assertTrue(isValidAddress);
+    }
+
+    @Test
+    void HomeAddress_AddressHasNoStreetNo_ReturnsFalse() {
+        String homeAddress = "thisIsAnInvalidAddress";
+        boolean invalidAddress = InputFormatter.isCorrectHomeAddress(homeAddress);
+        assertFalse(invalidAddress);
+    }
+
+    @Test
+    void HomeAddress_WrongOrderNameAndNumber_ReturnsFalse() {
+        String homeAddress = "56 thisIsAlsoInvalid";
+        boolean invalidAddress = InputFormatter.isCorrectHomeAddress(homeAddress);
+        assertFalse(invalidAddress);
+    }
+
+    @Test
+    void HomeAddress_HasNoStreetName_ReturnsFalse() {
+        String homeAddress = "56";
+        boolean invalidAddress = InputFormatter.isCorrectHomeAddress(homeAddress);
+        assertFalse(invalidAddress);
+    }
+
+    @Test
+    void HomeAddress_EmptyString_ReturnsFalse() {
+        String homeAddress = "";
+        boolean invalidAddress = InputFormatter.isCorrectHomeAddress(homeAddress);
+        assertFalse(invalidAddress);
+    }
 }
