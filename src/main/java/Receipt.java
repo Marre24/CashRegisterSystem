@@ -5,15 +5,10 @@ import java.io.IOException;
 
 public class Receipt {
 
-    private String tempCompany = "Temp Company Name\nCompany Address\nPostcode CityName\nOrg.nr. 11111111-1111";
-    private String receiptHeader = "RECEIPT";
-    private Purchase purchase;
+    private static String tempCompany = "Temp Company Name\nCompany Address\nPostcode CityName\nOrg.nr. 11111111-1111";
+    private static String receiptHeader = "RECEIPT";
 
-    public Receipt(Purchase purchase) {
-        this.purchase = purchase;
-    }
-
-    public void printReceipt(){
+    public static void printReceipt(Purchase purchase){
         try {
             File receiptFile = new File("./Receipts/" + purchase.getId() + ".txt");
             BufferedWriter receiptWriter = new BufferedWriter(new FileWriter(receiptFile));
