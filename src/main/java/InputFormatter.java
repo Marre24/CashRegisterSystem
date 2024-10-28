@@ -46,4 +46,11 @@ abstract public class InputFormatter {
     static boolean isCorrectHomeAddress(String homeAddress) {
         return homeAddress.matches("[a-zA-Z]+ [0-9]+");
     }
+
+    static String formatAddress(String homeAddress){
+        if(homeAddress == null || homeAddress.isEmpty()){
+            return homeAddress;
+        }
+        return homeAddress.substring(0,1).toUpperCase() + homeAddress.substring(1).toLowerCase();
+    }
 }

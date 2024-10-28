@@ -1,7 +1,6 @@
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class TestInputFormatter {
 
@@ -345,5 +344,12 @@ public class TestInputFormatter {
         String homeAddress = "";
         boolean invalidAddress = InputFormatter.isCorrectHomeAddress(homeAddress);
         assertFalse(invalidAddress);
+    }
+
+    @Test
+    void HomeAdress_UnformatedAdressInput_ReturnFormatedAdress(){
+        String testAddress = "STReetNAMe 87";
+        String expectedAddress = "Streetname 87";
+        assertEquals(expectedAddress, InputFormatter.formatAddress(testAddress));
     }
 }
