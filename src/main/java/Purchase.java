@@ -33,10 +33,6 @@ public class Purchase {
         return order.getId();
     }
 
-    public boolean debitCardBalanceCoversPurchase(long cardBalance, long orderTotalPrice) {
-        return cardBalance >= orderTotalPrice;
-    }
-
     public String getTotalLine(){
         String total = "Total Price                                       ";
         String totalAmount = order.getTotalPrice() + " SEK";
