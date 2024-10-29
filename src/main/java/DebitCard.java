@@ -12,8 +12,10 @@ public class DebitCard extends PaymentCard {
 
     @Override
     public void pay(long price){
-        if (!canMakePurchase(price))
+        if (canMakePurchase(price)) {
+            this.balance -= price;
+        } else {
             throw new IllegalArgumentException("Balance could not cover the price");
-        this.balance -= price;
+        }
     }
 }

@@ -16,8 +16,10 @@ public class CreditCard extends PaymentCard{
 
     @Override
     public void pay(long price){
-        if (!canMakePurchase(price))
+        if (canMakePurchase(price)) {
+            this.balance += price;
+        } else {
             throw new IllegalArgumentException("Price + balance would exceed limit");
-        this.balance += price;
+        }
     }
 }
