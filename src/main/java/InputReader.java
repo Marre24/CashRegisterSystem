@@ -3,8 +3,8 @@ import java.util.ArrayList;
 import java.io.InputStream;
 
 public class InputReader{
-    private static ArrayList<InputStream> streams = new ArrayList<>();
-    private Scanner input;
+    private static final ArrayList<InputStream> streams = new ArrayList<>();
+    private final Scanner input;
 
     // System.in is the default stream
     public InputReader(){
@@ -35,8 +35,7 @@ public class InputReader{
 
     public String readLine(String prompt){
         System.out.print(prompt + "?> ");
-        String str = input.nextLine();
-        return str;
+        return input.nextLine();
     }
 
     private void clearBuffer(){

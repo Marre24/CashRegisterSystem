@@ -6,4 +6,5 @@ public enum ProductGroup {
     Vegetable,
     Candy,
     Alcoholic,
+    PricedByWeight,
 }

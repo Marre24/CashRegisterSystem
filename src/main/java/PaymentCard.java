@@ -30,6 +30,6 @@ abstract public class PaymentCard {
 
     @Override
     public String toString() {
-        return "**** **** **** " + pan.substring(pan.length() - 4, pan.length());
+        return "**** **** **** " + pan.substring(pan.length() - 4);
     }
 }

@@ -30,10 +30,10 @@ public class CashRegisterSystem {
     ArrayList<PaymentCard> paymentCards = new ArrayList<>();
     Employee activeEmployee = null;
 
+    static boolean isActive = true;
     static InputReader input = new InputReader();
 
     public static void main(String[] args) {
-        boolean isActive = true;
         CashRegisterSystem cashRegisterSystem = new CashRegisterSystem();
         System.out.println(WELCOME_MESSAGE);
         while (isActive){
@@ -60,53 +60,33 @@ public class CashRegisterSystem {
                 break;
             case SCAN_PRODUCT:
                 scanProduct();
+                break;
             case FINALIZE_ORDER:
                 finalizeOrder();
+                break;
             case LOGG_INTO_SCANNER:
                 logIn();
+                break;
             case LOGG_OUT_SCANNER:
                 logOut();
+                break;
             case EXIT_COMMAND:
                 exit();
+                break;
+            default:
+                System.out.println("Could not recognize the command");
+                break;
         }
     }
 
     private void createPerson() {
-        String firstName = input.readLine("Write your firstname");
-        if (firstName.toLowerCase() == "exit")
-            return;
-        if (!InputFormatter.isCorrectName(firstName))
-            createPerson();
 
-        String surName = input.readLine("Write your surname");
-        if (surName.toLowerCase() == "exit")
-            return;
-        if (!InputFormatter.isCorrectName(surName))
-            createPerson();
-
-        String socialSecurityNr = input.readLine("Write your social security number");
-        if (socialSecurityNr.toLowerCase() == "exit")
-            return;
-        if (!InputFormatter.isCorrectSSN(socialSecurityNr))
-            createPerson();
-
-        String phoneNumber = input.readLine("Write your phone number");
-        if (phoneNumber.toLowerCase() == "exit")
-            return;
-        if (!InputFormatter.isCorrectPhoneNr(phoneNumber))
-            createPerson();
-
-        String emailAddress = input.readLine("Write your email address");
-        if (emailAddress.toLowerCase() == "exit")
-            return;
-        if (!InputFormatter.isCorrectEmailAddress(emailAddress))
-            createPerson();
-
-        String homeAddress = input.readLine("Write your home address");
-        if (homeAddress.toLowerCase() == "exit")
-            return;
-        if (!InputFormatter.isCorrectHomeAddress(homeAddress))
-            createPerson();
+        String firstName = getFirstOrSurName("Firstname");
+        String surName = getFirstOrSurName("Surname");
+        String socialSecurityNr = getSocialSecurityNumber();
+        String phoneNumber = getPhoneNumber();
+        String emailAddress = getEmailAddress();
+        String homeAddress = getHomeAddress();
 
         persons.add(new Person(firstName, surName, socialSecurityNr, phoneNumber, emailAddress, homeAddress));
     }
@@ -148,43 +128,14 @@ public class CashRegisterSystem {
     }
 
     private void createEmployee(){
-        String firstName = input.readLine("Enter first name: ");
-        if (firstName.toLowerCase() == "exit")
-            return;
-        if (!InputFormatter.isCorrectName(firstName))
-            createEmployee();
+        String firstName = getFirstOrSurName("Firstname");
+        String surName = getFirstOrSurName("Surname");
+        String socialSecurityNr = getSocialSecurityNumber();
+        String phoneNumber = getPhoneNumber();
+        String emailAddress = getEmailAddress();
+        String homeAddress = getHomeAddress();
 
-        String surName = input.readLine("Enter surname: ");
-        if (surName.toLowerCase() == "exit")
-            return;
-        if (!InputFormatter.isCorrectName(surName))
-            createEmployee();
-
-        String ssn = input.readLine("Enter SSN: ");
-        if (ssn.toLowerCase() == "exit")
-            return;
-        if (!InputFormatter.isCorrectSSN(ssn))
-            createEmployee();
-
-        String phoneNr = input.readLine("Enter phone number: ");
-        if (phoneNr.toLowerCase() == "exit")
-            return;
-        if (!InputFormatter.isCorrectPhoneNr(phoneNr))
-            createEmployee();
-
-        String emailAddress = input.readLine("Enter email address: ");
-        if (emailAddress.toLowerCase() == "exit")
-            return;
-        if (!InputFormatter.isCorrectEmailAddress(emailAddress))
-            createEmployee();
-
-        String homeAddress = input.readLine("Enter home address");
-        if (homeAddress.toLowerCase() == "exit")
-            return;
-        if (!InputFormatter.isCorrectHomeAddress(homeAddress))
-            createEmployee();
-
-        Employee e = new Employee(firstName, surName, ssn, phoneNr, emailAddress, homeAddress);
+        Employee e = new Employee(firstName, surName, socialSecurityNr, phoneNumber, emailAddress, homeAddress);
         employees.add(e);
     }
 
@@ -195,7 +146,7 @@ public class CashRegisterSystem {
         }
         System.out.println(activeEmployee.getScanner().getActiveOrder().toString());
         String yn = input.readLine("Are you sure you want to finalize order? (y/n)");
-        if (yn.toLowerCase() == "n"){
+        if (yn.equalsIgnoreCase("n")){
             return;
         }
         String cardPan = input.readLine("Write card PAN");
@@ -234,8 +185,10 @@ public class CashRegisterSystem {
     }
 
     private void logIn() {
-        if (findPerson() instanceof Employee employee && activeEmployee == null)
+        if (findPerson() instanceof Employee employee && activeEmployee == null){
             activeEmployee = employee;
+            activeEmployee.logIntoScanner();
+        }
     }
 
     private void logOut() {
@@ -243,12 +196,72 @@ public class CashRegisterSystem {
     }
 
     private void exit(){
-        System.exit(0);
+        isActive = false;
+    }
+
+    private String getFirstOrSurName(String nameType) {
+        String name = null;
+        while (name == null){
+            String firstName = input.readLine("Write your " + nameType);
+            if (firstName.equalsIgnoreCase("exit"))
+                return null;
+            if (InputFormatter.isCorrectName(firstName))
+                name = firstName;
+        }
+        return name;
+    }
+
+    private String getSocialSecurityNumber() {
+        String ssn = null;
+        while (ssn == null){
+            String tempSsn = input.readLine("Write your social security number");
+            if (tempSsn.equalsIgnoreCase("exit"))
+                return null;
+            if (InputFormatter.isCorrectSSN(tempSsn))
+                ssn = tempSsn;
+        }
+        return ssn;
+    }
+
+    private String getPhoneNumber() {
+        String phoneNumber = null;
+        while (phoneNumber == null){
+            String temp = input.readLine("Write your phone number");
+            if (temp.equalsIgnoreCase("exit"))
+                return null;
+            if (InputFormatter.isCorrectPhoneNr(temp))
+                phoneNumber = temp;
+        }
+        return phoneNumber;
+    }
+
+    private String getEmailAddress() {
+        String email = null;
+        while (email == null){
+            String temp = input.readLine("Write your email address");
+            if (temp.equalsIgnoreCase("exit"))
+                return null;
+            if (InputFormatter.isCorrectEmailAddress(temp))
+                email = temp;
+        }
+        return email;
+    }
+
+    private String getHomeAddress() {
+        String homeAddress = null;
+        while (homeAddress == null){
+            String temp = input.readLine("Write your home address");
+            if (temp.equalsIgnoreCase("exit"))
+                return null;
+            if (InputFormatter.isCorrectHomeAddress(temp))
+                homeAddress = temp;
+        }
+        return homeAddress;
     }
 
     private Person findPerson() {
         String socialSecurityNr = input.readLine("Write your social security number");
-        if (socialSecurityNr.toLowerCase() == "exit")
+        if (socialSecurityNr.equalsIgnoreCase("exit"))
             return null;
 
         if (!InputFormatter.isCorrectSSN(socialSecurityNr)){
@@ -256,7 +269,7 @@ public class CashRegisterSystem {
             findPerson();
         }
         for (Person person : persons)
-            if (person.getSocialSecurityNr() == socialSecurityNr)
+            if (InputFormatter.socialSecurityIsEqual(person.getSocialSecurityNr(), socialSecurityNr))
                 return person;
         return null;
     }
