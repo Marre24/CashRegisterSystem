@@ -7,26 +7,25 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.math.BigDecimal;
+
 public class MockTestClass {
 
     @Mock
     private Product product;
 
     @InjectMocks
-    private Order order;
+    private Order order = new Order(mock(Employee.class));
 
     @BeforeEach
     void setUp(){
         MockitoAnnotations.initMocks(this);
+        order.addProduct(product);
     }
 
     @Test
     void testGetTotalPrice(){
-        Long hej = (long) Math.random();
-        when(product.getPrice()).thenReturn(hej);
-        order.addProduct(product);
-        Long longen = order.getTotalPrice();
-        assertEquals(hej, longen);
+        when(product.getPrice()).thenReturn(1l);
+        assertEquals(1,order.getTotalPrice());
     }
-
 }

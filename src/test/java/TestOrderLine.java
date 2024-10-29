@@ -1,10 +1,22 @@
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+
+import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.when;
 
 public class TestOrderLine {
 
     private final int MAX_LENGTH_ORDERLINE = 50;
+
+    @Mock
+    private Product product;
+
+    @InjectMocks
+    private OrderLine orderLine = new OrderLine();
 
     @Test
     void Add_Product_AddsProductToLine(){
@@ -174,4 +186,26 @@ public class TestOrderLine {
         assertEquals(expectedString, orderLine.toString());
     }
 
+    @Test
+    void GetTotalPrice_OneProductWithWeight_CorrectPrice(){
+        MockitoAnnotations.initMocks(this);
+        when(product.isPricedByWeight()).thenReturn(true);
+        when(product.getPrice()).thenReturn(1000l);
+
+        orderLine.addProduct(product);
+
+        assertEquals(1, orderLine.getTotalPrice());
+    }
+
+    @Test
+    void ToString_OneProductWithWeight_CorrectPrice(){
+        MockitoAnnotations.initMocks(this);
+        when(product.isPricedByWeight()).thenReturn(true);
+        when(product.getPrice()).thenReturn(1000l);
+        when(product.getName()).thenReturn("A");
+
+        orderLine.addProduct(product);
+
+        assertEquals("", orderLine.toString());
+    }
 }

@@ -35,6 +35,10 @@ public class Product {
                 ", Price tag: " + price;
     }
 
+    public boolean isPricedByWeight(){
+        return productGroups.contains(ProductGroup.PricedByWeight);
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (!(obj instanceof Product))

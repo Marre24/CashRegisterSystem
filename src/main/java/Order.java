@@ -19,11 +19,12 @@ public class Order {
 
     //delete from line and delete in line
     public void addProduct(Product p) {
-        for (OrderLine orderLine : orderLines)
-            if (orderLine.getProductType() == p){
-                orderLine.addProduct(p);
-                return;
-            }
+        if (!p.isPricedByWeight()) {
+            for (OrderLine orderLine : orderLines)
+                if (orderLine.getProductType() == p)
+                    orderLine.addProduct(p);
+                    return;
+        }
         orderLines.add(new OrderLine(p));
     }
 
@@ -55,15 +56,27 @@ public class Order {
         return responsibleEmployee.getFullName();
     }
 
+    public long getMemberPrice() {
+        return Double.valueOf(getTotalPrice() * (1 - Membership.DISCOUNT_FACTOR)).longValue();
+    }
+
+    /*public void removeProduct(String productName, int amount) {
+        for (OrderLine orderLine : orderLines)
+            if (orderLine.getProductType().getName().equals(productName)){
+                if (orderLine.getAmountOfProduct() > amount){
+                    orderLine.removeProduct(amount);
+                } else{
+                    orderLines.remove(orderLine);
+                }
+            }
+
+    }*/
+
     @Override
     public String toString(){
         StringBuilder s = new StringBuilder();
         for (OrderLine orderLine : orderLines)
             s.append(orderLine.toString()).append("\n");
         return s.substring(0, s.length() - 1);
-    }
-
-    public long getMemberPrice() {
-        return Double.valueOf(getTotalPrice() * (1 - Membership.DISCOUNT_FACTOR)).longValue();
     }
 }
