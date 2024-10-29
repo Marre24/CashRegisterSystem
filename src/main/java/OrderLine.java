@@ -1,7 +1,7 @@
 public class OrderLine {
 
-    private int MAX_LENGTH_NAME = 20;
-    private int MAX_LENGTH_ORDERLINE = 50;
+    private static final int MAX_LENGTH_NAME = 20;
+    private static final int MAX_LENGTH_ORDER_LINE = 50;
 
     public OrderLine(){
 
@@ -48,18 +48,18 @@ public class OrderLine {
 
     @Override
     public String toString() {
-        String name = getProductType().getName();
+        StringBuilder name = new StringBuilder(getProductType().getName());
         if (name.length() > MAX_LENGTH_NAME){
-            name = name.substring(0, MAX_LENGTH_NAME-3) + "...";
+            name = new StringBuilder(name.substring(0, MAX_LENGTH_NAME - 3) + "...");
         }
         if (amountOfProduct > 1) {
             String multipleProductsPrice = amountOfProduct + "st * " + product.getPrice();
-            name = name + " " + multipleProductsPrice;
+            name.append(" ").append(multipleProductsPrice);
         }
-        while (name.length() < MAX_LENGTH_ORDERLINE - String.valueOf(getTotalPrice()).length()){
-            name = name + " ";
+        while (name.length() < MAX_LENGTH_ORDER_LINE - String.valueOf(getTotalPrice()).length()){
+            name.append(" ");
         }
-        name = name + getTotalPrice();
-        return name;
+        name.append(getTotalPrice());
+        return name.toString();
     }
 }

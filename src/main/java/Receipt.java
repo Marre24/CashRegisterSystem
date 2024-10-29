@@ -5,8 +5,8 @@ import java.io.IOException;
 
 public class Receipt {
 
-    private static String tempCompany = "Temp Company Name\nCompany Address\nPostcode CityName\nOrg.nr. 11111111-1111";
-    private static String receiptHeader = "RECEIPT";
+    private static final String tempCompany = "Temp Company Name\nCompany Address\nPostcode CityName\nOrg.nr. 11111111-1111";
+    private static final String receiptHeader = "RECEIPT";
 
     public static void printReceipt(Purchase purchase, PaymentCard card){
         try {

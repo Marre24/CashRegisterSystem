@@ -60,7 +60,6 @@ public class Order {
         StringBuilder s = new StringBuilder();
         for (OrderLine orderLine : orderLines)
             s.append(orderLine.toString()).append("\n");
-        String result = s.toString().substring(0, s.length() - 1);
-        return result;
+        return s.substring(0, s.length() - 1);
     }
 }

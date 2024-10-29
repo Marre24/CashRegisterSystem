@@ -4,7 +4,7 @@ public class ProductScanner {
 
     private static final ArrayList<Order> ordersOnHold = new ArrayList<>();
     private Order activeOrder;
-    private Employee activeEmployee;
+    private final Employee activeEmployee;
 
     public ProductScanner(Employee activeEmployee) {
         this.activeEmployee = activeEmployee;
@@ -43,10 +43,6 @@ public class ProductScanner {
     public void setActiveOrderOnHold(){
         ordersOnHold.add(activeOrder);
         activeOrder = null;
-    }
-
-    public ArrayList<Order> getOrdersOnHold(){
-        return ordersOnHold;
     }
 
     public Order getOrderOnHold(String s){

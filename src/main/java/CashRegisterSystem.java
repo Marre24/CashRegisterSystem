@@ -30,10 +30,10 @@ public class CashRegisterSystem {
     ArrayList<PaymentCard> paymentCards = new ArrayList<>();
     Employee activeEmployee = null;
 
+    static boolean isActive = true;
     static InputReader input = new InputReader();
 
     public static void main(String[] args) {
-        boolean isActive = true;
         CashRegisterSystem cashRegisterSystem = new CashRegisterSystem();
         System.out.println(WELCOME_MESSAGE);
         while (isActive){
@@ -146,7 +146,7 @@ public class CashRegisterSystem {
         }
         System.out.println(activeEmployee.getScanner().getActiveOrder().toString());
         String yn = input.readLine("Are you sure you want to finalize order? (y/n)");
-        if (yn.toLowerCase() == "n"){
+        if (yn.equalsIgnoreCase("n")){
             return;
         }
         String cardPan = input.readLine("Write card PAN");
@@ -185,8 +185,10 @@ public class CashRegisterSystem {
     }
 
     private void logIn() {
-        if (findPerson() instanceof Employee employee && activeEmployee == null)
+        if (findPerson() instanceof Employee employee && activeEmployee == null){
             activeEmployee = employee;
+            activeEmployee.logIntoScanner();
+        }
     }
 
     private void logOut() {
@@ -194,7 +196,7 @@ public class CashRegisterSystem {
     }
 
     private void exit(){
-        System.exit(0);
+        isActive = false;
     }
 
     private String getFirstOrSurName(String nameType) {

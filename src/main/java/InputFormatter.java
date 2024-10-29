@@ -59,7 +59,6 @@ abstract public class InputFormatter {
     }
 
     private static int normalize(String socialSecurityNr) {
-        int nextIndex = 0;
         socialSecurityNr = socialSecurityNr.replaceAll("-", "");
 
         if (socialSecurityNr.length() == 12)
