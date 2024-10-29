@@ -5,89 +5,73 @@ import static org.junit.jupiter.api.Assertions.*;
 public class TestOrder {
 
     Product p = new Product("ProductName", 0, Producer.Arla, ProductGroup.Beverage);
-    String pExpectedOrderLineFormat = "ProductName                                      0";
     Product p1 = new Product("ProductName1",1, Producer.Arla, ProductGroup.Dairy);
-    String p1ExpectedOrderLineFormat = "ProductName1                                     1";
     Product p2 = new Product("ProductName2", 2, Producer.Arla, ProductGroup.Candy);
-    String p2ExpectedOrderLineFormat = "ProductName2                                     2";
+    final static String TO_STRING_FOR_P = "ProductName                                      0";
+    final static String TO_STRING_FOR_P1 = "ProductName1                                     1";
+    final static String TO_STRING_FOR_P2 = "ProductName2                                     2";
+    final static String TO_STRING_FOR_TWO_P = "ProductName 2st * 0                              0";
+    final static String TO_STRING_FOR_TWO_P1 = "ProductName1 2st * 1                             2";
+
+    Employee employee = new Employee("", "", "", "", "", "");
 
     @Test
     void Constructor_EmployeeCreatesOrder_EmptyOrder(){
-        Order order = new Order(null);
+        Order order = new Order(employee);
 
         assertTrue(order.getOrderLines().isEmpty());
     }
 
     @Test
-    void Add_SingleProduct_ProductAdded(){
-        Order order = new Order(null);
+    void Constructor_ResponsibleEmployeeIsNull_ExceptionThrown(){
+        assertThrows(IllegalArgumentException.class, () -> new Order(null), "Employee was null");
+    }
+
+    @Test
+    void AddProduct_SingleProduct_ProductAdded(){
+        Order order = new Order(employee);
+        int expectedAmountOfOrderLines = 1;
 
         order.addProduct(p);
 
-        assertEquals(1, order.getOrderLines().size());
+        assertEquals(expectedAmountOfOrderLines, order.getOrderLines().size());
         assertTrue(order.containsProduct(p));
     }
 
     @Test
-    void Add_MultipleDifferentProducts_ProductsAdded(){
-        Order order = new Order(null);
+    void AddProduct_MultipleDifferentProducts_ProductsAdded(){
+        Order order = new Order(employee);
+        int expectedAmountOfOrderLines = 3;
         
         order.addProduct(p);
         order.addProduct(p1);
         order.addProduct(p2);
         var orderLines = order.getOrderLines();
 
-        assertEquals(3, orderLines.size());
+        assertEquals(expectedAmountOfOrderLines, orderLines.size());
         assertTrue(order.containsProduct(p));
         assertTrue(order.containsProduct(p1));
         assertTrue(order.containsProduct(p2));
     }
 
     @Test
-    void Add_MultipleOfSameProduct_ProductsAdded(){
-        Order order = new Order(null);
+    void AddProduct_MultipleOfSameProduct_ProductsAdded(){
+        Order order = new Order(employee);
+        int expectedAmountOfOrderLines = 1;
+        int expectedAmountOfProducts = 3;
 
         order.addProduct(p);
         order.addProduct(p);
         order.addProduct(p);
 
-        assertEquals(1, order.getOrderLines().size());
+        assertEquals(expectedAmountOfOrderLines, order.getOrderLines().size());
         assertTrue(order.containsProduct(p));
-        assertEquals(3, order.getProductAmount(p));
-    }
-
-    //Order needs to be sorted and Product comparable
-    @Test
-    void ToString_MultipleProductsNoDuplicates_CorrectlyFormattedString(){
-        Order order = new Order(null);
-
-
-        order.addProduct(p);
-        order.addProduct(p1);
-        order.addProduct(p2);
-
-        assertEquals(pExpectedOrderLineFormat + "\n"
-                + p1ExpectedOrderLineFormat + "\n"
-                + p2ExpectedOrderLineFormat, order.toString());
+        assertEquals(expectedAmountOfProducts, order.getProductAmount(p));
     }
 
     @Test
-    void ToString_MultipleProductsWithDuplicates_CorrectlyFormattedString(){
-        Order order = new Order(null);
-        String p1Expected = "ProductName1 2st * 1                             2";
-
-        order.addProduct(p);
-        order.addProduct(p1);
-        order.addProduct(p1);
-
-        assertEquals(pExpectedOrderLineFormat + "\n"
-        + p1Expected, order.toString());
-    }
-
-
-    @Test
-    void Add_SingleProduct_TotalPriceIsCorrect(){
-        Order order = new Order(null);
+    void TotalPrice_SingleProduct_TotalPriceIsCorrect(){
+        Order order = new Order(employee);
 
         order.addProduct(p);
 
@@ -95,20 +79,20 @@ public class TestOrder {
     }
 
     @Test
-    void Add_MultipleSameProducts_TotalPriceIsCorrect(){
-        Order order = new Order(null);
-        long expectedPrice = p.getPrice() * 3;
+    void TotalPrice_MultipleSameProducts_TotalPriceIsCorrect(){
+        Order order = new Order(employee);
+        int amountOfProducts = 3;
+        long expectedPrice = p.getPrice() * amountOfProducts;
 
-        order.addProduct(p);
-        order.addProduct(p);
-        order.addProduct(p);
+        for (int i = 0; i < amountOfProducts; i++)
+            order.addProduct(p);
 
         assertEquals(expectedPrice, order.getTotalPrice());
     }
 
     @Test
-    void Add_MultipleDifferentProducts_TotalPriceIsCorrect(){
-        Order order = new Order(null);
+    void TotalPrice_MultipleDifferentProducts_TotalPriceIsCorrect(){
+        Order order = new Order(employee);
         long expectedPrice = p.getPrice() + p1.getPrice() + p2.getPrice();
 
         order.addProduct(p);
@@ -118,19 +102,52 @@ public class TestOrder {
         assertEquals(expectedPrice, order.getTotalPrice());
     }
 
-
     @Test
-    void Add_MultipleDifferentMultipleProducts_TotalPriceIsCorrect(){
-        Order order = new Order(null);
+    void TotalPrice_MultipleDifferentMultipleProducts_TotalPriceIsCorrect(){
+        Order order = new Order(employee);
         long expectedPrice = (p.getPrice() * 3) + (p1.getPrice() * 2) + p2.getPrice();
 
         order.addProduct(p);
         order.addProduct(p);
         order.addProduct(p);
+
         order.addProduct(p1);
         order.addProduct(p1);
+
         order.addProduct(p2);
 
         assertEquals(expectedPrice, order.getTotalPrice());
+    }
+
+    @Test
+    void ToString_MultipleDifferentProducts_CorrectlyFormattedString(){
+        Order order = new Order(employee);
+
+        order.addProduct(p);
+        order.addProduct(p1);
+        order.addProduct(p2);
+
+        assertEquals(TO_STRING_FOR_P + "\n" + TO_STRING_FOR_P1 + "\n" + TO_STRING_FOR_P2, order.toString());
+    }
+
+    @Test
+    void ToString_TwoOfSameProduct_CorrectlyFormattedString(){
+        Order order = new Order(employee);
+
+        order.addProduct(p);
+        order.addProduct(p);
+
+        assertEquals(TO_STRING_FOR_TWO_P, order.toString());
+    }
+
+    @Test
+    void ToString_MultipleProductsWithDuplicates_CorrectlyFormattedString(){
+        Order order = new Order(employee);
+
+        order.addProduct(p);
+        order.addProduct(p1);
+        order.addProduct(p1);
+
+        assertEquals(TO_STRING_FOR_P + "\n" + TO_STRING_FOR_TWO_P1, order.toString());
     }
 }
