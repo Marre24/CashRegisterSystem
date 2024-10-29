@@ -53,4 +53,18 @@ abstract public class InputFormatter {
         }
         return homeAddress.substring(0,1).toUpperCase() + homeAddress.substring(1).toLowerCase();
     }
+
+    public static boolean socialSecurityIsEqual(String socialSecurityNr, String socialSecurityNr1) {
+        return normalize(socialSecurityNr) == normalize(socialSecurityNr1);
+    }
+
+    private static int normalize(String socialSecurityNr) {
+        int nextIndex = 0;
+        socialSecurityNr = socialSecurityNr.replaceAll("-", "");
+
+        if (socialSecurityNr.length() == 12)
+            socialSecurityNr = socialSecurityNr.substring(2,12);
+
+        return Integer.parseInt(socialSecurityNr);
+    }
 }
