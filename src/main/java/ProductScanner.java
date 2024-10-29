@@ -4,11 +4,7 @@ public class ProductScanner {
 
     private static final ArrayList<Order> ordersOnHold = new ArrayList<>();
     private Order activeOrder;
-    private final Employee activeEmployee;
-
-    public ProductScanner(Employee activeEmployee) {
-        this.activeEmployee = activeEmployee;
-    }
+    private Employee loggedInEmployee;
 
     public void scanProduct(Product product) {
         activeOrder.addProduct(product);
@@ -28,8 +24,14 @@ public class ProductScanner {
         else return null;
     }
 
-    public Employee getActiveEmployee() {
-        return activeEmployee;
+    public void setLoggedInEmployee(Employee employee){
+        if (loggedInEmployee != null)
+            loggedInEmployee.logOut();
+        loggedInEmployee = employee;
+    }
+
+    public Employee getLoggedInEmployee() {
+        return loggedInEmployee;
     }
 
     public boolean containsProduct(Product p){
@@ -37,7 +39,8 @@ public class ProductScanner {
     }
 
     public void startNewOrder(){
-        activeOrder = new Order(activeEmployee);
+        // TODO: 2024-10-29 cant start new order without loggedInEmployee
+        activeOrder = new Order(loggedInEmployee);
     }
 
     public void setActiveOrderOnHold(){

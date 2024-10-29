@@ -1,6 +1,6 @@
 public class Employee extends Person{
 
-    private ProductScanner productScanner;
+    private ProductScanner activeScanner = null;
 
     public Employee(String firstName, String surName, String socialSecurityNr, String phoneNumber, String emailAddress, String homeAddress) {
         super(firstName, surName, socialSecurityNr, phoneNumber, emailAddress, homeAddress);
@@ -11,27 +11,32 @@ public class Employee extends Person{
         return getFullName();
     }
 
-    public void logIntoScanner(){
-        productScanner = new ProductScanner(this);
+    public void logIntoScanner(ProductScanner scanner){
+        this.activeScanner = scanner;
+        this.activeScanner.setLoggedInEmployee(this);
+    }
+
+    public void logOut(){
+        activeScanner = null;
     }
 
     public void scanProduct(Product product){
-        if(productScanner == null){
+        if(activeScanner == null){
             throw new IllegalArgumentException("Employee is not logged into any scanner");
         }
-        if(productScanner.hasActiveOrder()){
-            productScanner.scanProduct(product);
+        if(activeScanner.hasActiveOrder()){
+            activeScanner.scanProduct(product);
         } else {
-            productScanner.startNewOrder();
-            productScanner.scanProduct(product);
+            activeScanner.startNewOrder();
+            activeScanner.scanProduct(product);
         }
     }
 
-    public ProductScanner getScanner(){
-        return productScanner;
+    public ProductScanner getActiveScanner(){
+        return activeScanner;
     }
 
     public void finalizeOrder(PaymentCard card){
-        productScanner.finalizeOrder(card);
+        activeScanner.finalizeOrder(card);
     }
 }

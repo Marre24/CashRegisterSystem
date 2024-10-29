@@ -15,7 +15,8 @@ public class TestReceipt {
     void PrintReceipt_ReceiptPrintsToFile_(){
         Employee employee = new Employee("FirstName","SurName","A","A","A","A");
         Person person = new Person("B","B","B","B","B","B");
-        ProductScanner productScanner = new ProductScanner(employee);
+        ProductScanner productScanner = new ProductScanner();
+        productScanner.setLoggedInEmployee(employee);
         productScanner.startNewOrder();
         productScanner.scanProduct(product);
         productScanner.scanProduct(product);

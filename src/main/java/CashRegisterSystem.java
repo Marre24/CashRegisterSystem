@@ -24,11 +24,13 @@ public class CashRegisterSystem {
             LOGG_OUT_SCANNER,
             EXIT_COMMAND);
 
-    ArrayList<Person> persons = new ArrayList<>();
-    ArrayList<Employee> employees = new ArrayList<>();
-    ArrayList<Product> products = new ArrayList<>();
-    ArrayList<PaymentCard> paymentCards = new ArrayList<>();
+    final ArrayList<Person> persons = new ArrayList<>();
+    final ArrayList<Employee> employees = new ArrayList<>();
+    final ArrayList<Product> products = new ArrayList<>();
+    final ArrayList<PaymentCard> paymentCards = new ArrayList<>();
+
     Employee activeEmployee = null;
+    ProductScanner productScanner = new ProductScanner();
 
     static boolean isActive = true;
     static InputReader input = new InputReader();
@@ -162,7 +164,7 @@ public class CashRegisterSystem {
             System.out.println("No active employee");
             return;
         }
-        System.out.println(activeEmployee.getScanner().getActiveOrder().toString());
+        System.out.println(activeEmployee.getActiveScanner().getActiveOrder().toString());
         String yn = input.readLine("Are you sure you want to finalize order? (y/n)");
         if (yn.equalsIgnoreCase("n")){
             return;
@@ -205,7 +207,7 @@ public class CashRegisterSystem {
     private void logIn() {
         if (findPerson() instanceof Employee employee && activeEmployee == null){
             activeEmployee = employee;
-            activeEmployee.logIntoScanner();
+            activeEmployee.logIntoScanner(productScanner);
         }
     }
 
