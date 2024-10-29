@@ -62,4 +62,8 @@ public class Order {
             s.append(orderLine.toString()).append("\n");
         return s.substring(0, s.length() - 1);
     }
+
+    public long getMemberPrice() {
+        return Double.valueOf(getTotalPrice() * (1 - Membership.DISCOUNT_FACTOR)).longValue();
+    }
 }
