@@ -157,6 +157,7 @@ public class CashRegisterSystem {
             return;
         }
         employees.add(e);
+        System.out.println("The employee " + e.getFullName() + " was created");
     }
 
     private void finalizeOrder(){
@@ -204,20 +205,27 @@ public class CashRegisterSystem {
         if (scannedProduct.isPricedByWeight()){
             Long weight = input.readLong("Enter weight of product (grams)");
             activeEmployee.scanProduct(scannedProduct, weight);
-            return;
+            System.out.println(weight + " grams of " + scannedProduct.getName() + " was added to order");
         }
-        activeEmployee.scanProduct(scannedProduct);
+        activeEmployee.scanProduct(scannedProduct);;
+        System.out.println(scannedProduct.getName() + " was added to order");
     }
 
     private void logIn() {
-        if (findPerson() instanceof Employee employee && activeEmployee == null){
+        Employee employee = findEmployee();
+        if (employees.contains(employee) && activeEmployee == null){
             activeEmployee = employee;
             activeEmployee.logIntoScanner(productScanner);
+            System.out.println(activeEmployee.getFullName() + " logged in");
+        } else {
+            System.out.println("You are not an employee");
         }
     }
 
     private void logOut() {
+        Employee employee = activeEmployee;
         activeEmployee = null;
+        System.out.println(employee.getFullName() + " logged out");
     }
 
     private void exit(){
@@ -296,6 +304,22 @@ public class CashRegisterSystem {
         for (Person person : persons)
             if (InputFormatter.socialSecurityIsEqual(person.getSocialSecurityNr(), socialSecurityNr))
                 return person;
+        return null;
+    }
+
+    private Employee findEmployee() {
+        String socialSecurityNr = input.readLine("Write your social security number");
+        if (socialSecurityNr.equalsIgnoreCase("exit"))
+            return null;
+
+        if (!InputFormatter.isCorrectSSN(socialSecurityNr)){
+            System.out.println("Social security number is not valid");
+            findEmployee();
+        }
+        for (Employee employee : employees)
+            if (InputFormatter.socialSecurityIsEqual(employee.getSocialSecurityNr(), socialSecurityNr))
+                return employee;
+        System.out.println("No employee with that social security number exists");
         return null;
     }
 }
