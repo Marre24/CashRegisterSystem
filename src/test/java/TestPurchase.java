@@ -1,18 +1,28 @@
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.mockito.*;
+import org.mockito.MockitoAnnotations;
 
 public class TestPurchase {
-
-
     private Person cardOwner;
     private Employee employee;
     private Order order;
 
+    @Mock
+    Person person;
+    @Mock
+    private Order mockedOrder;
+
+    @InjectMocks
+    private Purchase purchase;
+
     @BeforeEach
     void setUp() {
+        MockitoAnnotations.initMocks(this);
+
         cardOwner = new Person("Alex", "Boe", "19950211-1325", "12345", "a@g.com", "NotaStrt");
         employee = new Employee("John", "Doe", "20000511-1323", "12345", "e@g.com", "AlsNtsTrt");
         order = new Order(employee);
@@ -47,4 +57,39 @@ public class TestPurchase {
         boolean covers = purchase.debitCardBalanceCoversPurchase(cardBalance, orderTotalPrice);
         assertFalse(covers);
     }
+
+    @Test
+    void Purchase_WithMemberPrice_BalanceIsDeductedWithDiscount(){
+        long initialBalance = 100L;
+        when(person.isMember()).thenReturn(true);
+        when(mockedOrder.getMemberPrice()).thenReturn(10L);
+        when(mockedOrder.getTotalPrice()).thenReturn(20L);
+
+        DebitCard debitCard = new DebitCard(person, "", "", "", 0, initialBalance);
+        Purchase purchase = new Purchase(order);
+        purchase.handlePayment(debitCard);
+
+        long cardBalance = debitCard.getBalance();
+        long memberPrice = order.getMemberPrice();
+
+        assertEquals(initialBalance - memberPrice, cardBalance);
+    }
+
+    @Test
+    void Purchase_NotMember_BalanceIsDeductedWithStandardPrice(){
+        long initialBalance = 100L;
+        when(person.isMember()).thenReturn(false);
+        when(mockedOrder.getMemberPrice()).thenReturn(10L);
+        when(mockedOrder.getTotalPrice()).thenReturn(20L);
+
+        DebitCard debitCard = new DebitCard(person, "", "", "", 0, initialBalance);
+        Purchase purchase = new Purchase(order);
+        purchase.handlePayment(debitCard);
+
+        long cardBalance = debitCard.getBalance();
+        long standardPrice = order.getTotalPrice();
+
+        assertEquals(initialBalance - standardPrice, cardBalance);
+    }
+
 }

@@ -28,6 +28,10 @@ abstract public class PaymentCard {
         return this.pan;
     }
 
+    public Person getOwner() {
+        return owner;
+    }
+
     @Override
     public String toString() {
         return "**** **** **** " + pan.substring(pan.length() - 4);

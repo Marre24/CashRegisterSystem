@@ -17,7 +17,11 @@ public class Purchase {
 
     public boolean handlePayment(PaymentCard card){
         try{
-            card.pay(order.getTotalPrice());
+            if(card.getOwner().isMember())
+                card.pay(order.getMemberPrice());
+            else
+                card.pay(order.getTotalPrice());
+
             return true;
         }
         catch(Exception e){
