@@ -4,8 +4,19 @@ public class Scale {
 
     }
 
+
+
+    public long randomizeWeight() {
+        Random rd = new Random();
+        long min = 10;          //weight in gram
+        long max = 10000;
+        return min + (long) (rd.nextDouble() * (max-min));
+
+    }
+
+
     public double getWeight() {
-        return 1.0;
+        return randomizeWeight();
     }
 
 }
