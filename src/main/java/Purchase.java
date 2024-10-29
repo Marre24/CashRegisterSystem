@@ -3,7 +3,7 @@ import java.time.LocalTime;
 
 public class Purchase {
 
-    private String OUTLINE = "--------------------------------------------------";
+    private static final String OUTLINE = "--------------------------------------------------";
 
     private final Order order;
     private final LocalDate date;
