@@ -12,6 +12,7 @@ public class OrderLine {
 
     private Product product = null;
     private int amountOfProduct = 0;
+    private int weightOfProduct = 0;
 
     public void addProduct(Product newProduct) {
         if (newProduct == null)
@@ -19,7 +20,11 @@ public class OrderLine {
 
         if (this.product == null){
             this.product = newProduct;
-            amountOfProduct++;
+            if (!product.getProductGroups().contains(ProductGroup.PricedByWeight) {
+                amountOfProduct++;
+            } else{
+                weightOfProduct += Scale.getWeight();
+            }
             return;
         }
 
@@ -42,7 +47,9 @@ public class OrderLine {
     }
 
     public long getTotalPrice() {
-        if (product.getProductGroups().contains(ProductGroup.pricedByWeight))
+        if (product.getProductGroups().contains(ProductGroup.PricedByWeight)){
+            return (product.getPrice() * amountOfProduct)/1000;
+        }
         return product.getPrice() * amountOfProduct;
     }
 

@@ -1,9 +1,5 @@
 public class Scale {
 
-    public Scale() {
-
-    }
-
     public double getWeight() {
         return 1.0;
     }
