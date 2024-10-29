@@ -188,8 +188,6 @@ public class CashRegisterSystem {
         employees.add(e);
     }
 
-
-
     private void finalizeOrder(){
         if (activeEmployee == null){
             System.out.println("No active employee");

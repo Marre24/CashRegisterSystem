@@ -4,7 +4,6 @@ public class OrderLine {
     private int MAX_LENGTH_ORDERLINE = 50;
 
     public OrderLine(){
-
     }
 
     public OrderLine(Product product){
@@ -43,6 +42,7 @@ public class OrderLine {
     }
 
     public long getTotalPrice() {
+        if (product.getProductGroups().contains(ProductGroup.pricedByWeight))
         return product.getPrice() * amountOfProduct;
     }
 

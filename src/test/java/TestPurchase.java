@@ -47,4 +47,39 @@ public class TestPurchase {
         boolean covers = purchase.debitCardBalanceCoversPurchase(cardBalance, orderTotalPrice);
         assertFalse(covers);
     }
+
+    @Test
+    void Purchase_WithMemberPrice_BalanceIsDeductedWithDiscount(){
+        long initialBalance = 100L;
+        when(person.isMember()).thenReturn(true);
+        when(mockedOrder.getMemberPrice()).thenReturn(10L);
+        when(mockedOrder.getTotalPrice()).thenReturn(20L);
+
+        DebitCard debitCard = new DebitCard(person, "", "", "", 0, initialBalance);
+        Purchase purchase = new Purchase(order);
+        purchase.handlePayment(debitCard);
+
+        long cardBalance = debitCard.getBalance();
+        long memberPrice = order.getMemberPrice();
+
+        assertEquals(initialBalance - memberPrice, cardBalance);
+    }
+
+    @Test
+    void Purchase_NotMember_BalanceIsDeductedWithStandardPrice(){
+        long initialBalance = 100L;
+        when(person.isMember()).thenReturn(false);
+        when(mockedOrder.getMemberPrice()).thenReturn(10L);
+        when(mockedOrder.getTotalPrice()).thenReturn(20L);
+
+        DebitCard debitCard = new DebitCard(person, "", "", "", 0, initialBalance);
+        Purchase purchase = new Purchase(order);
+        purchase.handlePayment(debitCard);
+
+        long cardBalance = debitCard.getBalance();
+        long standardPrice = order.getTotalPrice();
+
+        assertEquals(initialBalance - standardPrice, cardBalance);
+    }
+
 }
