@@ -10,6 +10,9 @@ public class Order {
 
 
     public Order(Employee employee) {
+        if(employee == null) {
+            throw new IllegalArgumentException();
+        }
         this.responsibleEmployee = employee;
     }
 

@@ -4,17 +4,29 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class TestInputFormatter {
 
-    /* Arguments length */
+
+    //
+    //ADD PERSON COMMAND TESTS
+    //
+
+    /* Arguments length for add person */
     @Test
     void PersonArguments_TooManyArguments_ReturnsFalse(){
         String invalidNoOfArgs = "abc abc abc abc abc abc abc";
-        assertFalse(InputFormatter.isCorrectFormatPerson(invalidNoOfArgs));
+        assertFalse(InputFormatter.hasRightAmountOfArgsForAddPerson(invalidNoOfArgs));
     }
 
     @Test
     void PersonArguments_TooFewArguments_ReturnsFalse() {
         String invalidNoOfArgs = "abc abc abc";
-        assertFalse(InputFormatter.isCorrectFormatPerson(invalidNoOfArgs));
+        assertFalse(InputFormatter.hasRightAmountOfArgsForAddPerson(invalidNoOfArgs));
+    }
+
+    @Test
+    void PersonArguments_CorrectAmountOfArguments_ReturnsTrue() {
+        String args = "abc abc abc abc abc abc";
+
+        assertTrue(InputFormatter.hasRightAmountOfArgsForAddPerson(args));
     }
 
     /* FirstName or SurName */
@@ -33,6 +45,12 @@ public class TestInputFormatter {
     @Test
     void Name_TooLongName_ReturnsFalse(){
         String invalidFirstName = "Johnsonsnameissofreakinglongitstoomuchthi";
+        assertFalse(InputFormatter.isCorrectName(invalidFirstName));
+    }
+
+    @Test
+    void Name_EmptyName_ReturnsFalse(){
+        String invalidFirstName = "";
         assertFalse(InputFormatter.isCorrectName(invalidFirstName));
     }
 
@@ -208,6 +226,8 @@ public class TestInputFormatter {
         assertFalse(InputFormatter.isCorrectPhoneNr(invalidPhoneNr));
     }
 
+    /* Email address */
+
     @Test
     void EmailAddress_SingleCharacterUsername_ReturnTrue() {
         String validEmailAddress = "f@g.com";
@@ -303,53 +323,48 @@ public class TestInputFormatter {
         String invalidEmailAddress = "f@g.";
         assertFalse(InputFormatter.isCorrectEmailAddress(invalidEmailAddress));
     }
-    /* Email Address */
 
     /* Home Address */
-    // <alfabetisk karaktar> <siffra> <5siffror> <alfabetiska karakt"arer>
-    // the input formatter actually formats input, and we should test that it has done so at the end
-    // for example user inputs SOLNa, this should pass, but it should reformat to Solna, and we must test
-    // address som en klass, eller bara splitta?
-    // streetName, streetNo, postNumber, postAddress
     @Test
     void HomeAddress_ValidAddress_ReturnsTrue() {
         String homeAddress = "thisIsAValidAddress 56";
-        boolean isValidAddress = InputFormatter.isCorrectHomeAddress(homeAddress);
-        assertTrue(isValidAddress);
+
+        assertTrue(InputFormatter.isCorrectHomeAddress(homeAddress));
     }
 
     @Test
     void HomeAddress_AddressHasNoStreetNo_ReturnsFalse() {
         String homeAddress = "thisIsAnInvalidAddress";
-        boolean invalidAddress = InputFormatter.isCorrectHomeAddress(homeAddress);
-        assertFalse(invalidAddress);
+
+        assertFalse(InputFormatter.isCorrectHomeAddress(homeAddress));
     }
 
     @Test
     void HomeAddress_WrongOrderNameAndNumber_ReturnsFalse() {
         String homeAddress = "56 thisIsAlsoInvalid";
-        boolean invalidAddress = InputFormatter.isCorrectHomeAddress(homeAddress);
-        assertFalse(invalidAddress);
+
+        assertFalse(InputFormatter.isCorrectHomeAddress(homeAddress));
     }
 
     @Test
     void HomeAddress_HasNoStreetName_ReturnsFalse() {
         String homeAddress = "56";
-        boolean invalidAddress = InputFormatter.isCorrectHomeAddress(homeAddress);
-        assertFalse(invalidAddress);
+
+        assertFalse(InputFormatter.isCorrectHomeAddress(homeAddress));
     }
 
     @Test
     void HomeAddress_EmptyString_ReturnsFalse() {
         String homeAddress = "";
-        boolean invalidAddress = InputFormatter.isCorrectHomeAddress(homeAddress);
-        assertFalse(invalidAddress);
+
+        assertFalse(InputFormatter.isCorrectHomeAddress(homeAddress));
     }
 
     @Test
-    void HomeAdress_UnformatedAdressInput_ReturnFormatedAdress(){
+    void HomeAddress_UnformattedAddress_ReturnFormattedAddress(){
         String testAddress = "STReetNAMe 87";
         String expectedAddress = "Streetname 87";
+
         assertEquals(expectedAddress, InputFormatter.formatAddress(testAddress));
     }
 }

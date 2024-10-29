@@ -2,6 +2,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class TestMembership {
 
@@ -13,12 +14,31 @@ public class TestMembership {
     final private String socialSecurityNr = "11112233-4444";
 
     @Test
-    void Constructor_Membership_ClassInstance(){
-        Person customer = new Person(firstName, surName, socialSecurityNr, phoneNumber, emailAdress, homeAdress);
-        Membership actual = new Membership(customer);
-        assertEquals(customer, actual.getOwner());
+    void GetOwner_WithPerson_ReturnsOwner(){
+        Person member = new Person(firstName, surName, socialSecurityNr, phoneNumber, emailAdress, homeAdress);
+        Membership actual = new Membership(member);
+
+        assertEquals(member, actual.getOwner());
     }
 
-    //Test some more :)
+    @Test
+    void Constructor_PersonIsNull_ThrowsException(){
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> { new Membership(null); },
+                "Member was null" );
+    }
+
+    @Test
+    void Constructor_PersonIsAlreadyMember_ThrowsException(){
+        Person person = new Person(firstName, surName, socialSecurityNr, phoneNumber, emailAdress, homeAdress);
+        Membership membership = new Membership(person);
+
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> { new Membership(person); },
+                "Member was null" );
+    }
+
 }
 

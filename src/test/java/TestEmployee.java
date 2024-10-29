@@ -16,46 +16,90 @@ public class TestEmployee {
     Product p2 = new Product("ProductName2", 2, Producer.Arla, ProductGroup.Fruit);
 
     @Test
-    void Constructor_ValidArguments_ValidEmployee(){
+    void ToString_FirstNameAndLastName_CorrectFormatting(){
         Employee employee = new Employee(firstName, surName, socialSecurityNr, phoneNumber, emailAddress, homeAddress);
-        assertEquals(employee.getFullName(), employee.toString());
+        assertEquals(firstName + " " + surName, employee.toString());
     }
 
     @Test
-    void Add_SingleProduct_ProductAdded(){
+    void LogIn_OnNonActiveScanner_ActiveScannerChanged(){
+        ProductScanner ps = new ProductScanner();
         Employee employee = new Employee(firstName, surName, socialSecurityNr, phoneNumber, emailAddress, homeAddress);
-        employee.logIntoScanner();
+
+        employee.logIntoScanner(ps);
+
+        assertEquals(ps, employee.getActiveScanner());
+        assertEquals(employee, ps.getLoggedInEmployee());
+    }
+
+    @Test
+    void ScanProduct_SingleProduct_ProductScanned(){
+        ProductScanner ps = new ProductScanner();
+        Employee employee = new Employee(firstName, surName, socialSecurityNr, phoneNumber, emailAddress, homeAddress);
+        employee.logIntoScanner(ps);
+        int expectedAmountOfOrderLines = 1;
+        int expectedAmountOfScannedProducts = 1;
 
         employee.scanProduct(p);
 
-        assertEquals(1, employee.getScanner().getActiveOrder().getOrderLines().size());
-        assertTrue(employee.getScanner().containsProduct(p));
+        assertEquals(expectedAmountOfOrderLines, employee.getActiveScanner().getActiveOrder().getOrderLines().size());
+        assertEquals(expectedAmountOfScannedProducts, employee.getActiveScanner().getActiveOrder().getProductAmount(p));
+        assertTrue(employee.getActiveScanner().containsProduct(p));
     }
 
     @Test
-    void Add_MultipleDifferentProducts_ProductsAdded(){
+    void ScanProduct_MultipleDifferentProducts_ProductsScanned(){
+        ProductScanner ps = new ProductScanner();
         Employee employee = new Employee(firstName, surName, socialSecurityNr, phoneNumber, emailAddress, homeAddress);
-        employee.logIntoScanner();
+        employee.logIntoScanner(ps);
+        int expectedAmountOfOrderLines = 3;
 
         employee.scanProduct(p);
         employee.scanProduct(p1);
         employee.scanProduct(p2);
 
-        assertEquals(3, employee.getScanner().getActiveOrder().getOrderLines().size());
-        assertTrue(employee.getScanner().containsProduct(p));
-        assertTrue(employee.getScanner().containsProduct(p1));
-        assertTrue(employee.getScanner().containsProduct(p2));
+        assertEquals(expectedAmountOfOrderLines, employee.getActiveScanner().getActiveOrder().getOrderLines().size());
+        assertTrue(employee.getActiveScanner().containsProduct(p));
+        assertTrue(employee.getActiveScanner().containsProduct(p1));
+        assertTrue(employee.getActiveScanner().containsProduct(p2));
     }
 
     @Test
     void Add_MultipleOfSameProduct_ProductsAdded(){
+        ProductScanner ps = new ProductScanner();
         Employee employee = new Employee(firstName, surName, socialSecurityNr, phoneNumber, emailAddress, homeAddress);
-        employee.logIntoScanner();
+        employee.logIntoScanner(ps);
+        int expectedAmountOfOrderLines = 1;
+        int expectedAmountOfScannedProducts = 3;
 
         employee.scanProduct(p);
         employee.scanProduct(p);
         employee.scanProduct(p);
 
-        assertEquals(3, employee.getScanner().getActiveOrder().getProductAmount(p));
+        assertEquals(expectedAmountOfOrderLines, employee.getActiveScanner().getActiveOrder().getOrderLines().size());
+        assertEquals(expectedAmountOfScannedProducts, employee.getActiveScanner().getActiveOrder().getProductAmount(p));
+    }
+
+    @Test
+    void Add_MultipleOrderLinesWithMultipleProducts_ProductsAdded(){
+        ProductScanner ps = new ProductScanner();
+        Employee employee = new Employee(firstName, surName, socialSecurityNr, phoneNumber, emailAddress, homeAddress);
+        employee.logIntoScanner(ps);
+        int expectedAmountOfOrderLines = 3;
+        int expectedAmountOfp = 3;
+        int expectedAmountOfp1 = 2;
+        int expectedAmountOfp2 = 1;
+
+        employee.scanProduct(p);
+        employee.scanProduct(p1);
+        employee.scanProduct(p);
+        employee.scanProduct(p1);
+        employee.scanProduct(p);
+        employee.scanProduct(p2);
+
+        assertEquals(expectedAmountOfOrderLines, employee.getActiveScanner().getActiveOrder().getOrderLines().size());
+        assertEquals(expectedAmountOfp, employee.getActiveScanner().getActiveOrder().getProductAmount(p));
+        assertEquals(expectedAmountOfp1, employee.getActiveScanner().getActiveOrder().getProductAmount(p1));
+        assertEquals(expectedAmountOfp2, employee.getActiveScanner().getActiveOrder().getProductAmount(p2));
     }
 }

@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class TestCreditCard {
 
     private static final int LIMIT = 100;
+    private static final int LIMIT_MID= 50;
     private static final int LOW_LIMIT = 10;
 
     private static final String BANK_NAME = "Nordea";
@@ -22,18 +23,7 @@ public class TestCreditCard {
     }
 
     @Test
-    void GetBalance_AfterTransactedPurchase_PriceHasBeenAddedToBalance(){
-        CreditCard card = new CreditCard(null, BANK_NAME, PAN, EXPIRATION_DATE, CSC, LIMIT);
-        Order order = new Order(null);
-
-        long price = order.getTotalPrice();
-        card.pay(price);
-
-        assertEquals(price, card.getBalance());
-    }
-
-    @Test
-    void Pay_PriceExceedsLimit_ExceptionThrown(){
+    void Pay_PricePlusBalanceExceedsLimit_ExceptionThrown(){
         CreditCard card = new CreditCard(null, BANK_NAME, PAN, EXPIRATION_DATE, CSC, LOW_LIMIT);
         Order order = new Order(null);
 
@@ -42,13 +32,24 @@ public class TestCreditCard {
         assertThrows(
                 IllegalArgumentException.class,
                 () -> card.pay(order.getTotalPrice()),
-                "Price is exceeds limit"
+                "Price plus balance exceeds limit"
         );
     }
 
     @Test
-    void Pay_PriceLessThanLimit_PriceReduced(){
+    void Pay_PricePlusBalanceLessThanLimit_BalanceIncreased(){
         CreditCard card = new CreditCard(null, BANK_NAME, PAN, EXPIRATION_DATE, CSC, LIMIT);
+        Order order = new Order(null);
+
+        order.addProduct(banana);
+        card.pay(order.getTotalPrice());
+
+        assertEquals(order.getTotalPrice(), card.getBalance());
+    }
+
+    @Test
+    void Pay_PricePlusBalanceEqualToLimit_BalanceIncreased(){
+        CreditCard card = new CreditCard(null, BANK_NAME, PAN, EXPIRATION_DATE, CSC, LIMIT_MID);
         Order order = new Order(null);
 
         order.addProduct(banana);

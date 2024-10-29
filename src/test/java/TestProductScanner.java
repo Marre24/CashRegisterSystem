@@ -11,7 +11,8 @@ public class TestProductScanner {
 
     @Test
     void ProductScanner_SetActiveOrder_ScannerHasActiveOrder() {
-        ProductScanner p = new ProductScanner(employee);
+        ProductScanner p = new ProductScanner();
+        p.setLoggedInEmployee(employee);
         Order o = new Order(employee);
         p.setActiveOrder(o);
         assertEquals(o, p.getActiveOrder());
@@ -19,7 +20,8 @@ public class TestProductScanner {
 
     @Test
     void ProductScanner_ScanSingleProduct_ProductAddedToOrder() {
-        ProductScanner p = new ProductScanner(employee);
+        ProductScanner p = new ProductScanner();
+        p.setLoggedInEmployee(employee);
         Order o = new Order(employee);
         p.setActiveOrder(o);
         p.scanProduct(p1);
@@ -28,7 +30,8 @@ public class TestProductScanner {
 
     @Test
     void ProductScanner_ScanMultipleProducts_ProductsAddedToOrder () {
-        ProductScanner p = new ProductScanner(employee);
+        ProductScanner p = new ProductScanner();
+        p.setLoggedInEmployee(employee);
         Order o = new Order(employee);
         p.setActiveOrder(o);
         p.scanProduct(p1);
@@ -39,20 +42,23 @@ public class TestProductScanner {
 
     @Test
     void ProductScanner_GetActiveEmployee_HasActiveEmployee() {
-        ProductScanner p = new ProductScanner(employee);
-        assertEquals(employee, p.getActiveEmployee());
+        ProductScanner ps = new ProductScanner();
+        ps.setLoggedInEmployee(employee);
+        assertEquals(employee, ps.getLoggedInEmployee());
     }
 
     @Test
     void ProductScanner_HasActiveOrder_True() {
-        ProductScanner p = new ProductScanner(employee);
+        ProductScanner p = new ProductScanner();
+        p.setLoggedInEmployee(employee);
         p.startNewOrder();
         assertTrue(p.hasActiveOrder());
     }
 
     @Test
     void OrderOnHold_ExistsAndHoldsScannedProduct() {
-        ProductScanner p = new ProductScanner(employee);
+        ProductScanner p = new ProductScanner();
+        p.setLoggedInEmployee(employee);
         Order o = new Order(employee);
         String s = o.getId();
         p.setActiveOrder(o);
