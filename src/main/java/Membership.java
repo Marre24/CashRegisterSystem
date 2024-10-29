@@ -1,15 +1,17 @@
 public class Membership  {
 
-    Person owner;
+    private final Person owner;
     public final static double DISCOUNT_FACTOR = 0.05;
 
     public Membership(Person person){
-        if (person.isMember()){
+        if (person == null)
+            throw new IllegalArgumentException("Customer is null");
+
+        if (person.isMember())
             throw new IllegalArgumentException("Customer is already a member");
-        } else{
-            person.addMembership(this);
-            this.owner = person;
-        }
+
+        person.addMembership(this);
+        this.owner = person;
     }
 
     public Person getOwner(){
