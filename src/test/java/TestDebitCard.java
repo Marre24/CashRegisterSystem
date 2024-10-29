@@ -16,6 +16,8 @@ public class TestDebitCard {
 
     private final Product banana = new Product("Banana", 50, Producer.Arla);
 
+    private final Employee employee = new Employee("", "", "", "", "", "");
+
     @Test
     void GetBalance_OnCreate_ReturnBalance(){
         DebitCard card = new DebitCard(null, BANK_NAME, PAN, EXPIRATION_DATE, CSC, MID_BALANCE);
@@ -25,7 +27,7 @@ public class TestDebitCard {
     @Test
     void Pay_PriceGreaterThanBalance_ThrowsException(){
         DebitCard card = new DebitCard(null, BANK_NAME, PAN, EXPIRATION_DATE, CSC, LOW_BALANCE);
-        Order order = new Order(null);
+        Order order = new Order(employee);
 
         order.addProduct(banana);
 
@@ -39,7 +41,7 @@ public class TestDebitCard {
     @Test
     void Pay_PriceLessThanBalance_PriceDecreases(){
         DebitCard card = new DebitCard(null, BANK_NAME, PAN, EXPIRATION_DATE, CSC, BALANCE);
-        Order order = new Order(null);
+        Order order = new Order(employee);
 
         order.addProduct(banana);
 
@@ -51,7 +53,7 @@ public class TestDebitCard {
     @Test
     void Pay_PriceEqualToBalance_PriceDecreases(){
         DebitCard card = new DebitCard(null, BANK_NAME, PAN, EXPIRATION_DATE, CSC, MID_BALANCE);
-        Order order = new Order(null);
+        Order order = new Order(employee);
 
         order.addProduct(banana);
 
