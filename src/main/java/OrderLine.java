@@ -42,7 +42,7 @@ public class OrderLine {
     }
 
     public long getTotalPrice() {
-        if (product.getProductGroups().contains(ProductGroup.pricedByWeight))
+        //if (product.getProductGroups().contains(ProductGroup.PricedByWeight))
         return product.getPrice() * amountOfProduct;
     }
 

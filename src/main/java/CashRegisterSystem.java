@@ -88,7 +88,21 @@ public class CashRegisterSystem {
         String emailAddress = getEmailAddress();
         String homeAddress = getHomeAddress();
 
-        persons.add(new Person(firstName, surName, socialSecurityNr, phoneNumber, emailAddress, homeAddress));
+        Person p = new Person(firstName, surName, socialSecurityNr, phoneNumber, emailAddress, homeAddress);
+
+
+        if (persons.contains(p)){
+            System.out.println("Person already exists");
+            return;
+        }
+
+        for (Employee employee : employees)
+            if (employee.equals(p)){
+                System.out.println("Employee already exists");
+                return;
+            }
+
+        persons.add(p);
     }
 
     private void removePerson() {
@@ -136,6 +150,10 @@ public class CashRegisterSystem {
         String homeAddress = getHomeAddress();
 
         Employee e = new Employee(firstName, surName, socialSecurityNr, phoneNumber, emailAddress, homeAddress);
+        if (persons.contains(e) || employees.contains(e)){
+            System.out.println("Person already exists");
+            return;
+        }
         employees.add(e);
     }
 
