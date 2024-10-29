@@ -10,8 +10,6 @@ public class TestDiscount {
     static final long PRICE = 20;
     static final long DISCOUNTED_PRICE = 10;
     static final String PRODUCT_NAME = "ProductName";
-    static final String PRODUCT_NAME2 = "OtherProductName";
-    static final String PRODUCT_NAME3 = "ThirdProductName";
     private final LocalDate validDate = LocalDate.now().plusDays(1);
     private final LocalDate testDateInvalid = LocalDate.now().minusDays(1);
 
