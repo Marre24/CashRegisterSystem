@@ -1,7 +1,6 @@
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestEmployee {
 
@@ -11,9 +10,9 @@ public class TestEmployee {
     final private String emailAddress = "Email@Adress.com";
     final private String homeAddress = "Address1";
     final private String socialSecurityNr = "11112233-4444";
-    Product p = new Product("ProductName", 0, Producer.Arla, ProductGroup.Alcoholic);
-    Product p1 = new Product("ProductName1", 1, Producer.Arla, ProductGroup.Candy);
-    Product p2 = new Product("ProductName2", 2, Producer.Arla, ProductGroup.Fruit);
+    private final Product p = new Product("ProductName", 0, Producer.Arla, ProductGroup.Alcoholic);
+    private final Product p1 = new Product("ProductName1", 1, Producer.Arla, ProductGroup.Candy);
+    private final Product p2 = new Product("ProductName2", 2, Producer.Arla, ProductGroup.Fruit);
 
     @Test
     void ToString_FirstNameAndLastName_CorrectFormatting(){

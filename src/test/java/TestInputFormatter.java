@@ -44,7 +44,7 @@ public class TestInputFormatter {
 
     @Test
     void Name_TooLongName_ReturnsFalse(){
-        String invalidFirstName = "Johnsonsnameissofreakinglongitstoomuchthi";
+        String invalidFirstName = "JohnsonsNameIsSoFreakingLongItsTooMuchYup";
         assertFalse(InputFormatter.isCorrectName(invalidFirstName));
     }
 
@@ -215,7 +215,7 @@ public class TestInputFormatter {
     }
 
     @Test
-    void PhoneNumber_SomethingProceedsSthlmAreaCode_ReturnsFalse() {
+    void PhoneNumber_SomethingProceedsStockholmAreaCode_ReturnsFalse() {
         String invalidPhoneNr = "080-111 222";
         assertFalse(InputFormatter.isCorrectPhoneNr(invalidPhoneNr));
     }
@@ -362,7 +362,7 @@ public class TestInputFormatter {
 
     @Test
     void HomeAddress_UnformattedAddress_ReturnFormattedAddress(){
-        String testAddress = "STReetNAMe 87";
+        String testAddress = "STReEtNAMe 87";
         String expectedAddress = "Streetname 87";
 
         assertEquals(expectedAddress, InputFormatter.formatAddress(testAddress));

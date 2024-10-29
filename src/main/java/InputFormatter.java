@@ -4,24 +4,6 @@ abstract public class InputFormatter {
 
     static final int EXPECTED_AMOUNT_OF_PERSON_ARGUMENTS = 6;
 
-    // String firstName, String surName, String socialSecurityNr, String phoneNr, String emailAddress, String homeAddress
-    // space separated values in personInformation
-    public static boolean isCorrectFormatPerson(String personInformation){
-        if(hasRightAmountOfArgsForAddPerson(personInformation))
-            return false;
-
-        String[] args = personInformation.split(" ");
-
-        String firstName = args[0];
-        String surName = args[1];
-        String socialSecurityNr = args[2];
-        String phoneNr = args[3];
-        String emailAddress = args[4];
-        String homeAddress = args[5];
-        return isCorrectName(firstName) && isCorrectName(surName) && isCorrectSSN(socialSecurityNr) && isCorrectPhoneNr(phoneNr) && isCorrectEmailAddress(emailAddress) && isCorrectHomeAddress(homeAddress);
-
-    }
-
     public static boolean hasRightAmountOfArgsForAddPerson(String args){
         return args.split(" ").length == EXPECTED_AMOUNT_OF_PERSON_ARGUMENTS;
     }

@@ -18,7 +18,7 @@ public class TestOrderLine {
     private Product product;
 
     @InjectMocks
-    private OrderLine orderLine = new OrderLine();
+    private final OrderLine orderLine = new OrderLine();
 
     @Test
     void AddProduct_SingleProduct_AddsProduct(){

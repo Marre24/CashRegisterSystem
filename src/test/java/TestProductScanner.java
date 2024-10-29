@@ -4,10 +4,10 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class TestProductScanner {
 
-    Product p1 = new Product("ProductType 1", 10, Producer.Arla, ProductGroup.Beverage);
-    Product p2 = new Product("ProductType 2", 20, Producer.Arla, ProductGroup.Beverage);
+    private final Product p1 = new Product("ProductType 1", 10, Producer.Arla, ProductGroup.Beverage);
+    private final Product p2 = new Product("ProductType 2", 20, Producer.Arla, ProductGroup.Beverage);
 
-    Employee employee = new Employee("Otto", "Westling", "930220-1234", "070-12345678", "otto@king.se", "Hemvägen 12");
+    private final Employee employee = new Employee("Otto", "Westling", "930220-1234", "070-12345678", "otto@king.se", "Hemvägen 12");
 
     @Test
     void ProductScanner_SetActiveOrder_ScannerHasActiveOrder() {

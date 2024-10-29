@@ -4,11 +4,9 @@ import static org.mockito.Mockito.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.*;
-import org.mockito.MockitoAnnotations;
 
 public class TestPurchase {
     private Person cardOwner;
-    private Employee employee;
     private Order order;
 
     @Mock
@@ -23,8 +21,8 @@ public class TestPurchase {
     void setUp() {
         MockitoAnnotations.initMocks(this);
 
-        cardOwner = new Person("Alex", "Boe", "19950211-1325", "12345", "a@g.com", "NotaStrt");
-        employee = new Employee("John", "Doe", "20000511-1323", "12345", "e@g.com", "AlsNtsTrt");
+        cardOwner = new Person("Alex", "Boe", "19950211-1325", "12345", "a@g.com", "NotaStreet");
+        Employee employee = new Employee("John", "Doe", "20000511-1323", "12345", "e@g.com", "AlsNtsTrt");
         order = new Order(employee);
     }
 
