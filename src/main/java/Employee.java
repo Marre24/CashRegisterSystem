@@ -32,6 +32,18 @@ public class Employee extends Person{
         }
     }
 
+    public void scanProduct(Product product, Long weight){
+        if(activeScanner == null){
+            throw new IllegalArgumentException("Employee is not logged into any scanner");
+        }
+        if(activeScanner.hasActiveOrder()){
+            activeScanner.scanProduct(product, weight);
+        } else {
+            activeScanner.startNewOrder();
+            activeScanner.scanProduct(product, weight);
+        }
+    }
+
     public ProductScanner getActiveScanner(){
         return activeScanner;
     }

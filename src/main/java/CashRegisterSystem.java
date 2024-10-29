@@ -201,6 +201,11 @@ public class CashRegisterSystem {
             System.out.println("Product not found");
             return;
         }
+        if (scannedProduct.isPricedByWeight()){
+            Long weight = input.readLong("Enter weight of product (grams)");
+            activeEmployee.scanProduct(scannedProduct, weight);
+            return;
+        }
         activeEmployee.scanProduct(scannedProduct);
     }
 

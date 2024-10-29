@@ -10,6 +10,10 @@ public class ProductScanner {
         activeOrder.addProduct(product);
     }
 
+    public void scanProduct(Product product, long weight) {
+        activeOrder.addProduct(product, weight);
+    }
+
     public boolean hasActiveOrder(){
         return activeOrder != null;
     }
