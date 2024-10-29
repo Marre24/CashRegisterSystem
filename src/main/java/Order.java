@@ -31,7 +31,7 @@ public class Order {
         orderLines.add(new OrderLine(product));
     }
 
-    public void addProductByWeight(Product product, long weight ){
+    public void addProduct(Product product, long weight ){
         for (OrderLine orderLine : orderLines){
             if (orderLine.getProductType() == product)
                 orderLine.addProduct(product, weight);
