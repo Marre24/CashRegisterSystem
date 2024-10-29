@@ -11,6 +11,8 @@ import static org.mockito.Mockito.when;
 public class TestOrderLine {
 
     private final int MAX_LENGTH_ORDERLINE = 50;
+    private final long TEST_WEIGHT = 100;
+    private final String TEST_PRODUCT_NAME = "Name";
 
     @Mock
     private Product product;
@@ -190,9 +192,9 @@ public class TestOrderLine {
     void GetTotalPrice_OneProductWithWeight_CorrectPrice(){
         MockitoAnnotations.initMocks(this);
         when(product.isPricedByWeight()).thenReturn(true);
-        when(product.getPrice()).thenReturn(1000l);
+        when(product.getPrice()).thenReturn(10l);
 
-        orderLine.addProduct(product);
+        orderLine.addProduct(product, TEST_WEIGHT);
 
         assertEquals(1, orderLine.getTotalPrice());
     }
@@ -201,11 +203,11 @@ public class TestOrderLine {
     void ToString_OneProductWithWeight_CorrectPrice(){
         MockitoAnnotations.initMocks(this);
         when(product.isPricedByWeight()).thenReturn(true);
-        when(product.getPrice()).thenReturn(1000l);
-        when(product.getName()).thenReturn("A");
+        when(product.getPrice()).thenReturn(10l);
+        when(product.getName()).thenReturn(TEST_PRODUCT_NAME);
 
-        orderLine.addProduct(product);
-
-        assertEquals("", orderLine.toString());
+        orderLine.addProduct(product, TEST_WEIGHT);
+        String expected = "%s 0,100 * 10kr/kg                             1".formatted(TEST_PRODUCT_NAME);
+        assertEquals(expected , orderLine.toString());
     }
 }

@@ -21,14 +21,23 @@ public class Order {
     }
 
     //delete from line and delete in line
-    public void addProduct(Product p) {
-        if (!p.isPricedByWeight()) {
-            for (OrderLine orderLine : orderLines)
-                if (orderLine.getProductType() == p)
-                    orderLine.addProduct(p);
-                    return;
+    public void addProduct(Product product) {
+        for (OrderLine orderLine : orderLines){
+            if (orderLine.getProductType().equals(product)) {
+                orderLine.addProduct(product);
+                return;
+            }
         }
-        orderLines.add(new OrderLine(p));
+        orderLines.add(new OrderLine(product));
+    }
+
+    public void addProductByWeight(Product product, long weight ){
+        for (OrderLine orderLine : orderLines){
+            if (orderLine.getProductType() == product)
+                orderLine.addProduct(product, weight);
+            return;
+        }
+        orderLines.add(new OrderLine(product, weight));
     }
 
     public int getProductAmount(Product p) {

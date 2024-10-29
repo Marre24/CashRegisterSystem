@@ -10,6 +10,10 @@ public class OrderLine {
         addProduct(product);
     }
 
+    public OrderLine(Product product, long weightOfProduct){
+        addProduct(product, weightOfProduct);
+    }
+
     private Product product = null;
     private int amountOfProduct = 0;
     private long weightOfProduct = 0;
@@ -20,11 +24,7 @@ public class OrderLine {
 
         if (this.product == null){
             this.product = newProduct;
-            if (product.isPricedByWeight()){
-                weightOfProduct = Scale.getWeight();
-            } else{
-                amountOfProduct++;
-            }
+            amountOfProduct++;
             return;
         }
 
@@ -34,11 +34,27 @@ public class OrderLine {
         if (Long.MAX_VALUE - getTotalPrice() < product.getPrice())
             throw new IllegalArgumentException();
 
-        if(product.isPricedByWeight()){
-            weightOfProduct += Scale.getWeight();
+        amountOfProduct++;
+    }
+
+    public void addProduct(Product newProduct, long weight){
+        if (newProduct == null)
+            throw new IllegalArgumentException("Tried to add null to a orderLine");
+
+        if (this.product == null){
+            this.product = newProduct;
+            amountOfProduct++;
+            weightOfProduct = weight;
             return;
         }
-        amountOfProduct++;
+
+        if (this.product != newProduct)
+            throw new IllegalArgumentException("Tried to add a productType to a orderLine with another productType");
+
+        if (Long.MAX_VALUE - getTotalPrice() < product.getPrice())
+            throw new IllegalArgumentException();
+
+        weightOfProduct += weight;
     }
 
     public Product getProductType() {
@@ -81,7 +97,7 @@ public class OrderLine {
             name.append(" ").append(multipleProductsPrice);
         }
 
-        if (weightOfProduct > 0){
+        if (product.isPricedByWeight()){
             double formattedWeight = weightOfProduct;
             String multipleProductsPrice = "%s * %dkr/kg".formatted(String.format("%.3f", formattedWeight/1000), product.getPrice());
             name.append(" ").append(multipleProductsPrice);
