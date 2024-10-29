@@ -217,8 +217,6 @@ public class CashRegisterSystem {
             activeEmployee = employee;
             activeEmployee.logIntoScanner(productScanner);
             System.out.println(activeEmployee.getFullName() + " logged in");
-        } else {
-            System.out.println("You are not an employee");
         }
     }
 
@@ -319,6 +317,7 @@ public class CashRegisterSystem {
         for (Employee employee : employees)
             if (InputFormatter.socialSecurityIsEqual(employee.getSocialSecurityNr(), socialSecurityNr))
                 return employee;
+
         System.out.println("No employee with that social security number exists");
         return null;
     }

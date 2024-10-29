@@ -59,15 +59,15 @@ abstract public class InputFormatter {
     }
 
     public static boolean socialSecurityIsEqual(String socialSecurityNr, String socialSecurityNr1) {
-        return normalize(socialSecurityNr) == normalize(socialSecurityNr1);
+        return normalize(socialSecurityNr).equals(normalize(socialSecurityNr1));
     }
 
-    private static int normalize(String socialSecurityNr) {
+    private static Long normalize(String socialSecurityNr) {
         socialSecurityNr = socialSecurityNr.replaceAll("-", "");
 
         if (socialSecurityNr.length() == 12)
             socialSecurityNr = socialSecurityNr.substring(2,12);
 
-        return Integer.parseInt(socialSecurityNr);
+        return Long.parseLong(socialSecurityNr);
     }
 }
