@@ -17,6 +17,7 @@ public class TestPerson {
     final static private String OTHER_PHONE_NUMBER = "4444444444";
     final static private String OTHER_EMAIL_ADDRESS = "OtherEmail@Adress.com";
     final static private String OTHER_HOME_ADDRESS = "OtherAddress1";
+    final static private String OTHER_SOCIAL_SECURITY_NR = "222222222222";
 
     @Test
     void Constructor_ValidParameters_ObjectCreated(){
@@ -74,5 +75,33 @@ public class TestPerson {
     void ToString_ValidPerson_CorrectStringFormat(){
         Person actual = new Person (FIRST_NAME, SUR_NAME, SOCIAL_SECURITY_NR, PHONE_NUMBER, EMAIL_ADDRESS, HOME_ADDRESS);
         assertEquals(TO_STRING_EXPECTED_RESULT, actual.toString());
+    }
+
+    @Test
+    void AddMembership_AddMembershipToPersonWithActiveMembership_ExceptionThrown(){
+        Person actual = new Person (FIRST_NAME, SUR_NAME, SOCIAL_SECURITY_NR, PHONE_NUMBER, EMAIL_ADDRESS, HOME_ADDRESS);
+        Membership membership = new Membership(actual);
+        assertThrows(IllegalArgumentException.class, () -> actual.addMembership(membership));
+    }
+
+    @Test
+    void removeMembership_removeMembershipFromPersonWithActiveMembership_ReturnNull(){
+        Person actual = new Person (FIRST_NAME, SUR_NAME, SOCIAL_SECURITY_NR, PHONE_NUMBER, EMAIL_ADDRESS, HOME_ADDRESS);
+        Membership membership = new Membership(actual);
+        actual.removeMembership();
+        assertFalse(actual.isMember());
+    }
+
+    @Test
+    void Equals_PassNull_ReturnFalse(){
+        Person actual = new Person (FIRST_NAME, SUR_NAME, SOCIAL_SECURITY_NR, PHONE_NUMBER, EMAIL_ADDRESS, HOME_ADDRESS);
+        assertFalse(actual.equals(null));
+    }
+
+    @Test
+    void Equals_NotPerson_ReturnFalse(){
+        Person actual = new Person (FIRST_NAME, SUR_NAME, SOCIAL_SECURITY_NR, PHONE_NUMBER, EMAIL_ADDRESS, HOME_ADDRESS);
+        Membership membership = new Membership(actual);
+        assertFalse(actual.equals(membership));
     }
 }

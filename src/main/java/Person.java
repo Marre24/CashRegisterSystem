@@ -90,6 +90,7 @@ public class Person {
         }
         return false;
     }
+
     public void removeMembership() {
         membership = null;
     }
