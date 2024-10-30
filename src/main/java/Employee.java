@@ -22,7 +22,7 @@ public class Employee extends Person{
 
     public void scanProduct(Product product){
         if(activeScanner == null){
-            throw new IllegalArgumentException("Employee is not logged into any scanner");
+            throw new IllegalStateException("Employee is not logged into any scanner");
         }
         if(activeScanner.hasActiveOrder()){
             activeScanner.scanProduct(product);
@@ -34,7 +34,7 @@ public class Employee extends Person{
 
     public void scanProduct(Product product, Long weight){
         if(activeScanner == null){
-            throw new IllegalArgumentException("Employee is not logged into any scanner");
+            throw new IllegalStateException("Employee is not logged into any scanner");
         }
         if(activeScanner.hasActiveOrder()){
             activeScanner.scanProduct(product, weight);

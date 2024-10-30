@@ -21,6 +21,15 @@ public class TestEmployee {
     }
 
     @Test
+    void GetScanner_OnNotLoggedInEmployee_ReturnsNull(){
+        ProductScanner ps = new ProductScanner();
+        Employee employee = new Employee(firstName, surName, socialSecurityNr, phoneNumber, emailAddress, homeAddress);
+
+        assertNull(employee.getActiveScanner());
+        assertNull(ps.getLoggedInEmployee());
+    }
+
+    @Test
     void LogIn_OnNonActiveScanner_ActiveScannerChanged(){
         ProductScanner ps = new ProductScanner();
         Employee employee = new Employee(firstName, surName, socialSecurityNr, phoneNumber, emailAddress, homeAddress);
@@ -29,6 +38,14 @@ public class TestEmployee {
 
         assertEquals(ps, employee.getActiveScanner());
         assertEquals(employee, ps.getLoggedInEmployee());
+    }
+
+    @Test
+    void ScanProduct_WithNonLoggedInEmployee_ExceptionThrown(){
+        ProductScanner ps = new ProductScanner();
+        Employee employee = new Employee(firstName, surName, socialSecurityNr, phoneNumber, emailAddress, homeAddress);
+
+        assertThrows(IllegalStateException.class, () -> employee.scanProduct(p));
     }
 
     @Test
@@ -64,7 +81,7 @@ public class TestEmployee {
     }
 
     @Test
-    void Add_MultipleOfSameProduct_ProductsAdded(){
+    void ScanProduct_MultipleOfSameProduct_ProductsAdded(){
         ProductScanner ps = new ProductScanner();
         Employee employee = new Employee(firstName, surName, socialSecurityNr, phoneNumber, emailAddress, homeAddress);
         employee.logIntoScanner(ps);
@@ -80,7 +97,7 @@ public class TestEmployee {
     }
 
     @Test
-    void Add_MultipleOrderLinesWithMultipleProducts_ProductsAdded(){
+    void ScanProduct_MultipleOrderLinesWithMultipleProducts_ProductsAdded(){
         ProductScanner ps = new ProductScanner();
         Employee employee = new Employee(firstName, surName, socialSecurityNr, phoneNumber, emailAddress, homeAddress);
         employee.logIntoScanner(ps);
@@ -101,4 +118,48 @@ public class TestEmployee {
         assertEquals(expectedAmountOfp1, employee.getActiveScanner().getActiveOrder().getProductAmount(p1));
         assertEquals(expectedAmountOfp2, employee.getActiveScanner().getActiveOrder().getProductAmount(p2));
     }
+
+    @Test
+    void ScanProduct_WeightedProductWithNonLoggedInEmployee_ExceptionThrown(){
+        ProductScanner ps = new ProductScanner();
+        Employee employee = new Employee(firstName, surName, socialSecurityNr, phoneNumber, emailAddress, homeAddress);
+        long weight = 10;
+
+        assertThrows(IllegalStateException.class, () -> employee.scanProduct(p, weight));
+    }
+
+    @Test
+    void ScanProduct_SingleWeightedProduct_ProductScanned(){
+        ProductScanner ps = new ProductScanner();
+        Employee employee = new Employee(firstName, surName, socialSecurityNr, phoneNumber, emailAddress, homeAddress);
+        employee.logIntoScanner(ps);
+        long weight = 10;
+        int expectedAmountOfOrderLines = 1;
+        int expectedAmountOfScannedProducts = 1;
+
+        employee.scanProduct(p, weight);
+
+        assertEquals(expectedAmountOfOrderLines, employee.getActiveScanner().getActiveOrder().getOrderLines().size());
+        assertEquals(expectedAmountOfScannedProducts, employee.getActiveScanner().getActiveOrder().getProductAmount(p));
+        assertTrue(employee.getActiveScanner().containsProduct(p));
+    }
+
+    @Test
+    void ScanProduct_MultipleDifferentWeightProducts_ProductsScanned(){
+        ProductScanner ps = new ProductScanner();
+        Employee employee = new Employee(firstName, surName, socialSecurityNr, phoneNumber, emailAddress, homeAddress);
+        employee.logIntoScanner(ps);
+        long weight = 20;
+        int expectedAmountOfOrderLines = 3;
+
+        employee.scanProduct(p, weight);
+        employee.scanProduct(p1, weight + 1);
+        employee.scanProduct(p2, weight + 2);
+
+        assertEquals(expectedAmountOfOrderLines, employee.getActiveScanner().getActiveOrder().getOrderLines().size());
+        assertTrue(employee.getActiveScanner().containsProduct(p));
+        assertTrue(employee.getActiveScanner().containsProduct(p1));
+        assertTrue(employee.getActiveScanner().containsProduct(p2));
+    }
+
 }
