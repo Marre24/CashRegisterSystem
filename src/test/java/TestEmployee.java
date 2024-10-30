@@ -165,6 +165,21 @@ public class TestEmployee {
     }
 
     @Test
+    void ScanProduct_MultipleSameWeightProduct_ProductsScanned(){
+        ProductScanner ps = new ProductScanner();
+        Employee employee = new Employee(firstName, surName, socialSecurityNr, phoneNumber, emailAddress, homeAddress);
+        employee.logIntoScanner(ps);
+        long weight = 20;
+        int expectedAmountOfOrderLines = 1;
+
+        employee.scanProduct(p, weight);
+        employee.scanProduct(p, weight + 1);
+
+        assertEquals(expectedAmountOfOrderLines, employee.getActiveScanner().getActiveOrder().getOrderLines().size());
+        assertTrue(employee.getActiveScanner().containsProduct(p));
+    }
+
+    @Test
     void LoggOut_LoggOutExistingEmployee_EmployeeLoggedOut(){
         ProductScanner ps = new ProductScanner();
         Employee employee = new Employee(firstName, surName, socialSecurityNr, phoneNumber, emailAddress, homeAddress);

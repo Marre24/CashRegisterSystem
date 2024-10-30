@@ -150,4 +150,26 @@ public class TestOrder {
 
         assertEquals(TO_STRING_FOR_P + "\n" + TO_STRING_FOR_TWO_P1, order.toString());
     }
+
+    @Test
+    void GetProductAmount_ProductNotInOrder_ReturnsZero(){
+        Order order = new Order(employee);
+        assertEquals(0, order.getProductAmount(p));
+    }
+
+    @Test
+    void ContainsProduct_ProductNotInOrder_ReturnsFalse(){
+        Order order = new Order(employee);
+        assertFalse(order.containsProduct(p));
+    }
+
+    @Test
+    void GetMemberPrice_OneProductInOrder_ReturnsCorrectPrice(){
+        Order order = new Order(employee);
+        Product product = new Product("ProductName", 20, Producer.Arla, ProductGroup.Beverage);
+        order.addProduct(product);
+        assertEquals(19, order.getMemberPrice());
+    }
+
+
 }

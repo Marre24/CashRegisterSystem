@@ -367,4 +367,17 @@ public class TestInputFormatter {
 
         assertEquals(expectedAddress, InputFormatter.formatAddress(testAddress));
     }
+
+    @Test
+    void socialSecurityIsEqual_CorrectSSNDifferentFormats_ReturnTrue(){
+        String socialSecurity = "123456-7890";
+        String socialSecurity1 = "11123456-7890";
+        assertTrue(InputFormatter.socialSecurityIsEqual(socialSecurity, socialSecurity1));
+    }
+
+    @Test
+    void FormatAddress_NullOrEmptyAddress_ReturnsNullOrEmpty(){
+        assertNull(InputFormatter.formatAddress(null));
+        assertEquals("", InputFormatter.formatAddress(""));
+    }
 }
