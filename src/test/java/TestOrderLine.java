@@ -33,20 +33,6 @@ public class TestOrderLine {
     }
 
     @Test
-    void Add_TwoDifferentProduct_ExceptionThrown(){
-        OrderLine orderLine = new OrderLine();
-        Product otherProduct = new Product("Creme", 10, Producer.Arla);
-
-        orderLine.addProduct(expected);
-
-        assertThrows(
-                IllegalArgumentException.class,
-                () -> orderLine.addProduct(otherProduct),
-                "Added a product to a orderLine with another productType"
-        );
-    }
-
-    @Test
     void Add_TwoOfTheSameProduct_ExceptionThrown(){
         OrderLine orderLine = new OrderLine();
         int expectedProductAmount = 2;
@@ -200,6 +186,17 @@ public class TestOrderLine {
     }
 
     @Test
+    void GetTotalPrice_OneProductWithWeightPriceNeedsRounding_CorrectPrice(){
+        MockitoAnnotations.initMocks(this);
+        when(product.isPricedByWeight()).thenReturn(true);
+        when(product.getPrice()).thenReturn(95L);
+
+        orderLine.addProduct(product, TEST_WEIGHT);
+
+        assertEquals(10, orderLine.getTotalPrice());
+    }
+
+    @Test
     void ToString_OneProductWithWeight_CorrectPrice(){
         MockitoAnnotations.initMocks(this);
         when(product.isPricedByWeight()).thenReturn(true);
@@ -209,5 +206,32 @@ public class TestOrderLine {
         orderLine.addProduct(product, TEST_WEIGHT);
         String expected = "%s 0,100 * 10kr/kg                             1".formatted(TEST_PRODUCT_NAME);
         assertEquals(expected , orderLine.toString());
+    }
+
+    @Test
+    void AddProduct_AddProductNull_ExceptionThrown(){
+        OrderLine orderLine = new OrderLine();
+        assertThrows(IllegalArgumentException.class, () -> orderLine.addProduct(null, TEST_WEIGHT));
+    }
+
+    @Test
+    void AddProduct_AddProductZeroWeight_ExceptionThrown(){
+        OrderLine orderLine = new OrderLine();
+        assertThrows(IllegalArgumentException.class, () -> orderLine.addProduct(product, 0));
+    }
+
+    @Test
+    void AddProduct_AddMultipleProductsWithWeightTooHighTotalPrice_ExceptionThrown(){
+        OrderLine orderLine = new OrderLine();
+        long expectedPrice = Long.MAX_VALUE;
+        Product product = new Product("Milk", expectedPrice, Producer.Arla, ProductGroup.Beverage, ProductGroup.Dairy);
+
+        orderLine.addProduct(product, TEST_WEIGHT);
+
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> orderLine.addProduct(product, TEST_WEIGHT),
+                "Tried to get total price for two products with Long.MAX price"
+        );
     }
 }

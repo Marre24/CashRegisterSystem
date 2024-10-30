@@ -28,9 +28,6 @@ public class OrderLine {
             return;
         }
 
-        if (this.product != newProduct)
-            throw new IllegalArgumentException("Tried to add a productType to a orderLine with another productType");
-
         if (Long.MAX_VALUE - getTotalPrice() < product.getPrice())
             throw new IllegalArgumentException();
 
@@ -41,15 +38,15 @@ public class OrderLine {
         if (newProduct == null)
             throw new IllegalArgumentException("Tried to add null to a orderLine");
 
+        if (weight <= 0)
+            throw new IllegalArgumentException("Tried to add 0 or negative weight to a orderLine");
+
         if (this.product == null){
             this.product = newProduct;
             amountOfProduct++;
             weightOfProduct = weight;
             return;
         }
-
-        if (this.product != newProduct)
-            throw new IllegalArgumentException("Tried to add a productType to a orderLine with another productType");
 
         if (Long.MAX_VALUE - getTotalPrice() < product.getPrice())
             throw new IllegalArgumentException();
