@@ -82,9 +82,7 @@ public class Person {
 
     @Override
     public boolean equals(Object o){
-        if(o == null){
-            return false;
-        }
+
         if(o instanceof Person comparedPerson){
             return this.getSocialSecurityNr().equals(comparedPerson.getSocialSecurityNr());
         }

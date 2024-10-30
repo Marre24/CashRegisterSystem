@@ -185,14 +185,14 @@ public class TestEmployee {
         Employee employee = new Employee(firstName, surName, socialSecurityNr, phoneNumber, emailAddress, homeAddress);
         employee.logIntoScanner(ps);
         employee.logOut();
-        assertEquals(null, employee.getActiveScanner());
+        assertNull(employee.getActiveScanner());
     }
 
     @Test
     void LoggOut_NoScannerActive_Null(){
         Employee employee = new Employee(firstName, surName, socialSecurityNr, phoneNumber, emailAddress, homeAddress);
         employee.logOut();
-        assertEquals(null, employee.getActiveScanner());
+        assertNull(employee.getActiveScanner());
     }
 
     @Test

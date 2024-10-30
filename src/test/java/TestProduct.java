@@ -32,7 +32,7 @@ public class TestProduct {
     void Equals_ProductsWithSameNameAndProducer_ReturnsTrue() {
         Product p1 = new Product("ProductName", 0, Producer.Arla, ProductGroup.Beverage);
         Product p2 = new Product("ProductName",1, Producer.Arla, ProductGroup.Dairy);
-        assertTrue(p1.equals(p2));
+        assertEquals(p1, p2);
     }
     @Test
     void Equals_ProductComparedWithNonProduct_NotEquals() {

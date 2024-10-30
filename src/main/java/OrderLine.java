@@ -71,7 +71,7 @@ public class OrderLine {
                 retPrice += 1;
             }
             if (retPrice < 1){
-                return 1l;
+                return 1L;
             }
             return retPrice;
         }
