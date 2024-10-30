@@ -25,7 +25,7 @@ public class ProductScanner {
     public Order getActiveOrder(){
         if (hasActiveOrder())
             return activeOrder;
-        else return null;
+        return null;
     }
 
     public void setLoggedInEmployee(Employee employee){

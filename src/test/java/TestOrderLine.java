@@ -217,7 +217,7 @@ public class TestOrderLine {
     @Test
     void AddProduct_AddProductZeroWeight_ExceptionThrown(){
         OrderLine orderLine = new OrderLine();
-        assertThrows(IllegalArgumentException.class, () -> orderLine.addProduct(product, 0));
+        assertThrows(IllegalArgumentException.class, () -> orderLine.addProduct(expected, 0));
     }
 
     @Test

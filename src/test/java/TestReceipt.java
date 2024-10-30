@@ -1,4 +1,5 @@
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 
 import java.io.*;
 
@@ -48,6 +49,5 @@ public class TestReceipt {
         } catch (IOException e){
             e.printStackTrace();
         }
-
     }
 }

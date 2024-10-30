@@ -56,7 +56,7 @@ public class TestProductScanner {
     }
 
     @Test
-    void OrderOnHold_ExistsAndHoldsScannedProduct() {
+    void OrderOnHold_ExistsAndHoldsScannedProduct_ReturnsOrder() {
         ProductScanner p = new ProductScanner();
         p.setLoggedInEmployee(employee);
         Order o = new Order(employee);
@@ -65,5 +65,21 @@ public class TestProductScanner {
         p.scanProduct(p1);
         p.setActiveOrderOnHold();
         assertEquals(o, p.getOrderOnHold(s));
+    }
+
+    @Test
+    void GetOrderOnHold_WithoutOrderOnHold_ReturnsNull() {
+        ProductScanner p = new ProductScanner();
+        p.setLoggedInEmployee(employee);
+        assertNull(p.getOrderOnHold(""));
+    }
+
+    @Test
+    void SetLoggedInEmployee_HasLoggedInEmployee_LatestSetLoggedInEmployeeIsActiveEmployee() {
+        Employee employee1 = new Employee("","","","","","");
+        ProductScanner p = new ProductScanner();
+        p.setLoggedInEmployee(employee);
+        p.setLoggedInEmployee(employee1);
+        assertEquals(employee1, p.getLoggedInEmployee());
     }
 }

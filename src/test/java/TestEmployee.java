@@ -210,6 +210,19 @@ public class TestEmployee {
     }
 
     @Test
+    void FinalizeOrder_CardWithoutBalance_DebitCardPayFails(){
+        Employee employee = new Employee(firstName, surName, socialSecurityNr, phoneNumber, emailAddress, homeAddress);
+        DebitCard debitCard = new DebitCard(employee,"A","1234 1234 1234 1234","A", 123, 0);
+        ProductScanner ps = new ProductScanner();
+        employee.logIntoScanner(ps);
+        employee.scanProduct(p1);
+        String id = employee.getActiveScanner().getActiveOrder().getId();
+        employee.finalizeOrder(debitCard);
+        assertTrue(employee.getActiveScanner().hasActiveOrder());
+    }
+
+
+    @Test
     void FinalizeOrder_ValidOrder_ActiveScannerOrderIsNull(){
         Employee employee = new Employee(firstName, surName, socialSecurityNr, phoneNumber, emailAddress, homeAddress);
         DebitCard debitCard = new DebitCard(employee,"A","1234 1234 1234 1234","A", 123, 10);
@@ -218,6 +231,6 @@ public class TestEmployee {
         employee.scanProduct(p1);
         String id = employee.getActiveScanner().getActiveOrder().getId();
         employee.finalizeOrder(debitCard);
-        assertFalse(employee.getActiveScanner().hasActiveOrder());
+        assertNull(employee.getActiveScanner().getActiveOrder());
     }
 }
