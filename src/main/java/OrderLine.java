@@ -1,3 +1,5 @@
+import java.util.Locale;
+
 public class OrderLine {
 
     private static final int MAX_LENGTH_NAME = 20;
@@ -88,9 +90,12 @@ public class OrderLine {
             name.append(" ").append(multipleProductsPrice);
         }
 
-        if (product.isPricedByWeight()){
+        if (product.isPricedByWeight()) {
             double formattedWeight = weightOfProduct;
-            String multipleProductsPrice = "%s * %dkr/kg".formatted(String.format("%.3f", formattedWeight/1000), product.getPrice());
+            String multipleProductsPrice = "%s * %dkr/kg".formatted(
+                    String.format(Locale.ENGLISH, "%.3f", formattedWeight / 1000),
+                    product.getPrice()
+            );
             name.append(" ").append(multipleProductsPrice);
         }
 
