@@ -22,6 +22,7 @@ public class Purchase {
             else
                 card.pay(order.getTotalPrice());
 
+            Receipt.printReceipt(this, card);
             return true;
         }
         catch(Exception e){
