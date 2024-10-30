@@ -198,7 +198,7 @@ public class TestEmployee {
     @Test
     void FinalizeOrder_ValidOrder_ReceiptWithOrderIdExists(){
         Employee employee = new Employee(firstName, surName, socialSecurityNr, phoneNumber, emailAddress, homeAddress);
-        DebitCard debitCard = new DebitCard(employee,"A","A","A", 123, 10);
+        DebitCard debitCard = new DebitCard(employee,"A","1234 1234 1234 1234","A", 123, 10);
         ProductScanner ps = new ProductScanner();
         employee.logIntoScanner(ps);
         employee.scanProduct(p1);
@@ -207,6 +207,17 @@ public class TestEmployee {
         String fileDirectory = "Receipts/" + id + ".txt";
         File file = new File(fileDirectory);
         assertTrue(file.exists());
-        assertTrue(employee.getActiveScanner().hasActiveOrder());
+    }
+
+    @Test
+    void FinalizeOrder_ValidOrder_ActiveScannerOrderIsNull(){
+        Employee employee = new Employee(firstName, surName, socialSecurityNr, phoneNumber, emailAddress, homeAddress);
+        DebitCard debitCard = new DebitCard(employee,"A","1234 1234 1234 1234","A", 123, 10);
+        ProductScanner ps = new ProductScanner();
+        employee.logIntoScanner(ps);
+        employee.scanProduct(p1);
+        String id = employee.getActiveScanner().getActiveOrder().getId();
+        employee.finalizeOrder(debitCard);
+        assertFalse(employee.getActiveScanner().hasActiveOrder());
     }
 }
