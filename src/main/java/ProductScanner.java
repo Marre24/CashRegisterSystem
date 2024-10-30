@@ -64,6 +64,7 @@ public class ProductScanner {
     public void finalizeOrder(PaymentCard card){
         Purchase purchase = new Purchase(activeOrder);
         if (purchase.handlePayment(card)){
+            Receipt.printReceipt(purchase, card);
             activeOrder = null;
         }
     }

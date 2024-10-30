@@ -1,23 +1,26 @@
 import java.util.ArrayList;
+import java.util.Random;
 
 public class CashRegisterSystem {
 
     final static String CREATE_PERSON = "add person";
     final static String REMOVE_PERSON = "remove person";
     final static String REMOVE_MEMBERSHIP = "remove membership";
-    final static String CREATE_EMPLOYEE = "create employee";
+    final static String ADD_EMPLOYEE = "add employee";
     final static String ADD_MEMBERSHIP = "add membership";
     final static String SCAN_PRODUCT = "scan product";
     final static String FINALIZE_ORDER = "finalize order";
     final static String LOGG_INTO_SCANNER = "logg into scanner";
     final static String LOGG_OUT_SCANNER = "logg out";
+    final static String POPULATE = "populate";
+    final static String ADD_POPULATED_PRODUCTS_TO_ORDER = "add populated products";
     final static String EXIT_COMMAND = "exit";
     final static String WELCOME_MESSAGE = "Welcome to CashRegisterSystem these are the available commands:\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s".formatted(
             CREATE_PERSON,
             REMOVE_PERSON,
             REMOVE_MEMBERSHIP,
             ADD_MEMBERSHIP,
-            CREATE_EMPLOYEE,
+            ADD_EMPLOYEE,
             SCAN_PRODUCT,
             FINALIZE_ORDER,
             LOGG_INTO_SCANNER,
@@ -57,7 +60,7 @@ public class CashRegisterSystem {
             case REMOVE_MEMBERSHIP:
                 removeMembership();
                 break;
-            case CREATE_EMPLOYEE:
+            case ADD_EMPLOYEE:
                 createEmployee();
                 break;
             case SCAN_PRODUCT:
@@ -74,6 +77,12 @@ public class CashRegisterSystem {
                 break;
             case EXIT_COMMAND:
                 exit();
+                break;
+            case POPULATE:
+                populate();
+                break;
+            case ADD_POPULATED_PRODUCTS_TO_ORDER:
+                addPopulatedProductsToOrder();
                 break;
             default:
                 System.out.println("Could not recognize the command");
@@ -170,16 +179,10 @@ public class CashRegisterSystem {
         if (yn.equalsIgnoreCase("n")){
             return;
         }
-        String cardPan = INPUT.readLine("Write card PAN");
-        PaymentCard card = null;
-        for (PaymentCard paymentCard : paymentCards){
-            if (paymentCard.getPan().equals(cardPan)) {
-                card = paymentCard;
-                break;
-            }
-        }
+        PaymentCard card = getCard();
+
         if (card == null){
-            System.out.println("Payment card not found");
+            System.out.println("Exited");
             return;
         }
         activeEmployee.finalizeOrder(card);
@@ -296,6 +299,19 @@ public class CashRegisterSystem {
         return homeAddress;
     }
 
+    private PaymentCard getCard() {
+        PaymentCard paymentCard = null;
+        while (paymentCard == null){
+            String temp = INPUT.readLine("Write card PAN");
+            if (temp.equalsIgnoreCase("exit"))
+                return null;
+            for (PaymentCard card : paymentCards)
+                if (card.pan.equals(temp))
+                    paymentCard = card;
+        }
+        return paymentCard;
+    }
+
     private Person findPerson() {
         String socialSecurityNr = getSocialSecurityNumber();
 
@@ -315,4 +331,31 @@ public class CashRegisterSystem {
         System.out.println("No employee with that social security number exists");
         return null;
     }
+
+    private void populate() {
+        activeEmployee = new Employee("FirstName", "SurName", "", "", "", "");
+        activeEmployee.logIntoScanner(productScanner);
+        int productAmount = 1000;
+        int employeeAmount = 1000;
+
+        for (int i = 0; i < productAmount; i++)
+            products.add(new Product("Product" + i, 10, Producer.Arla));
+
+
+        for (int i = 0; i < employeeAmount; i++)
+            employees.add(new Employee("", "", "20040124-" + 1000 + i, "", "", ""));
+
+        persons.add(new Person("", "", "", "", "", ""));
+
+        paymentCards.add(new CreditCard(persons.getFirst(), "", "1111 1111 1111 1111", "", 321, Long.MAX_VALUE));
+    }
+
+
+    private void addPopulatedProductsToOrder() {
+        for (Product p : products)
+            for (int i = 0; i < new Random().nextInt(1,50); i++)
+                activeEmployee.scanProduct(p);
+
+    }
+
 }
