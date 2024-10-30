@@ -1,9 +1,12 @@
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
 import java.io.*;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.when;
 
 public class TestReceipt {
 
@@ -11,6 +14,12 @@ public class TestReceipt {
     private final static String TEST_RECEIPT_HEADER = "RECEIPT";
     private final Product product = new Product("Product",10, Producer.Arla, ProductGroup.Beverage);
     private final Product product2 = new Product("Product2",20, Producer.Arla, ProductGroup.Beverage);
+
+    @Mock
+    Purchase purchase;
+
+    @Mock
+    PaymentCard card;
 
     @Test
     void PrintReceipt_ReceiptPrintsToFile_(){
@@ -49,5 +58,15 @@ public class TestReceipt {
         } catch (IOException e){
             e.printStackTrace();
         }
+    }
+
+    @Test
+    void PrintReceipt_ReceiptPrintsToConsole_(){
+        MockitoAnnotations.initMocks(this);
+        when(purchase.getId()).thenReturn("folder/123");
+        Receipt.printReceipt(purchase, card);
+        File file = new File("Receipts/" + purchase.getId() + ".txt");
+
+        assertThrows(IOException.class, () -> new FileReader(file));
     }
 }

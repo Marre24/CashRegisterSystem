@@ -1,7 +1,4 @@
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 
 public class Receipt {
 
@@ -15,7 +12,7 @@ public class Receipt {
             receiptWriter.write("%s\n\n%s\n\n%s\n%s\n\nPurchase id: %s".formatted(tempCompany, receiptHeader, purchase.toString(), card.toString(), purchase.getId()));
             receiptWriter.close();
         } catch (IOException e){
-            e.printStackTrace();
+            System.out.println("Error writing receipt file");
         }
     }
 }
