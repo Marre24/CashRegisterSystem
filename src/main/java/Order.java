@@ -33,9 +33,10 @@ public class Order {
 
     public void addProduct(Product product, long weight ){
         for (OrderLine orderLine : orderLines){
-            if (orderLine.getProductType() == product)
+            if (orderLine.getProductType().equals(product)){
                 orderLine.addProduct(product, weight);
-            return;
+                return;
+            }
         }
         orderLines.add(new OrderLine(product, weight));
     }
