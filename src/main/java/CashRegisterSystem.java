@@ -297,14 +297,8 @@ public class CashRegisterSystem {
     }
 
     private Person findPerson() {
-        String socialSecurityNr = INPUT.readLine("Write your social security number");
-        if (socialSecurityNr.equalsIgnoreCase("exit"))
-            return null;
+        String socialSecurityNr = getSocialSecurityNumber();
 
-        if (!InputFormatter.isCorrectSSN(socialSecurityNr)){
-            System.out.println("Social security number is not valid");
-            findPerson();
-        }
         for (Person person : persons)
             if (InputFormatter.socialSecurityIsEqual(person.getSocialSecurityNr(), socialSecurityNr))
                 return person;
@@ -312,14 +306,8 @@ public class CashRegisterSystem {
     }
 
     private Employee findEmployee() {
-        String socialSecurityNr = INPUT.readLine("Write your social security number");
-        if (socialSecurityNr.equalsIgnoreCase("exit"))
-            return null;
+        String socialSecurityNr = getSocialSecurityNumber();
 
-        if (!InputFormatter.isCorrectSSN(socialSecurityNr)){
-            System.out.println("Social security number is not valid");
-            findEmployee();
-        }
         for (Employee employee : employees)
             if (InputFormatter.socialSecurityIsEqual(employee.getSocialSecurityNr(), socialSecurityNr))
                 return employee;
