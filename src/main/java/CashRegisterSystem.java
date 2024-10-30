@@ -30,10 +30,10 @@ public class CashRegisterSystem {
     final ArrayList<PaymentCard> paymentCards = new ArrayList<>();
 
     Employee activeEmployee = null;
-    ProductScanner productScanner = new ProductScanner();
+    private final ProductScanner productScanner = new ProductScanner();
 
     static boolean isActive = true;
-    static InputReader input = new InputReader();
+    static final InputReader INPUT = new InputReader();
 
     public static void main(String[] args) {
         CashRegisterSystem cashRegisterSystem = new CashRegisterSystem();
@@ -44,7 +44,7 @@ public class CashRegisterSystem {
     }
 
     private void handleCommand() {
-        switch (input.readLine("write your command").toLowerCase()){
+        switch (INPUT.readLine("write your command").toLowerCase()){
             case CREATE_PERSON:
                 createPerson();
                 break;
@@ -166,11 +166,11 @@ public class CashRegisterSystem {
             return;
         }
         System.out.println(activeEmployee.getActiveScanner().getActiveOrder().toString());
-        String yn = input.readLine("Are you sure you want to finalize order? (y/n)");
+        String yn = INPUT.readLine("Are you sure you want to finalize order? (y/n)");
         if (yn.equalsIgnoreCase("n")){
             return;
         }
-        String cardPan = input.readLine("Write card PAN");
+        String cardPan = INPUT.readLine("Write card PAN");
         PaymentCard card = null;
         for (PaymentCard paymentCard : paymentCards){
             if (paymentCard.getPan().equals(cardPan)) {
@@ -190,7 +190,7 @@ public class CashRegisterSystem {
             System.out.println("No active employee");
             return;
         }
-        String productName = input.readLine("Write name of product");
+        String productName = INPUT.readLine("Write name of product");
         Product scannedProduct = null;
         for (Product product : products){
             if(product.getName().equals(productName)){
@@ -203,16 +203,22 @@ public class CashRegisterSystem {
             return;
         }
         if (scannedProduct.isPricedByWeight()){
-            Long weight = input.readLong("Enter weight of product (grams)");
+            Long weight = INPUT.readLong("Enter weight of product (grams)");
             activeEmployee.scanProduct(scannedProduct, weight);
             System.out.println(weight + " grams of " + scannedProduct.getName() + " was added to order");
         }
-        activeEmployee.scanProduct(scannedProduct);;
+        activeEmployee.scanProduct(scannedProduct);
         System.out.println(scannedProduct.getName() + " was added to order");
     }
 
     private void logIn() {
         Employee employee = findEmployee();
+
+        if (employee == null){
+            System.out.println("Could not find employee");
+            return;
+        }
+
         if (employees.contains(employee) && activeEmployee == null){
             activeEmployee = employee;
             activeEmployee.logIntoScanner(productScanner);
@@ -233,7 +239,7 @@ public class CashRegisterSystem {
     private String getFirstOrSurName(String nameType) {
         String name = null;
         while (name == null){
-            String firstName = input.readLine("Write your " + nameType);
+            String firstName = INPUT.readLine("Write your " + nameType);
             if (firstName.equalsIgnoreCase("exit"))
                 return null;
             if (InputFormatter.isCorrectName(firstName))
@@ -245,7 +251,7 @@ public class CashRegisterSystem {
     private String getSocialSecurityNumber() {
         String ssn = null;
         while (ssn == null){
-            String tempSsn = input.readLine("Write your social security number");
+            String tempSsn = INPUT.readLine("Write your social security number");
             if (tempSsn.equalsIgnoreCase("exit"))
                 return null;
             if (InputFormatter.isCorrectSSN(tempSsn))
@@ -257,7 +263,7 @@ public class CashRegisterSystem {
     private String getPhoneNumber() {
         String phoneNumber = null;
         while (phoneNumber == null){
-            String temp = input.readLine("Write your phone number");
+            String temp = INPUT.readLine("Write your phone number");
             if (temp.equalsIgnoreCase("exit"))
                 return null;
             if (InputFormatter.isCorrectPhoneNr(temp))
@@ -269,7 +275,7 @@ public class CashRegisterSystem {
     private String getEmailAddress() {
         String email = null;
         while (email == null){
-            String temp = input.readLine("Write your email address");
+            String temp = INPUT.readLine("Write your email address");
             if (temp.equalsIgnoreCase("exit"))
                 return null;
             if (InputFormatter.isCorrectEmailAddress(temp))
@@ -281,7 +287,7 @@ public class CashRegisterSystem {
     private String getHomeAddress() {
         String homeAddress = null;
         while (homeAddress == null){
-            String temp = input.readLine("Write your home address");
+            String temp = INPUT.readLine("Write your home address");
             if (temp.equalsIgnoreCase("exit"))
                 return null;
             if (InputFormatter.isCorrectHomeAddress(temp))
@@ -291,7 +297,7 @@ public class CashRegisterSystem {
     }
 
     private Person findPerson() {
-        String socialSecurityNr = input.readLine("Write your social security number");
+        String socialSecurityNr = INPUT.readLine("Write your social security number");
         if (socialSecurityNr.equalsIgnoreCase("exit"))
             return null;
 
@@ -306,7 +312,7 @@ public class CashRegisterSystem {
     }
 
     private Employee findEmployee() {
-        String socialSecurityNr = input.readLine("Write your social security number");
+        String socialSecurityNr = INPUT.readLine("Write your social security number");
         if (socialSecurityNr.equalsIgnoreCase("exit"))
             return null;
 

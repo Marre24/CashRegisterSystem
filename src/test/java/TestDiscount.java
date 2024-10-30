@@ -10,14 +10,10 @@ public class TestDiscount {
     static final long PRICE = 20;
     static final long DISCOUNTED_PRICE = 10;
     static final String PRODUCT_NAME = "ProductName";
-    static final String PRODUCT_NAME2 = "OtherProductName";
-    static final String PRODUCT_NAME3 = "ThirdProductName";
     private final LocalDate validDate = LocalDate.now().plusDays(1);
     private final LocalDate testDateInvalid = LocalDate.now().minusDays(1);
 
-    Product product = new Product(PRODUCT_NAME, PRICE, Producer.Arla, ProductGroup.Beverage);
-    Product product1 = new Product(PRODUCT_NAME2, PRICE, Producer.Arla, ProductGroup.Beverage);
-    Product product2 = new Product(PRODUCT_NAME3, PRICE, Producer.Arla, ProductGroup.Beverage);
+    private final Product product = new Product(PRODUCT_NAME, PRICE, Producer.Arla, ProductGroup.Beverage);
 
     @Test
     public void AddDiscount_ProductWithoutDiscount_DiscountAdded() {

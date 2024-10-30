@@ -79,12 +79,6 @@ public class OrderLine {
         return product.getPrice() * amountOfProduct;
     }
 
-    /*public void removeProduct(int i){
-        if (amountOfProduct > i){
-            amountOfProduct -= i;
-        }
-    }*/
-
     @Override
     public String toString() {
         StringBuilder name = new StringBuilder(getProductType().getName());

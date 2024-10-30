@@ -6,7 +6,6 @@ public class InputReader{
     private static final ArrayList<InputStream> streams = new ArrayList<>();
     private final Scanner input;
 
-    // System.in is the default stream
     public InputReader(){
         this(System.in);
     }
@@ -17,13 +16,6 @@ public class InputReader{
 
         input = new Scanner(stream);
         streams.add(stream);
-    }
-
-    public int readInt(String prompt){
-        System.out.print(prompt + "?> ");
-        int value = input.nextInt();
-        clearBuffer();
-        return value;
     }
 
     public long readLong(String prompt){

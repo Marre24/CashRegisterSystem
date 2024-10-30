@@ -4,9 +4,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class TestOrder {
 
-    Product p = new Product("ProductName", 0, Producer.Arla, ProductGroup.Beverage);
-    Product p1 = new Product("ProductName1",1, Producer.Arla, ProductGroup.Dairy);
-    Product p2 = new Product("ProductName2", 2, Producer.Arla, ProductGroup.Candy);
+    private final Product p = new Product("ProductName", 0, Producer.Arla, ProductGroup.Beverage);
+    private final Product p1 = new Product("ProductName1",1, Producer.Arla, ProductGroup.Dairy);
+    private final Product p2 = new Product("ProductName2", 2, Producer.Arla, ProductGroup.Candy);
     final static String TO_STRING_FOR_P = "ProductName                                      0";
     final static String TO_STRING_FOR_P1 = "ProductName1                                     1";
     final static String TO_STRING_FOR_P2 = "ProductName2                                     2";

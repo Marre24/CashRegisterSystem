@@ -73,18 +73,6 @@ public class Order {
         return Double.valueOf(getTotalPrice() * (1 - Membership.DISCOUNT_FACTOR)).longValue();
     }
 
-    /*public void removeProduct(String productName, int amount) {
-        for (OrderLine orderLine : orderLines)
-            if (orderLine.getProductType().getName().equals(productName)){
-                if (orderLine.getAmountOfProduct() > amount){
-                    orderLine.removeProduct(amount);
-                } else{
-                    orderLines.remove(orderLine);
-                }
-            }
-
-    }*/
-
     @Override
     public String toString(){
         StringBuilder s = new StringBuilder();

@@ -15,6 +15,8 @@ public class TestCreditCard {
 
     private final Product banana = new Product("Banana", 50, Producer.Arla);
 
+    private final Employee employee = new Employee("", "", "", "","", "");
+
     @Test
     void GetBalance_OnCreate_ReturnsZero(){
         CreditCard card = new CreditCard(null, BANK_NAME, PAN, EXPIRATION_DATE, CSC, LIMIT);
@@ -25,7 +27,7 @@ public class TestCreditCard {
     @Test
     void Pay_PricePlusBalanceExceedsLimit_ExceptionThrown(){
         CreditCard card = new CreditCard(null, BANK_NAME, PAN, EXPIRATION_DATE, CSC, LOW_LIMIT);
-        Order order = new Order(null);
+        Order order = new Order(employee);
 
         order.addProduct(banana);
 
@@ -39,7 +41,7 @@ public class TestCreditCard {
     @Test
     void Pay_PricePlusBalanceLessThanLimit_BalanceIncreased(){
         CreditCard card = new CreditCard(null, BANK_NAME, PAN, EXPIRATION_DATE, CSC, LIMIT);
-        Order order = new Order(null);
+        Order order = new Order(employee);
 
         order.addProduct(banana);
         card.pay(order.getTotalPrice());
@@ -50,7 +52,7 @@ public class TestCreditCard {
     @Test
     void Pay_PricePlusBalanceEqualToLimit_BalanceIncreased(){
         CreditCard card = new CreditCard(null, BANK_NAME, PAN, EXPIRATION_DATE, CSC, LIMIT_MID);
-        Order order = new Order(null);
+        Order order = new Order(employee);
 
         order.addProduct(banana);
         card.pay(order.getTotalPrice());

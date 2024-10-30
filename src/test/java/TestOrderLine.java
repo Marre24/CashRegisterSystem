@@ -3,27 +3,27 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import java.util.ArrayList;
-
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 public class TestOrderLine {
 
-    private final int MAX_LENGTH_ORDERLINE = 50;
-    private final long TEST_WEIGHT = 100;
-    private final String TEST_PRODUCT_NAME = "Name";
+    private final static int MAX_LENGTH_ORDER_LINE = 50;
+    private final static long TEST_WEIGHT = 100;
+    private final static String TEST_PRODUCT_NAME = "Name";
+
+    private final Product expected = new Product("Milk", 10, Producer.Arla, ProductGroup.Beverage, ProductGroup.Dairy);
 
     @Mock
     private Product product;
 
     @InjectMocks
-    private OrderLine orderLine = new OrderLine();
+    private final OrderLine orderLine = new OrderLine();
 
     @Test
-    void Add_Product_AddsProductToLine(){
+    void AddProduct_SingleProduct_AddsProduct(){
         OrderLine orderLine = new OrderLine();
-        Product expected = new Product("Milk", 10, Producer.Arla, ProductGroup.Beverage, ProductGroup.Dairy);
+
         int expectedProductAmount = 1;
 
         orderLine.addProduct(expected);
@@ -35,10 +35,9 @@ public class TestOrderLine {
     @Test
     void Add_TwoDifferentProduct_ExceptionThrown(){
         OrderLine orderLine = new OrderLine();
-        Product product = new Product("Milk", 10, Producer.Arla, ProductGroup.Beverage, ProductGroup.Dairy);
-        Product otherProduct = new Product("Creme", 10, Producer.Arla, ProductGroup.Beverage, ProductGroup.Dairy);
+        Product otherProduct = new Product("Creme", 10, Producer.Arla);
 
-        orderLine.addProduct(product);
+        orderLine.addProduct(expected);
 
         assertThrows(
                 IllegalArgumentException.class,
@@ -50,7 +49,6 @@ public class TestOrderLine {
     @Test
     void Add_TwoOfTheSameProduct_ExceptionThrown(){
         OrderLine orderLine = new OrderLine();
-        Product expected = new Product("Milk", 10, Producer.Arla, ProductGroup.Beverage, ProductGroup.Dairy);
         int expectedProductAmount = 2;
 
         orderLine.addProduct(expected);
@@ -76,9 +74,8 @@ public class TestOrderLine {
     void Add_OneProduct_PriceReturned(){
         OrderLine orderLine = new OrderLine();
         long expectedPrice = 10;
-        Product product = new Product("Milk", expectedPrice, Producer.Arla, ProductGroup.Beverage, ProductGroup.Dairy);
 
-        orderLine.addProduct(product);
+        orderLine.addProduct(expected);
 
         assertEquals(expectedPrice, orderLine.getTotalPrice());
     }
@@ -119,15 +116,15 @@ public class TestOrderLine {
         long price = 10;
         String name = "Milk";
         Product product = new Product(name, price, Producer.Arla, ProductGroup.Beverage, ProductGroup.Dairy);
-        String expectedString = name;
-        while(expectedString.length() < MAX_LENGTH_ORDERLINE - String.valueOf(price).length()){
-            expectedString = expectedString + " ";
+        StringBuilder expectedString = new StringBuilder(name);
+        while(expectedString.length() < MAX_LENGTH_ORDER_LINE - String.valueOf(price).length()){
+            expectedString.append(" ");
         }
-        expectedString = expectedString + price;
+        expectedString.append(price);
 
         orderLine.addProduct(product);
 
-        assertEquals(expectedString, orderLine.toString());
+        assertEquals(expectedString.toString(), orderLine.toString());
     }
 
     @Test
@@ -137,11 +134,12 @@ public class TestOrderLine {
         long price = 10;
         String name = "Milk";
         Product product = new Product(name, price, Producer.Arla, ProductGroup.Beverage, ProductGroup.Dairy);
-        String expectedString = name + " " + productAmount + "st * " + price;
 
-        while(expectedString.length() < MAX_LENGTH_ORDERLINE - String.valueOf(price * productAmount).length()){
-            expectedString = expectedString + " ";
+        StringBuilder expectedStringBuilder = new StringBuilder(name + " " + productAmount + "st * " + price);
+        while(expectedStringBuilder.length() < MAX_LENGTH_ORDER_LINE - String.valueOf(price * productAmount).length()){
+            expectedStringBuilder.append(" ");
         }
+        String expectedString = expectedStringBuilder.toString();
         expectedString = expectedString + (price * productAmount);
 
         for (int i = 0; i < productAmount; i++)
@@ -157,10 +155,11 @@ public class TestOrderLine {
         String name = "012345678901234567890123456789123456789";
         String expectedName = "01234567890123456...";
         Product product = new Product(name, price, Producer.Arla, ProductGroup.Beverage, ProductGroup.Dairy);
-        String expectedString = expectedName;
-        while(expectedString.length() < MAX_LENGTH_ORDERLINE - String.valueOf(price).length()){
-            expectedString = expectedString + " ";
+        StringBuilder expectedStringBuilder = new StringBuilder(expectedName);
+        while(expectedStringBuilder.length() < MAX_LENGTH_ORDER_LINE - String.valueOf(price).length()){
+            expectedStringBuilder.append(" ");
         }
+        String expectedString = expectedStringBuilder.toString();
         expectedString = expectedString + price;
 
         orderLine.addProduct(product);
@@ -176,10 +175,11 @@ public class TestOrderLine {
         String name = "012345678901234567890123456789123456789";
         String expectedName = "01234567890123456...";
         Product product = new Product(name, price, Producer.Arla, ProductGroup.Beverage, ProductGroup.Dairy);
-        String expectedString = expectedName + " " + productAmount + "st * " + price;
-        while(expectedString.length() < MAX_LENGTH_ORDERLINE - String.valueOf(price * productAmount).length()){
-            expectedString = expectedString + " ";
+        StringBuilder expectedStringBuilder = new StringBuilder(expectedName + " " + productAmount + "st * " + price);
+        while(expectedStringBuilder.length() < MAX_LENGTH_ORDER_LINE - String.valueOf(price * productAmount).length()){
+            expectedStringBuilder.append(" ");
         }
+        String expectedString = expectedStringBuilder.toString();
         expectedString = expectedString + (price * productAmount);
 
         for (int i = 0; i < productAmount; i++)
@@ -192,7 +192,7 @@ public class TestOrderLine {
     void GetTotalPrice_OneProductWithWeight_CorrectPrice(){
         MockitoAnnotations.initMocks(this);
         when(product.isPricedByWeight()).thenReturn(true);
-        when(product.getPrice()).thenReturn(10l);
+        when(product.getPrice()).thenReturn(10L);
 
         orderLine.addProduct(product, TEST_WEIGHT);
 
@@ -203,7 +203,7 @@ public class TestOrderLine {
     void ToString_OneProductWithWeight_CorrectPrice(){
         MockitoAnnotations.initMocks(this);
         when(product.isPricedByWeight()).thenReturn(true);
-        when(product.getPrice()).thenReturn(10l);
+        when(product.getPrice()).thenReturn(10L);
         when(product.getName()).thenReturn(TEST_PRODUCT_NAME);
 
         orderLine.addProduct(product, TEST_WEIGHT);
