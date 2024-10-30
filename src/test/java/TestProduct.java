@@ -28,4 +28,28 @@ public class TestProduct {
         assertEquals(expectedStringRepresentation, product.toString());
     }
 
+    @Test
+    void Equals_ProductsWithSameNameAndProducer_ReturnsTrue() {
+        Product p1 = new Product("ProductName", 0, Producer.Arla, ProductGroup.Beverage);
+        Product p2 = new Product("ProductName",1, Producer.Arla, ProductGroup.Dairy);
+        assertTrue(p1.equals(p2));
+    }
+    @Test
+    void Equals_ProductComparedWithNonProduct_NotEquals() {
+        Product p1 = new Product("ProductName", 0, Producer.Arla, ProductGroup.Beverage);
+        String p2 = "hi";
+        assertNotEquals(p1, p2);
+    }
+    @Test
+    void Equals_SameProducerDifferentName_NotEquals() {
+        Product p1 = new Product("ProductName", 0, Producer.Arla, ProductGroup.Beverage);
+        Product p2 = new Product("ProductName2",1, Producer.Arla, ProductGroup.Dairy);
+        assertNotEquals(p1, p2);
+    }
+    @Test
+    void Equals_SameNameDifferentProducer_NotEquals() {
+        Product p1 = new Product("ProductName", 0, Producer.Arla, ProductGroup.Beverage);
+        Product p2 = new Product("ProductName",1, Producer.Coop, ProductGroup.Dairy);
+        assertNotEquals(p1, p2);
+    }
 }

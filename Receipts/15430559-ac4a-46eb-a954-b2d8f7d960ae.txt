@@ -1,0 +1,18 @@
+Temp Company Name
+Company Address
+Postcode CityName
+Org.nr. 11111111-1111
+
+RECEIPT
+
+Date: 2024-10-30 Time: 11:34
+--------------------------------------------------
+Product 2st * 10                                20
+Product2                                        20
+--------------------------------------------------
+Total Price                                 40 SEK
+
+Sold by: FirstName SurName
+**** **** **** 1111
+
+Purchase id: 15430559-ac4a-46eb-a954-b2d8f7d960ae
