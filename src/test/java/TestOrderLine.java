@@ -204,7 +204,7 @@ public class TestOrderLine {
         when(product.getName()).thenReturn(TEST_PRODUCT_NAME);
 
         orderLine.addProduct(product, TEST_WEIGHT);
-        String expected = "%s 0,100 * 10kr/kg                             1".formatted(TEST_PRODUCT_NAME);
+        String expected = "%s 0.100 * 10kr/kg                             1".formatted(TEST_PRODUCT_NAME);
         assertEquals(expected , orderLine.toString());
     }
 
