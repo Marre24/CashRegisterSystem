@@ -87,7 +87,7 @@ public class TestPerson {
     @Test
     void removeMembership_removeMembershipFromPersonWithActiveMembership_ReturnNull(){
         Person actual = new Person (FIRST_NAME, SUR_NAME, SOCIAL_SECURITY_NR, PHONE_NUMBER, EMAIL_ADDRESS, HOME_ADDRESS);
-        Membership membership = new Membership(actual);
+        new Membership(actual);
         actual.removeMembership();
         assertFalse(actual.isMember());
     }
