@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Random;
 
 public class CashRegisterSystem {
@@ -14,6 +16,7 @@ public class CashRegisterSystem {
     final static String LOGG_OUT_SCANNER = "logg out";
     final static String POPULATE = "populate";
     final static String ADD_POPULATED_PRODUCTS_TO_ORDER = "add populated products";
+    final static String FIND_EMPLOYEE = "find employee";
     final static String EXIT_COMMAND = "exit";
     final static String WELCOME_MESSAGE = "Welcome to CashRegisterSystem these are the available commands:\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s".formatted(
             CREATE_PERSON,
@@ -83,6 +86,9 @@ public class CashRegisterSystem {
                 break;
             case ADD_POPULATED_PRODUCTS_TO_ORDER:
                 addPopulatedProductsToOrder();
+                break;
+            case FIND_EMPLOYEE:
+                System.out.println(findEmployee());
                 break;
             default:
                 System.out.println("Could not recognize the command");
@@ -335,15 +341,17 @@ public class CashRegisterSystem {
     private void populate() {
         activeEmployee = new Employee("FirstName", "SurName", "", "", "", "");
         activeEmployee.logIntoScanner(productScanner);
-        int productAmount = 1000;
-        int employeeAmount = 1000;
+        int productAmount = 10000;
+        int employeeAmount = 100000;
 
         for (int i = 0; i < productAmount; i++)
             products.add(new Product("Product" + i, 10, Producer.Arla));
 
 
         for (int i = 0; i < employeeAmount; i++)
-            employees.add(new Employee("", "", "20040124-" + 1000 + i, "", "", ""));
+            employees.add(new Employee("Milian" + i, "von Ros" + i, "20040124-" + (1000 + i), "", "", ""));
+
+        Collections.shuffle(employees);
 
         persons.add(new Person("", "", "", "", "", ""));
 
@@ -353,7 +361,7 @@ public class CashRegisterSystem {
 
     private void addPopulatedProductsToOrder() {
         for (Product p : products)
-            for (int i = 0; i < new Random().nextInt(1,50); i++)
+            for (int i = 0; i < new Random().nextInt(10,50); i++)
                 activeEmployee.scanProduct(p);
 
     }
