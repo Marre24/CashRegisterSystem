@@ -1,5 +1,7 @@
 import org.junit.jupiter.api.Test;
 
+import java.io.File;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TestEmployee {
@@ -162,4 +164,49 @@ public class TestEmployee {
         assertTrue(employee.getActiveScanner().containsProduct(p2));
     }
 
+    @Test
+    void ScanProduct_MultipleSameWeightProduct_ProductsScanned(){
+        ProductScanner ps = new ProductScanner();
+        Employee employee = new Employee(firstName, surName, socialSecurityNr, phoneNumber, emailAddress, homeAddress);
+        employee.logIntoScanner(ps);
+        long weight = 20;
+        int expectedAmountOfOrderLines = 1;
+
+        employee.scanProduct(p, weight);
+        employee.scanProduct(p, weight + 1);
+
+        assertEquals(expectedAmountOfOrderLines, employee.getActiveScanner().getActiveOrder().getOrderLines().size());
+        assertTrue(employee.getActiveScanner().containsProduct(p));
+    }
+
+    @Test
+    void LoggOut_LoggOutExistingEmployee_EmployeeLoggedOut(){
+        ProductScanner ps = new ProductScanner();
+        Employee employee = new Employee(firstName, surName, socialSecurityNr, phoneNumber, emailAddress, homeAddress);
+        employee.logIntoScanner(ps);
+        employee.logOut();
+        assertEquals(null, employee.getActiveScanner());
+    }
+
+    @Test
+    void LoggOut_NoScannerActive_Null(){
+        Employee employee = new Employee(firstName, surName, socialSecurityNr, phoneNumber, emailAddress, homeAddress);
+        employee.logOut();
+        assertEquals(null, employee.getActiveScanner());
+    }
+
+    @Test
+    void FinalizeOrder_ValidOrder_ReceiptWithOrderIdExists(){
+        Employee employee = new Employee(firstName, surName, socialSecurityNr, phoneNumber, emailAddress, homeAddress);
+        DebitCard debitCard = new DebitCard(employee,"A","A","A", 123, 10);
+        ProductScanner ps = new ProductScanner();
+        employee.logIntoScanner(ps);
+        employee.scanProduct(p1);
+        String id = employee.getActiveScanner().getActiveOrder().getId();
+        employee.finalizeOrder(debitCard);
+        String fileDirectory = "Receipts/" + id + ".txt";
+        File file = new File(fileDirectory);
+        assertTrue(file.exists());
+        assertTrue(employee.getActiveScanner().hasActiveOrder());
+    }
 }
